@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-jakarta);
+  --font-display: var(--font-playfair);
+  --font-mono: var(--font-fira);
+
+  --color-cream:       #FAFAF7;
+  --color-cream-dark:  #0E0E0C;
+  --color-ink:         #1C1917;
+  --color-ink-dark:    #F5F4EF;
+  --color-muted:       #78716C;
+  --color-muted-dark:  #A8A29E;
+  --color-border:      #E7E5DF;
+  --color-border-dark: #2C2B27;
+  --color-surface:     #FFFFFF;
+  --color-surface-dark:#18180F;
+  --color-brand:       #7C3AED;
+  --color-brand-dark:  #A78BFA;
+}
+
+:root { color-scheme: light dark; }
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: var(--color-cream-dark);
+    color: var(--color-ink-dark);
+  }
+}
+
+/* ── Syntax highlighting — atom-one-dark palette ──────────────────── */
+.hljs                              { color: #abb2bf; }
+.hljs-keyword,
+.hljs-operator,
+.hljs-selector-tag                 { color: #c678dd; }
+.hljs-string,
+.hljs-template-string,
+.hljs-regexp                       { color: #98c379; }
+.hljs-number,
+.hljs-literal                      { color: #d19a66; }
+.hljs-built_in,
+.hljs-builtin-name                 { color: #e5c07b; }
+.hljs-comment,
+.hljs-quote                        { color: #5c6370; font-style: italic; }
+.hljs-function,
+.hljs-title,
+.hljs-title\.function_             { color: #61afef; }
+.hljs-variable,
+.hljs-attr,
+.hljs-property                     { color: #e06c75; }
+.hljs-class,
+.hljs-title\.class_                { color: #e5c07b; }
+.hljs-type                         { color: #e5c07b; }
+.hljs-meta                         { color: #61afef; }
+.hljs-tag                          { color: #e06c75; }
+.hljs-name                         { color: #e06c75; }
+.hljs-attribute                    { color: #d19a66; }
+.hljs-punctuation                  { color: #abb2bf; }
+.hljs-params                       { color: #abb2bf; }
+.hljs-addition                     { color: #98c379; }
+.hljs-deletion                     { color: #e06c75; }
+.hljs-section                      { color: #61afef; font-weight: bold; }
+.hljs-link                         { color: #98c379; text-decoration: underline; }
+.hljs-emphasis                     { font-style: italic; }
+.hljs-strong                       { font-weight: bold; }
+.hljs-selector-class,
+.hljs-selector-id                  { color: #e06c75; }
+.hljs-symbol,
+.hljs-bullet                       { color: #61afef; }
+.hljs-subst                        { color: #abb2bf; }

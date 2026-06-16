@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm add *)",
+      "Bash(pnpm approve-builds *)",
+      "Bash(echo \"allow-build=better-sqlite3\")",
+      "Bash(pnpm rebuild *)",
+      "Bash(node *)",
+      "Bash(pnpm dev *)",
+      "Bash(echo \"PID: $!\")",
+      "Bash(curl -s http://localhost:3000)",
+      "Bash(kill 40056)",
+      "Bash(python *)",
+      "Bash(python3 *)"
+    ]
+  }
+}
