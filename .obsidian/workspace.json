@@ -1,24 +1,20 @@
 {
   "main": {
-    "id": "7fc3af0d89ba0830",
+    "id": "ad55970fe1aaae7b",
     "type": "split",
     "children": [
       {
-        "id": "d86e36df88d7e39f",
+        "id": "d5af1510b1ba5852",
         "type": "tabs",
         "children": [
           {
-            "id": "441070c0d6d9fe18",
+            "id": "240a2c2a6c546c85",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "posts/software-development-kubernetes-cloud.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "software-development-kubernetes-cloud"
+              "title": "Nova aba"
             }
           }
         ]
@@ -27,15 +23,15 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "3f7c3e4cb45b4cb2",
+    "id": "c972eca3e15fdc71",
     "type": "split",
     "children": [
       {
-        "id": "aee72ada9d8a19ad",
+        "id": "c087745aa7ea60da",
         "type": "tabs",
         "children": [
           {
-            "id": "8c3d9ac6c7eada96",
+            "id": "e9aad906c407aa10",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -48,7 +44,7 @@
             }
           },
           {
-            "id": "d0779a2f1285175e",
+            "id": "423dbcd11c747efd",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -65,7 +61,7 @@
             }
           },
           {
-            "id": "8d385e274c746713",
+            "id": "b9d4ba7421cc4737",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -81,15 +77,15 @@
     "width": 300
   },
   "right": {
-    "id": "b683bcf5b35e91b8",
+    "id": "606a28c9cf5b3ef8",
     "type": "split",
     "children": [
       {
-        "id": "822168cd61fe763f",
+        "id": "4edb4adbca8f0aeb",
         "type": "tabs",
         "children": [
           {
-            "id": "ecac9376443fcb61",
+            "id": "eb99bc1379a2fd0b",
             "type": "leaf",
             "state": {
               "type": "backlink",
@@ -107,7 +103,7 @@
             }
           },
           {
-            "id": "e0de8dd1269019fb",
+            "id": "ac629601886d8576",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
@@ -120,7 +116,7 @@
             }
           },
           {
-            "id": "c0fde4305c79f29f",
+            "id": "a7660df3f01646cf",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -135,7 +131,7 @@
             }
           },
           {
-            "id": "05c4ab22f5f12504",
+            "id": "9f8e622d72c44d52",
             "type": "leaf",
             "state": {
               "type": "all-properties",
@@ -149,7 +145,7 @@
             }
           },
           {
-            "id": "12029d49d97d43e5",
+            "id": "79eea99d5f11dff4",
             "type": "leaf",
             "state": {
               "type": "outline",
@@ -180,16 +176,6 @@
       "bases:Criar nova base": false
     }
   },
-  "active": "441070c0d6d9fe18",
-  "lastOpenFiles": [
-    "Sem título.md",
-    "posts/software-development-kubernetes-cloud.md",
-    "posts/diferenca-git-merge-e-git-rebase.md",
-    "posts/desenvolvimento-com-google-antigravity.md",
-    "posts/importancia-utilizacao-principios-solid.md",
-    "desenvolvimento.md",
-    "posts/importancia-solid-em-projetos.md",
-    "posts/open-source-sob-pressao.md",
-    "posts/exemplo-post.md"
-  ]
+  "active": "240a2c2a6c546c85",
+  "lastOpenFiles": []
 }
