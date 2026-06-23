@@ -41,7 +41,7 @@ function CodeLogo() {
 export default function Header() {
   return (
     <header className="border-b border-[var(--color-border)] dark:border-[var(--color-border-dark)] bg-[var(--color-surface)] dark:bg-[var(--color-surface-dark)]">
-      <div className="max-w-2xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2.5 group">
           <CodeLogo />
           <span className="font-display text-lg font-bold tracking-tight text-[var(--color-ink)] dark:text-[var(--color-ink-dark)] group-hover:text-[var(--color-brand)] dark:group-hover:text-[var(--color-brand-dark)] transition-colors">

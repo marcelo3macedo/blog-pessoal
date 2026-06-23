@@ -109,15 +109,36 @@ def ensure_seo_columns(con: sqlite3.Connection) -> None:
             con.execute(f"ALTER TABLE posts ADD COLUMN {col} TEXT")
 
 
+def remove_example_post(cur: sqlite3.Cursor, dry_run: bool) -> bool:
+    example_path = POSTS_DIR / "exemplo-post.md"
+    if not example_path.exists():
+        return False
+
+    fm, _ = parse_frontmatter(example_path.read_text(encoding="utf-8"))
+    slug = fm.get("slug") or slugify(fm.get("title") or example_path.stem)
+
+    row = cur.execute("SELECT id FROM posts WHERE slug = ?", (slug,)).fetchone()
+    if row:
+        if not dry_run:
+            post_id = row[0]
+            cur.execute("DELETE FROM post_tags WHERE post_id = ?", (post_id,))
+            cur.execute("DELETE FROM posts WHERE id = ?", (post_id,))
+        print(f"  [removido] {slug}  (exemplo-post)")
+    return True
+
+
 def sync_posts(con: sqlite3.Connection, dry_run: bool) -> dict[str, int]:
     cur = con.cursor()
-    stats = {"criado": 0, "atualizado": 0, "erro": 0}
+    stats = {"criado": 0, "atualizado": 0, "removido": 0, "erro": 0}
 
     if not POSTS_DIR.exists():
         print("  obsidian/posts/ não encontrada")
         return stats
 
-    md_files = sorted(POSTS_DIR.glob("*.md"))
+    if remove_example_post(cur, dry_run):
+        stats["removido"] += 1
+
+    md_files = [p for p in sorted(POSTS_DIR.glob("*.md")) if p.stem != "exemplo-post"]
     if not md_files:
         print("  nenhum .md encontrado em obsidian/posts/")
         return stats
@@ -224,6 +245,7 @@ def main() -> None:
     print(
         f"\nConcluído: {stats['criado']} criado(s), "
         f"{stats['atualizado']} atualizado(s), "
+        f"{stats['removido']} removido(s), "
         f"{stats['erro']} erro(s)."
     )
 

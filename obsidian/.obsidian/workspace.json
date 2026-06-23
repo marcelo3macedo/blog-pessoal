@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "d86e36df88d7e39f",
+        "id": "57c723a2e598fc22",
         "type": "tabs",
         "children": [
           {
-            "id": "441070c0d6d9fe18",
+            "id": "9db87abdda6bdeb2",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "posts/software-development-kubernetes-cloud.md",
+                "file": "posts/chatflowbuilder-experiencia-intuitiva.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "software-development-kubernetes-cloud"
+              "title": "chatflowbuilder-experiencia-intuitiva"
             }
           }
         ]
@@ -180,16 +180,23 @@
       "bases:Criar nova base": false
     }
   },
-  "active": "441070c0d6d9fe18",
+  "active": "9db87abdda6bdeb2",
   "lastOpenFiles": [
-    "Sem título.md",
-    "posts/software-development-kubernetes-cloud.md",
-    "posts/diferenca-git-merge-e-git-rebase.md",
-    "posts/desenvolvimento-com-google-antigravity.md",
-    "posts/importancia-utilizacao-principios-solid.md",
-    "desenvolvimento.md",
-    "posts/importancia-solid-em-projetos.md",
+    "chatflowcomposer-message01.md",
+    "posts/chatflowbuilder-experiencia-intuitiva.md",
     "posts/open-source-sob-pressao.md",
-    "posts/exemplo-post.md"
+    "images/chatflowcomposer-question01.png",
+    "posts/exemplo-post.md",
+    "chatflowcomposer-front01.md",
+    "images/chatflowcomposer-front01.png",
+    "posts/software-development-kubernetes-cloud.md",
+    "posts/fundamentos-da-aws-servicos-mais-utilizados.md",
+    "posts/importancia-utilizacao-principios-solid.md",
+    "2026-06-15.md",
+    "posts/diferenca-git-merge-e-git-rebase.md",
+    "Sem título.md",
+    "posts/desenvolvimento-com-google-antigravity.md",
+    "desenvolvimento.md",
+    "posts/importancia-solid-em-projetos.md"
   ]
 }
