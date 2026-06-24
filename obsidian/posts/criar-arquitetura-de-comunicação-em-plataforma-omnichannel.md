@@ -2,7 +2,7 @@
 title: Desafios de arquitetura para mensageria em uma plataforma omnichannel
 category: arquitetura-software
 excerpt: Construir uma plataforma de mensageria omnichannel vai muito além de simplesmente enviar e receber mensagens.
-slug: arquitetura-de-comunicação-em-plataforma-omnichannel
+slug: criar-arquitetura-de-comunicação-em-plataforma-omnichannel
 published_at: 2026-06-24
 tags:
   - arquitetura
