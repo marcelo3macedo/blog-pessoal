@@ -143,6 +143,30 @@ def sync_posts(con: sqlite3.Connection, dry_run: bool) -> dict[str, int]:
         print("  nenhum .md encontrado em obsidian/posts/")
         return stats
 
+    # Detect duplicate slugs among local markdown files
+    seen_slugs = {}
+    has_duplicates = False
+    for path in md_files:
+        try:
+            content = path.read_text(encoding="utf-8")
+            fm, _ = parse_frontmatter(content)
+            title = fm.get("title") or path.stem.replace("-", " ").title()
+            slug = fm.get("slug") or slugify(title)
+            if slug in seen_slugs:
+                print(f"  [erro] Slug duplicado '{slug}' encontrado em '{path.name}' e '{seen_slugs[slug]}'")
+                stats["erro"] += 1
+                has_duplicates = True
+            else:
+                seen_slugs[slug] = path.name
+        except Exception as exc:
+            print(f"  [erro] Falha ao analisar '{path.name}': {exc}")
+            stats["erro"] += 1
+            has_duplicates = True
+
+    if has_duplicates:
+        print("  Sincronização abortada devido a erros de slug duplicado.")
+        return stats
+
     for path in md_files:
         try:
             content = path.read_text(encoding="utf-8")

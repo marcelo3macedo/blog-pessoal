@@ -76,7 +76,7 @@ Exemplos:
 
 O usuário consegue enxergar o fluxo completo apenas observando o canvas.
 
-![Fluxo chatflowcomposer](chatflowcomposer-front01)
+![Fluxo chatflowcomposer](chatflowcomposer-front01.png)
 
 ---
 
@@ -137,7 +137,7 @@ Dessa forma o usuário entende rapidamente:
 Isso reduz significativamente a curva de aprendizado.
 
 
-![Exemplo de Mensagem](chatflowcomposer-message01)
+![Exemplo de Mensagem](chatflowcomposer-message01.png)
 
 ---
 
@@ -153,7 +153,7 @@ Cada modal possui:
     
 O objetivo é transformar a configuração em uma experiência guiada.
 
-![Exemplo de pergunta](chatflowcomposer-question01)
+![Exemplo de pergunta](chatflowcomposer-question01.png)
 
 ---
 

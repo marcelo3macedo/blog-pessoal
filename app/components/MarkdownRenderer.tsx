@@ -12,6 +12,16 @@ function resolveSrc(src?: string | Blob): string {
   return IMAGES_BASE_URL ? `${IMAGES_BASE_URL}/${clean}` : `/${clean}`;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function hasImageNode(node: any): boolean {
+  if (!node) return false;
+  if (node.type === "element" && node.tagName === "img") return true;
+  if (node.children && Array.isArray(node.children)) {
+    return node.children.some(hasImageNode);
+  }
+  return false;
+}
+
 const md: Components = {
   /* ── Headings ─────────────────────────────────────────────────────── */
   h1: ({ children }) => (
@@ -36,11 +46,20 @@ const md: Components = {
   ),
 
   /* ── Paragraph ────────────────────────────────────────────────────── */
-  p: ({ children }) => (
-    <p className="text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] leading-[1.85] mb-5">
-      {children}
-    </p>
-  ),
+  p: ({ children, node }) => {
+    if (hasImageNode(node)) {
+      return (
+        <div className="text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] leading-[1.85] mb-5">
+          {children}
+        </div>
+      );
+    }
+    return (
+      <p className="text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] leading-[1.85] mb-5">
+        {children}
+      </p>
+    );
+  },
 
   /* ── Inline formatting ────────────────────────────────────────────── */
   strong: ({ children }) => (

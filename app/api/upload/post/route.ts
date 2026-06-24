@@ -6,6 +6,7 @@ import {
   getOrCreateTag,
   setPostTags,
   upsertPost,
+  getPostBySlug,
 } from "@/lib/db";
 
 // Removes diacritics and converts to a URL-safe slug
@@ -88,6 +89,14 @@ export async function POST(request: Request) {
     (data.slug as string | undefined)?.trim() ||
     slugify(title) ||
     file.name.replace(/\.md$/, "");
+
+  const existingPost = getPostBySlug(slug);
+  if (existingPost) {
+    return NextResponse.json(
+      { error: `A post with the slug '${slug}' already exists.` },
+      { status: 409 }
+    );
+  }
 
   const excerpt =
     (data.excerpt as string | undefined)?.trim() || extractExcerpt(content);
