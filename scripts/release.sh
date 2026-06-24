@@ -45,6 +45,13 @@ python3 sync_obsidian.py
 echo "==> Instalando dependências"
 pnpm install --frozen-lockfile
 
+# pnpm não recompila módulos nativos automaticamente quando o Node ativo
+# muda (ex.: alguém rodou `nvm use 24` antes de chamar este script). O
+# binário do better-sqlite3 fica com a ABI errada e o build quebra com
+# NODE_MODULE_VERSION mismatch. Força o rebuild contra o Node ${CURRENT_NODE}.
+echo "==> Recompilando módulos nativos (better-sqlite3) para Node ${CURRENT_NODE}"
+pnpm rebuild better-sqlite3
+
 echo "==> Limpando build anterior (.next)"
 rm -rf .next
 
