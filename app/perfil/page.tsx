@@ -241,6 +241,7 @@ export default function PerfilPage() {
       <div className="flex justify-start border-t border-[var(--color-border)] pt-8 mt-8 dark:border-[var(--color-border-dark)]">
         <Link
           href="/"
+          prefetch={false}
           className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-[var(--color-border)] dark:border-[var(--color-border-dark)] text-sm font-medium text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] hover:text-[var(--color-ink)] dark:hover:text-[var(--color-ink-dark)] hover:border-[var(--color-ink)] dark:hover:border-[var(--color-ink-dark)] transition-colors"
         >
           ← Voltar para a página inicial

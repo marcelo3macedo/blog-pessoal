@@ -22,7 +22,7 @@ export default function PostCard({ post }: { post: Post }) {
       </div>
 
       <h2 className="font-display text-2xl font-bold leading-snug text-[var(--color-ink)] dark:text-[var(--color-ink-dark)] mb-2 group-hover:text-[var(--color-brand)] dark:group-hover:text-[var(--color-brand-dark)] transition-colors tracking-tight">
-        <Link href={`/posts/${post.slug}`}>{post.title}</Link>
+        <Link href={`/posts/${post.slug}`} prefetch={false}>{post.title}</Link>
       </h2>
 
       <p className="text-sm text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] leading-relaxed mb-4">
@@ -39,6 +39,7 @@ export default function PostCard({ post }: { post: Post }) {
 
       <Link
         href={`/posts/${post.slug}`}
+        prefetch={false}
         className="inline-flex items-center gap-1 text-sm font-semibold text-[var(--color-brand)] dark:text-[var(--color-brand-dark)] hover:underline underline-offset-4"
       >
         Ler post

@@ -41,6 +41,7 @@ export default async function CategoriaPage({ params }: Props) {
       <div className="mb-2">
         <Link
           href="/categorias"
+          prefetch={false}
           className="text-sm text-[var(--color-muted)] hover:text-[var(--color-ink)] dark:hover:text-[var(--color-ink-dark)] transition-colors"
         >
           ← Categorias

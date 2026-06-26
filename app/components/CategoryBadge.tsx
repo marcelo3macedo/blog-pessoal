@@ -14,7 +14,7 @@ export default function CategoryBadge({ name, slug, asLink = true }: Props) {
   if (!asLink) return <span className={cls}>{name}</span>;
 
   return (
-    <Link href={`/categorias/${slug}`} className={cls}>
+    <Link href={`/categorias/${slug}`} prefetch={false} className={cls}>
       <span className={`inline-block w-1.5 h-1.5 rounded-full ${style.dot}`} />
       {name}
     </Link>

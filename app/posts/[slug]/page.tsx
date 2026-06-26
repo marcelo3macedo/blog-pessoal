@@ -76,6 +76,7 @@ export default async function PostPage({ params }: Props) {
       <div className="mb-6">
         <Link
           href="/"
+          prefetch={false}
           className="text-sm text-[var(--color-muted)] hover:text-[var(--color-ink)] dark:hover:text-[var(--color-ink-dark)] transition-colors"
         >
           ← Início

@@ -55,6 +55,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="pt-BR"
       className={`${jakartaSans.variable} ${playfair.variable} ${firaCode.variable} h-full`}
     >
+      <head>
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+      </head>
       <body className="min-h-full flex flex-col">
         <GoogleAnalytics gaId={GA_ID} />
         <Header />
@@ -65,18 +68,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <nav className="flex items-center gap-5">
               <Link
                 href="/sobre"
+                prefetch={false}
                 className="hover:text-[var(--color-ink)] dark:hover:text-[var(--color-ink-dark)] transition-colors"
               >
                 Sobre
               </Link>
               <Link
                 href="/perfil"
+                prefetch={false}
                 className="hover:text-[var(--color-ink)] dark:hover:text-[var(--color-ink-dark)] transition-colors"
               >
                 Perfil
               </Link>
               <Link
                 href="/privacidade"
+                prefetch={false}
                 className="hover:text-[var(--color-ink)] dark:hover:text-[var(--color-ink-dark)] transition-colors"
               >
                 Privacidade

@@ -52,12 +52,14 @@ export default function Header() {
         <nav className="flex gap-6 text-sm font-medium text-[var(--color-muted)] dark:text-[var(--color-muted-dark)]">
           <Link
             href="/"
+            prefetch={false}
             className="hover:text-[var(--color-ink)] dark:hover:text-[var(--color-ink-dark)] transition-colors"
           >
             Início
           </Link>
           <Link
             href="/categorias"
+            prefetch={false}
             className="hover:text-[var(--color-ink)] dark:hover:text-[var(--color-ink-dark)] transition-colors"
           >
             Categorias

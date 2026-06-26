@@ -38,6 +38,7 @@ export default function CategoriasPage() {
             <Link
               key={cat.id}
               href={`/categorias/${cat.slug}`}
+              prefetch={false}
               className={`group block rounded-2xl border-2 p-6 bg-[var(--color-surface)] dark:bg-[var(--color-surface-dark)] hover:shadow-md transition-all ${style.border}`}
             >
               <div className="flex items-start justify-between mb-3">
