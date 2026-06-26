@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "posts/chatflowbuilder-experiencia-intuitiva.md",
+                "file": "posts/resiliencia-em-microsservicos-com-circuit-breaker.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "chatflowbuilder-experiencia-intuitiva"
+              "title": "resiliencia-em-microsservicos-com-circuit-breaker"
             }
           }
         ]
@@ -182,19 +182,30 @@
   },
   "active": "9db87abdda6bdeb2",
   "lastOpenFiles": [
+    "posts/exemplo-post 1.md",
+    "posts/analise-uso-memoria-node-js.md",
+    "posts/resiliencia-em-microsservicos-com-circuit-breaker.md",
+    "posts/criar-arquitetura-de-comunicacao-em-plataforma-omnichannel.md",
+    "posts/fundamentos-da-aws-servicos-mais-utilizados.md",
+    "posts/exemplo-post.md",
+    "posts/desenvolvimento-um-simulador-de-webchat.md",
+    "images/webchatFluxosDeExecucao.png",
+    "images/webchatModoExecucao.png",
+    "images/webchatAbert.png",
+    "images/webchatWebsocket.png",
+    "images/Captura de tela de 2026-06-24 15-00-21.png",
+    "images/Captura de tela de 2026-06-24 15-00-47.png",
+    "2026-06-15.md",
+    "chatflowcomposer-message01.md",
+    "chatflowcomposer-front01.md",
+    "posts/chatflowbuilder-experiencia-intuitiva.md",
     "posts/arquitetura-de-mensageria-em-plataforma-omnichannel.md",
     "posts/criar-arquitetura-de-comunicação-em-plataforma-omnichannel.md",
-    "posts/chatflowbuilder-experiencia-intuitiva.md",
-    "chatflowcomposer-message01.md",
     "posts/open-source-sob-pressao.md",
     "images/chatflowcomposer-question01.png",
-    "posts/exemplo-post.md",
-    "chatflowcomposer-front01.md",
     "images/chatflowcomposer-front01.png",
     "posts/software-development-kubernetes-cloud.md",
-    "posts/fundamentos-da-aws-servicos-mais-utilizados.md",
     "posts/importancia-utilizacao-principios-solid.md",
-    "2026-06-15.md",
     "posts/diferenca-git-merge-e-git-rebase.md",
     "Sem título.md",
     "posts/desenvolvimento-com-google-antigravity.md",
