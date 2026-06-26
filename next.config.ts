@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+
 const nextConfig: NextConfig = {
   output: 'standalone',
   outputFileTracingIncludes: {
@@ -8,6 +9,7 @@ const nextConfig: NextConfig = {
     serverActions: {
       bodySizeLimit: "20mb",
     },
+    inlineCss: true,
   },
 };
 export default nextConfig;

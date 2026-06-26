@@ -29,10 +29,17 @@
     "tailwindcss": "^4",
     "typescript": "^5"
   },
-  "browserslist": [
-    "chrome >= 94",
-    "firefox >= 94",
-    "safari >= 15.4",
-    "edge >= 94"
-  ]
+  "browserslist": {
+    "production": [
+      "chrome >= 94",
+      "firefox >= 94",
+      "safari >= 15.4",
+      "edge >= 94"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }
