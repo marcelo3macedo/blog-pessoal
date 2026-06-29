@@ -33,6 +33,11 @@ export const metadata: Metadata = {
     default: SITE_NAME,
     template: `%s — ${SITE_NAME}`,
   },
+  icons: {
+    icon: "/uploads/logo.png",
+    shortcut: "/uploads/logo.png",
+    apple: "/uploads/logo.png",
+  },
   description: "Reflexões sobre tecnologia, desenvolvimento web e vida.",
   openGraph: {
     type: "website",

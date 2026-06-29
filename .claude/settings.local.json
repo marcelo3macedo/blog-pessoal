@@ -11,7 +11,8 @@
       "Bash(curl -s http://localhost:3000)",
       "Bash(kill 40056)",
       "Bash(python *)",
-      "Bash(python3 *)"
+      "Bash(python3 *)",
+      "Bash(gh api *)"
     ]
   }
 }
