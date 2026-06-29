@@ -20,7 +20,7 @@ export default function PerfilPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-10 pb-10 border-b border-[var(--color-border)] dark:border-[var(--color-border-dark)]">
         <div className="flex items-center gap-5">
           <div className="w-20 h-20 rounded-2xl bg-gradient-to-tr from-[var(--color-brand)] to-[#4f46e5] dark:from-[var(--color-brand-dark)] dark:to-[#818cf8] flex items-center justify-center flex-shrink-0 shadow-md">
-            <img src="/uplaods/perfil.jpeg" alt="Profile" className="w-20 h-20 rounded-2xl" />
+            <img src="/uploads/perfil.jpeg" alt="Profile" className="w-20 h-20 rounded-2xl" />
           </div>
           <div>
             <h1 className="font-display text-3xl font-bold text-[var(--color-ink)] dark:text-[var(--color-ink-dark)] tracking-tight">
@@ -104,6 +104,39 @@ export default function PerfilPage() {
           </p>
           <div className="flex flex-wrap gap-2">
             {["React Native", "Expo", "React Navigation", "AsyncStorage", "JavaScript"].map((tech) => (
+              <span key={tech} className="text-xs bg-[var(--color-cream)] dark:bg-[var(--color-cream-dark)] text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] px-2.5 py-1 rounded-lg border border-[var(--color-border)] dark:border-[var(--color-border-dark)]">
+                {tech}
+              </span>
+            ))}
+          </div>
+        </a>
+
+        <a
+          href="https://github.com/marcelo3macedo/figurinhas-da-copa"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group relative overflow-hidden rounded-2xl border border-[var(--color-border)] dark:border-[var(--color-border-dark)] bg-[var(--color-surface)] dark:bg-[var(--color-surface-dark)] p-6 transition-all duration-300 hover:shadow-md hover:-translate-y-1 block mt-4"
+        >
+          <div className="flex items-start justify-between gap-4 mb-3">
+            <div>
+              <span className="inline-block text-[10px] font-bold uppercase tracking-wider bg-[var(--color-brand)]/10 text-[var(--color-brand)] dark:text-[var(--color-brand-dark)] px-2.5 py-1 rounded-md mb-2">
+                Mobile · Open Source
+              </span>
+              <h3 className="font-display text-lg font-bold text-[var(--color-ink)] dark:text-[var(--color-ink-dark)]">
+                Figurinhas da Copa
+              </h3>
+            </div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0 mt-1 text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] group-hover:text-[var(--color-brand)] dark:group-hover:text-[var(--color-brand-dark)] transition-colors" aria-hidden="true">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+              <polyline points="15 3 21 3 21 9" />
+              <line x1="10" y1="14" x2="21" y2="3" />
+            </svg>
+          </div>
+          <p className="text-sm text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] leading-relaxed mb-4">
+            Aplicativo mobile para gerenciar a coleção de figurinhas da Copa do Mundo. Permite marcar as figurinhas que você já possui, acompanhar as faltantes e compartilhar as repetidas com outros colecionadores.
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {["React Native", "Expo", "JavaScript"].map((tech) => (
               <span key={tech} className="text-xs bg-[var(--color-cream)] dark:bg-[var(--color-cream-dark)] text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] px-2.5 py-1 rounded-lg border border-[var(--color-border)] dark:border-[var(--color-border-dark)]">
                 {tech}
               </span>
