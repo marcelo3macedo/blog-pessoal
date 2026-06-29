@@ -88,8 +88,4 @@ scp "$RELEASE_ZIP" "${REMOTE_HOST}:${REMOTE_DIR}/"
 echo
 echo "Release pronta e enviada: ${REMOTE_DIR}/$(basename "$RELEASE_ZIP")"
 
-echo "==> Executando deploy remoto..."
-ssh "$REMOTE_HOST" "cd ${REMOTE_DIR} && ./deploy-blog.sh $(basename "$RELEASE_ZIP")"
-
-echo
-echo "Deploy concluído!"
+echo "No servidor, rode: ./deploy-blog.sh $(basename "$RELEASE_ZIP")"
