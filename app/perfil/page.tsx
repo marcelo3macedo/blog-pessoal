@@ -79,6 +79,44 @@ export default function PerfilPage() {
           Projetos em Destaque
         </h2>
         <a
+          href="https://docs.google.com/document/d/1PHCxxg0ah2dE4LjfvSHJYrzJFSjvsAHK/edit?usp=sharing"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group relative overflow-hidden rounded-2xl border border-[var(--color-brand)]/30 dark:border-[var(--color-brand-dark)]/30 bg-[var(--color-surface)] dark:bg-[var(--color-surface-dark)] p-6 transition-all duration-300 hover:shadow-md hover:-translate-y-1 block mb-4"
+        >
+          <div className="flex items-start justify-between gap-4 mb-3">
+            <div>
+              <div className="flex flex-wrap gap-2 mb-2">
+                <span className="inline-block text-[10px] font-bold uppercase tracking-wider bg-[var(--color-brand)]/10 text-[var(--color-brand)] dark:text-[var(--color-brand-dark)] px-2.5 py-1 rounded-md">
+                  TCC · MBA
+                </span>
+                <span className="inline-block text-[10px] font-bold uppercase tracking-wider bg-amber-500/10 text-amber-600 dark:text-amber-400 px-2.5 py-1 rounded-md">
+                  Nota 10 · USP/Esalq
+                </span>
+              </div>
+              <h3 className="font-display text-lg font-bold text-[var(--color-ink)] dark:text-[var(--color-ink-dark)]">
+                Tolerância a Falhas em Microsserviços
+              </h3>
+            </div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0 mt-1 text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] group-hover:text-[var(--color-brand)] dark:group-hover:text-[var(--color-brand-dark)] transition-colors" aria-hidden="true">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+              <polyline points="15 3 21 3 21 9" />
+              <line x1="10" y1="14" x2="21" y2="3" />
+            </svg>
+          </div>
+          <p className="text-sm text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] leading-relaxed mb-4">
+            Trabalho de conclusão do MBA em Engenharia de Software pela USP/Esalq. Avalia comparativamente técnicas de tolerância a falhas em arquiteturas de microsserviços — como Circuit Breaker, Retry e Bulkhead — sob cenários controlados de gargalo de CPU e memória, com análise de impacto na resiliência e disponibilidade dos serviços.
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {["Microsserviços", "Resiliência", "Circuit Breaker", "Node.js", "Arquitetura"].map((tech) => (
+              <span key={tech} className="text-xs bg-[var(--color-cream)] dark:bg-[var(--color-cream-dark)] text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] px-2.5 py-1 rounded-lg border border-[var(--color-border)] dark:border-[var(--color-border-dark)]">
+                {tech}
+              </span>
+            ))}
+          </div>
+        </a>
+
+        <a
           href="https://github.com/marcelo3macedo/water-drink"
           target="_blank"
           rel="noopener noreferrer"

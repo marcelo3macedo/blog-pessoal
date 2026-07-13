@@ -1,0 +1,97 @@
+name: Release e Deploy
+
+on:
+  workflow_dispatch: {}
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+env:
+  REMOTE_HOST: deploy@142.93.48.132
+  REMOTE_DIR: "~/blogpessoal-releases"
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Precisa ser a mesma major version do Node do servidor de produção:
+      # módulos nativos (better-sqlite3) são compilados contra a ABI do Node
+      # do build, e divergir quebra o serviço em produção.
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.7.0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar pyyaml
+        run: pip install pyyaml
+
+      - name: Sincronizar posts do Obsidian (blog.db)
+        run: python3 sync_obsidian.py
+
+      - name: Instalar dependências
+        run: pnpm install --frozen-lockfile
+
+      - name: Recompilar módulos nativos (better-sqlite3)
+        run: pnpm rebuild better-sqlite3
+
+      - name: Build
+        run: pnpm build
+
+      - name: Empacotar release
+        id: package
+        run: |
+          set -euo pipefail
+
+          TIMESTAMP="$(date +%Y-%m-%d_%H%M%S)"
+          RELEASE_NAME="blogpessoal-${TIMESTAMP}"
+          STAGE_DIR="$(mktemp -d)"
+          PKG_DIR="$STAGE_DIR/$RELEASE_NAME"
+          mkdir -p "$PKG_DIR"
+
+          cp -r .next "$PKG_DIR/.next"
+          rm -rf "$PKG_DIR/.next/cache"
+          cp -r public "$PKG_DIR/public"
+          cp blog.db "$PKG_DIR/"
+
+          RELEASE_ZIP="${RUNNER_TEMP}/${RELEASE_NAME}.zip"
+          # -y preserva symlinks (node_modules do build standalone do pnpm
+          # depende deles); sem isso o zip materializa cópias e quebra.
+          (cd "$PKG_DIR" && zip -rqy "$RELEASE_ZIP" .)
+
+          echo "release_zip=${RELEASE_ZIP}" >> "$GITHUB_OUTPUT"
+          echo "release_name=${RELEASE_NAME}.zip" >> "$GITHUB_OUTPUT"
+
+      - name: Configurar SSH
+        run: |
+          set -euo pipefail
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          printf '%s\n' "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          printf '%s\n' "${{ secrets.DEPLOY_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: Enviar release para o servidor
+        run: |
+          set -euo pipefail
+          ssh -i ~/.ssh/id_ed25519 "$REMOTE_HOST" "mkdir -p ${REMOTE_DIR}"
+          scp -i ~/.ssh/id_ed25519 "${{ steps.package.outputs.release_zip }}" "${REMOTE_HOST}:${REMOTE_DIR}/"
+
+      - name: Executar deploy no servidor
+        run: |
+          set -euo pipefail
+          ssh -i ~/.ssh/id_ed25519 "$REMOTE_HOST" "~/deploy-blog.sh ${{ steps.package.outputs.release_name }}"

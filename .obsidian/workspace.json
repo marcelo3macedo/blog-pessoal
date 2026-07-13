@@ -4,17 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "d5af1510b1ba5852",
+        "id": "eea1844e3c9a8d9f",
         "type": "tabs",
         "children": [
           {
-            "id": "240a2c2a6c546c85",
+            "id": "c5112a8d9a4dd35c",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "README.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "Nova aba"
+              "title": "README"
             }
           }
         ]
@@ -176,6 +180,13 @@
       "bases:Criar nova base": false
     }
   },
-  "active": "240a2c2a6c546c85",
-  "lastOpenFiles": []
+  "active": "c5112a8d9a4dd35c",
+  "lastOpenFiles": [
+    "app/logo.png",
+    "obsidian/posts/diferenca-git-merge-e-git-rebase.md",
+    "2026-06-15.md",
+    "README.md",
+    "obsidian/posts/circuit-chat-assistente-de-desafios-de-corrida.md",
+    "obsidian/posts/exemplo-post.md"
+  ]
 }
