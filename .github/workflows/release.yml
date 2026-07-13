@@ -8,7 +8,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  REMOTE_HOST: deploy@142.93.48.132
+  REMOTE_HOST: ${{ secrets.DEPLOY_HOST }}
   REMOTE_DIR: "~/blogpessoal-releases"
 
 jobs:
