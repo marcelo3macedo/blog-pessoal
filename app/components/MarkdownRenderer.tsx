@@ -84,12 +84,12 @@ const md: Components = {
 
   /* ── Images ───────────────────────────────────────────────────────── */
   img: ({ src, alt }) => (
-    <figure className="my-8">
+    <figure className="my-8 flex flex-col items-center">
       <img
         src={resolveSrc(src)}
         alt={alt ?? ""}
         loading="lazy"
-        className="rounded-xl w-full border border-[var(--color-border)] dark:border-[var(--color-border-dark)]"
+        className="rounded-xl max-w-full h-auto border border-[var(--color-border)] dark:border-[var(--color-border-dark)]"
       />
       {alt && (
         <figcaption className="mt-2 text-center text-xs italic text-[var(--color-muted)] dark:text-[var(--color-muted-dark)]">
