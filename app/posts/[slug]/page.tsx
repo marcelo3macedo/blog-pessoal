@@ -33,11 +33,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       siteName: SITE_NAME,
       publishedTime: post.published_at,
       tags: post.tags.map((t) => t.name),
+      images: [{ url: "/uploads/og-cover.png", width: 1200, height: 630, alt: SITE_NAME }],
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title,
       description,
+      images: ["/uploads/og-cover.png"],
     },
   };
 }

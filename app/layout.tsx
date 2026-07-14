@@ -46,11 +46,13 @@ export const metadata: Metadata = {
     url: SITE_URL,
     title: SITE_NAME,
     description: "Reflexões sobre tecnologia, desenvolvimento web e vida.",
+    images: [{ url: "/uploads/og-cover.png", width: 1200, height: 630, alt: SITE_NAME }],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: SITE_NAME,
     description: "Reflexões sobre tecnologia, desenvolvimento web e vida.",
+    images: ["/uploads/og-cover.png"],
   },
 };
 
