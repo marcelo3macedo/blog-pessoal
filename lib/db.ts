@@ -30,6 +30,13 @@ function initSchema(db: Database.Database) {
       color TEXT NOT NULL DEFAULT 'indigo'
     );
 
+    CREATE TABLE IF NOT EXISTS projects (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      slug TEXT NOT NULL UNIQUE,
+      description TEXT
+    );
+
     CREATE TABLE IF NOT EXISTS posts (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       title TEXT NOT NULL,
@@ -37,6 +44,7 @@ function initSchema(db: Database.Database) {
       excerpt TEXT NOT NULL,
       content TEXT NOT NULL,
       category_id INTEGER NOT NULL REFERENCES categories(id),
+      project_id INTEGER REFERENCES projects(id),
       published_at TEXT NOT NULL,
       created_at TEXT NOT NULL DEFAULT (datetime('now')),
       seo_title TEXT,
@@ -49,9 +57,16 @@ function initSchema(db: Database.Database) {
       tag_id  INTEGER NOT NULL REFERENCES tags(id),
       PRIMARY KEY (post_id, tag_id)
     );
+
+    CREATE TABLE IF NOT EXISTS project_tags (
+      project_id INTEGER NOT NULL REFERENCES projects(id),
+      tag_id     INTEGER NOT NULL REFERENCES tags(id),
+      PRIMARY KEY (project_id, tag_id)
+    );
   `);
 
   migrateSeoColumns(db);
+  migrateProjectColumn(db);
 
   const count = (db.prepare("SELECT COUNT(*) as n FROM categories").get() as { n: number }).n;
   if (count === 0) seed(db);
@@ -67,6 +82,15 @@ function migrateSeoColumns(db: Database.Database) {
     db.exec("ALTER TABLE posts ADD COLUMN seo_description TEXT");
   if (!columns.includes("seo_keywords"))
     db.exec("ALTER TABLE posts ADD COLUMN seo_keywords TEXT");
+}
+
+// Adds the project_id column to databases created before projects existed.
+function migrateProjectColumn(db: Database.Database) {
+  const columns = (db.prepare("PRAGMA table_info(posts)").all() as { name: string }[]).map(
+    (c) => c.name
+  );
+  if (!columns.includes("project_id"))
+    db.exec("ALTER TABLE posts ADD COLUMN project_id INTEGER REFERENCES projects(id)");
 }
 
 /* ── seed ──────────────────────────────────────────────────────────── */
@@ -309,6 +333,17 @@ export interface Tag {
   color: string;
 }
 
+export interface Project {
+  id: number;
+  name: string;
+  slug: string;
+  description: string | null;
+}
+
+export interface ProjectWithTags extends Project {
+  tags: Tag[];
+}
+
 export interface Post {
   id: number;
   title: string;
@@ -318,6 +353,9 @@ export interface Post {
   category_id: number;
   category_name: string;
   category_slug: string;
+  project_id: number | null;
+  project_name: string | null;
+  project_slug: string | null;
   published_at: string;
   seo_title: string | null;
   seo_description: string | null;
@@ -337,6 +375,16 @@ function getTagsForPost(postId: number): Tag[] {
     .all(postId) as Tag[];
 }
 
+function getTagsForProject(projectId: number): Tag[] {
+  return getDb()
+    .prepare(
+      `SELECT t.* FROM tags t
+       JOIN project_tags pt ON t.id = pt.tag_id
+       WHERE pt.project_id = ? ORDER BY t.name`
+    )
+    .all(projectId) as Tag[];
+}
+
 function withTags(rows: Omit<Post, "tags">[]): Post[] {
   return rows.map((p) => ({ ...p, tags: getTagsForPost(p.id) }));
 }
@@ -351,22 +399,29 @@ export function getCategoryBySlug(slug: string): Category | null {
   return (getDb().prepare("SELECT * FROM categories WHERE slug = ?").get(slug) as Category) ?? null;
 }
 
-export function getRecentPosts(limit = 10): Post[] {
+export function getRecentPosts(limit = 10, excludeCategorySlug?: string): Post[] {
   const rows = getDb()
     .prepare(
-      `SELECT p.*, c.name as category_name, c.slug as category_slug
-       FROM posts p JOIN categories c ON p.category_id = c.id
+      `SELECT p.*, c.name as category_name, c.slug as category_slug,
+              pr.name as project_name, pr.slug as project_slug
+       FROM posts p
+       JOIN categories c ON p.category_id = c.id
+       LEFT JOIN projects pr ON p.project_id = pr.id
+       WHERE (? IS NULL OR c.slug != ?)
        ORDER BY p.published_at DESC LIMIT ?`
     )
-    .all(limit) as Omit<Post, "tags">[];
+    .all(excludeCategorySlug ?? null, excludeCategorySlug ?? null, limit) as Omit<Post, "tags">[];
   return withTags(rows);
 }
 
 export function getPostsByCategory(categorySlug: string): Post[] {
   const rows = getDb()
     .prepare(
-      `SELECT p.*, c.name as category_name, c.slug as category_slug
-       FROM posts p JOIN categories c ON p.category_id = c.id
+      `SELECT p.*, c.name as category_name, c.slug as category_slug,
+              pr.name as project_name, pr.slug as project_slug
+       FROM posts p
+       JOIN categories c ON p.category_id = c.id
+       LEFT JOIN projects pr ON p.project_id = pr.id
        WHERE c.slug = ? ORDER BY p.published_at DESC`
     )
     .all(categorySlug) as Omit<Post, "tags">[];
@@ -376,8 +431,11 @@ export function getPostsByCategory(categorySlug: string): Post[] {
 export function getPostBySlug(slug: string): Post | null {
   const row = getDb()
     .prepare(
-      `SELECT p.*, c.name as category_name, c.slug as category_slug
-       FROM posts p JOIN categories c ON p.category_id = c.id
+      `SELECT p.*, c.name as category_name, c.slug as category_slug,
+              pr.name as project_name, pr.slug as project_slug
+       FROM posts p
+       JOIN categories c ON p.category_id = c.id
+       LEFT JOIN projects pr ON p.project_id = pr.id
        WHERE p.slug = ?`
     )
     .get(slug) as Omit<Post, "tags"> | undefined;
@@ -394,6 +452,58 @@ export function getPostCountByCategory(): Record<string, number> {
     )
     .all() as { slug: string; count: number }[];
   return Object.fromEntries(rows.map((r) => [r.slug, r.count]));
+}
+
+/* ── projects (grouping of posts within a category, e.g. "projetos") ── */
+
+export function getProjectBySlug(slug: string): ProjectWithTags | null {
+  const project = (getDb().prepare("SELECT * FROM projects WHERE slug = ?").get(slug) as Project) ?? null;
+  if (!project) return null;
+  return { ...project, tags: getTagsForProject(project.id) };
+}
+
+export function getPostsByProject(projectSlug: string): Post[] {
+  const rows = getDb()
+    .prepare(
+      `SELECT p.*, c.name as category_name, c.slug as category_slug,
+              pr.name as project_name, pr.slug as project_slug
+       FROM posts p
+       JOIN categories c ON p.category_id = c.id
+       JOIN projects pr ON p.project_id = pr.id
+       WHERE pr.slug = ? ORDER BY p.published_at DESC`
+    )
+    .all(projectSlug) as Omit<Post, "tags">[];
+  return withTags(rows);
+}
+
+// Distinct projects that have at least one post in the given category, with post counts.
+export function getProjectGroups(categorySlug: string): (ProjectWithTags & { count: number })[] {
+  const rows = getDb()
+    .prepare(
+      `SELECT pr.*, COUNT(p.id) as count
+       FROM projects pr
+       JOIN posts p ON p.project_id = pr.id
+       JOIN categories c ON p.category_id = c.id
+       WHERE c.slug = ?
+       GROUP BY pr.id ORDER BY pr.name`
+    )
+    .all(categorySlug) as (Project & { count: number })[];
+  return rows.map((r) => ({ ...r, tags: getTagsForProject(r.id) }));
+}
+
+// Posts in the given category that aren't assigned to any project.
+export function getUngroupedPostsByCategory(categorySlug: string): Post[] {
+  const rows = getDb()
+    .prepare(
+      `SELECT p.*, c.name as category_name, c.slug as category_slug,
+              NULL as project_name, NULL as project_slug
+       FROM posts p
+       JOIN categories c ON p.category_id = c.id
+       WHERE c.slug = ? AND p.project_id IS NULL
+       ORDER BY p.published_at DESC`
+    )
+    .all(categorySlug) as Omit<Post, "tags">[];
+  return withTags(rows);
 }
 
 /* ── write operations (used by upload API) ──────────────────────────── */
@@ -424,12 +534,24 @@ export function setPostTags(postId: number, tagIds: number[]): void {
   for (const tagId of tagIds) insert.run(postId, tagId);
 }
 
+export function setProjectDescription(projectId: number, description: string): void {
+  getDb().prepare("UPDATE projects SET description = ? WHERE id = ?").run(description, projectId);
+}
+
+export function setProjectTags(projectId: number, tagIds: number[]): void {
+  const db = getDb();
+  db.prepare("DELETE FROM project_tags WHERE project_id = ?").run(projectId);
+  const insert = db.prepare("INSERT INTO project_tags (project_id, tag_id) VALUES (?, ?)");
+  for (const tagId of tagIds) insert.run(projectId, tagId);
+}
+
 export function upsertPost(data: {
   title: string;
   slug: string;
   excerpt: string;
   content: string;
   category_id: number;
+  project_id?: number | null;
   published_at: string;
   seo_title?: string | null;
   seo_description?: string | null;
@@ -440,13 +562,14 @@ export function upsertPost(data: {
     .prepare("SELECT id FROM posts WHERE slug = ?")
     .get(data.slug) as { id: number } | undefined;
 
+  const projectId = data.project_id ?? null;
   const seoTitle = data.seo_title ?? null;
   const seoDescription = data.seo_description ?? null;
   const seoKeywords = data.seo_keywords ?? null;
 
   if (existing) {
     db.prepare(
-      `UPDATE posts SET title=?, excerpt=?, content=?, category_id=?, published_at=?,
+      `UPDATE posts SET title=?, excerpt=?, content=?, category_id=?, project_id=?, published_at=?,
        seo_title=?, seo_description=?, seo_keywords=?
        WHERE slug=?`
     ).run(
@@ -454,6 +577,7 @@ export function upsertPost(data: {
       data.excerpt,
       data.content,
       data.category_id,
+      projectId,
       data.published_at,
       seoTitle,
       seoDescription,
@@ -465,8 +589,8 @@ export function upsertPost(data: {
 
   const result = db
     .prepare(
-      `INSERT INTO posts (title, slug, excerpt, content, category_id, published_at, seo_title, seo_description, seo_keywords)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
+      `INSERT INTO posts (title, slug, excerpt, content, category_id, project_id, published_at, seo_title, seo_description, seo_keywords)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
     )
     .run(
       data.title,
@@ -474,6 +598,7 @@ export function upsertPost(data: {
       data.excerpt,
       data.content,
       data.category_id,
+      projectId,
       data.published_at,
       seoTitle,
       seoDescription,

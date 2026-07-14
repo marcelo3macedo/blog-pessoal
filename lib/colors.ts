@@ -26,6 +26,12 @@ export const CATEGORY_STYLES: Record<
     border: "border-emerald-300 dark:border-emerald-700",
     dot: "bg-emerald-500",
   },
+  projetos: {
+    pill: "bg-amber-100 text-amber-700 ring-1 ring-amber-200 dark:bg-amber-950/60 dark:text-amber-300 dark:ring-amber-800",
+    heading: "text-amber-600 dark:text-amber-400",
+    border: "border-amber-300 dark:border-amber-700",
+    dot: "bg-amber-500",
+  },
 };
 
 export const TAG_COLORS: Record<string, string> = {

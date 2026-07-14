@@ -3,8 +3,11 @@ import matter from "gray-matter";
 import { checkAuth } from "@/lib/auth";
 import {
   getCategoryBySlug,
+  getProjectBySlug,
   getOrCreateTag,
   setPostTags,
+  setProjectDescription,
+  setProjectTags,
   upsertPost,
   getPostBySlug,
 } from "@/lib/db";
@@ -84,6 +87,36 @@ export async function POST(request: Request) {
     );
   }
 
+  // ── Optional project grouping (e.g. category: projetos, project: customizador) ──
+  const projectSlug = (data.project as string | undefined)?.trim();
+  let projectId: number | null = null;
+  if (projectSlug) {
+    const project = getProjectBySlug(projectSlug);
+    if (!project) {
+      return NextResponse.json(
+        { error: `Project '${projectSlug}' not found. Create it first.` },
+        { status: 422 }
+      );
+    }
+    projectId = project.id;
+
+    // Shared project metadata — description/tags are set on the project, not the post,
+    // so any post referencing the project can refresh them.
+    const projectDescription = (data.project_description as string | undefined)?.trim();
+    if (projectDescription) setProjectDescription(project.id, projectDescription);
+
+    const rawProjectTags: string[] = Array.isArray(data.project_tags)
+      ? (data.project_tags as unknown[]).map((t) => String(t).trim()).filter(Boolean)
+      : [];
+    if (rawProjectTags.length > 0) {
+      const projectTagIds = rawProjectTags.map((name) => {
+        const tagSlug = slugify(name) || name.toLowerCase();
+        return getOrCreateTag(name, tagSlug).id;
+      });
+      setProjectTags(project.id, projectTagIds);
+    }
+  }
+
   // ── Optional fields with fallbacks ───────────────────────────────────
   const slug =
     (data.slug as string | undefined)?.trim() ||
@@ -131,6 +164,7 @@ export async function POST(request: Request) {
     excerpt,
     content,
     category_id: category.id,
+    project_id: projectId,
     published_at: publishedAt,
     seo_title: seoTitle,
     seo_description: seoDescription,

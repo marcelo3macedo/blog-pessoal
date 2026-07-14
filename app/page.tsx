@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
-  const posts = getRecentPosts(10);
+  const posts = getRecentPosts(10, "projetos");
 
   return (
     <div>

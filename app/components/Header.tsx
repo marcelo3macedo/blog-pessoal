@@ -58,6 +58,13 @@ export default function Header() {
             Início
           </Link>
           <Link
+            href="/projetos"
+            prefetch={false}
+            className="hover:text-[var(--color-ink)] dark:hover:text-[var(--color-ink-dark)] transition-colors"
+          >
+            Projetos
+          </Link>
+          <Link
             href="/categorias"
             prefetch={false}
             className="hover:text-[var(--color-ink)] dark:hover:text-[var(--color-ink-dark)] transition-colors"

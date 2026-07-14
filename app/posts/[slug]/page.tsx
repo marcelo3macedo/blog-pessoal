@@ -86,6 +86,15 @@ export default async function PostPage({ params }: Props) {
       <header className="mb-10">
         <div className="flex items-center gap-3 mb-5">
           <CategoryBadge name={post.category_name} slug={post.category_slug} />
+          {post.project_slug && post.project_name && (
+            <Link
+              href={`/projetos/${post.project_slug}`}
+              prefetch={false}
+              className="text-xs font-semibold text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] hover:text-[var(--color-ink)] dark:hover:text-[var(--color-ink-dark)] transition-colors"
+            >
+              {post.project_name}
+            </Link>
+          )}
           <time className="text-xs text-[var(--color-muted)] dark:text-[var(--color-muted-dark)]">
             {formatDate(post.published_at)}
           </time>

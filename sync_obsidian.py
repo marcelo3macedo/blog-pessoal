@@ -75,6 +75,30 @@ def get_or_create_category(cur: sqlite3.Cursor, slug: str) -> int:
     return cur.lastrowid
 
 
+def get_or_create_project(cur: sqlite3.Cursor, slug: str, description: str | None = None) -> int:
+    row = cur.execute("SELECT id FROM projects WHERE slug = ?", (slug,)).fetchone()
+    if row:
+        if description:
+            cur.execute("UPDATE projects SET description = ? WHERE id = ?", (description, row[0]))
+        return row[0]
+    name = slug.replace("-", " ").title()
+    cur.execute(
+        "INSERT INTO projects (name, slug, description) VALUES (?, ?, ?)",
+        (name, slug, description),
+    )
+    return cur.lastrowid
+
+
+def set_project_tags(cur: sqlite3.Cursor, project_id: int, tag_names: list) -> None:
+    cur.execute("DELETE FROM project_tags WHERE project_id = ?", (project_id,))
+    for tag_name in tag_names:
+        tag_id = get_or_create_tag(cur, tag_name)
+        cur.execute(
+            "INSERT OR IGNORE INTO project_tags (project_id, tag_id) VALUES (?, ?)",
+            (project_id, tag_id),
+        )
+
+
 def get_or_create_tag(cur: sqlite3.Cursor, name: str) -> int:
     slug = slugify(str(name))
     row = cur.execute("SELECT id FROM tags WHERE slug = ?", (slug,)).fetchone()
@@ -109,22 +133,49 @@ def ensure_seo_columns(con: sqlite3.Connection) -> None:
             con.execute(f"ALTER TABLE posts ADD COLUMN {col} TEXT")
 
 
-def remove_example_post(cur: sqlite3.Cursor, dry_run: bool) -> bool:
-    example_path = POSTS_DIR / "exemplo-post.md"
-    if not example_path.exists():
-        return False
+def ensure_project_support(con: sqlite3.Connection) -> None:
+    con.execute(
+        """CREATE TABLE IF NOT EXISTS projects (
+             id INTEGER PRIMARY KEY AUTOINCREMENT,
+             name TEXT NOT NULL,
+             slug TEXT NOT NULL UNIQUE,
+             description TEXT
+           )"""
+    )
+    con.execute(
+        """CREATE TABLE IF NOT EXISTS project_tags (
+             project_id INTEGER NOT NULL REFERENCES projects(id),
+             tag_id     INTEGER NOT NULL REFERENCES tags(id),
+             PRIMARY KEY (project_id, tag_id)
+           )"""
+    )
+    cols = {row[1] for row in con.execute("PRAGMA table_info(posts)")}
+    if "project_id" not in cols:
+        con.execute("ALTER TABLE posts ADD COLUMN project_id INTEGER REFERENCES projects(id)")
 
-    fm, _ = parse_frontmatter(example_path.read_text(encoding="utf-8"))
-    slug = fm.get("slug") or slugify(fm.get("title") or example_path.stem)
 
-    row = cur.execute("SELECT id FROM posts WHERE slug = ?", (slug,)).fetchone()
-    if row:
-        if not dry_run:
-            post_id = row[0]
-            cur.execute("DELETE FROM post_tags WHERE post_id = ?", (post_id,))
-            cur.execute("DELETE FROM posts WHERE id = ?", (post_id,))
-        print(f"  [removido] {slug}  (exemplo-post)")
-    return True
+EXAMPLE_STEMS = ("exemplo-post", "exemplo-project")
+
+
+def remove_example_posts(cur: sqlite3.Cursor, dry_run: bool) -> int:
+    removed = 0
+    for stem in EXAMPLE_STEMS:
+        example_path = POSTS_DIR / f"{stem}.md"
+        if not example_path.exists():
+            continue
+
+        fm, _ = parse_frontmatter(example_path.read_text(encoding="utf-8"))
+        slug = fm.get("slug") or slugify(fm.get("title") or example_path.stem)
+
+        row = cur.execute("SELECT id FROM posts WHERE slug = ?", (slug,)).fetchone()
+        if row:
+            if not dry_run:
+                post_id = row[0]
+                cur.execute("DELETE FROM post_tags WHERE post_id = ?", (post_id,))
+                cur.execute("DELETE FROM posts WHERE id = ?", (post_id,))
+            print(f"  [removido] {slug}  ({stem})")
+            removed += 1
+    return removed
 
 
 def sync_posts(con: sqlite3.Connection, dry_run: bool) -> dict[str, int]:
@@ -135,10 +186,9 @@ def sync_posts(con: sqlite3.Connection, dry_run: bool) -> dict[str, int]:
         print("  obsidian/posts/ não encontrada")
         return stats
 
-    if remove_example_post(cur, dry_run):
-        stats["removido"] += 1
+    stats["removido"] += remove_example_posts(cur, dry_run)
 
-    md_files = [p for p in sorted(POSTS_DIR.glob("*.md")) if p.stem != "exemplo-post"]
+    md_files = [p for p in sorted(POSTS_DIR.glob("*.md")) if p.stem not in EXAMPLE_STEMS]
     if not md_files:
         print("  nenhum .md encontrado em obsidian/posts/")
         return stats
@@ -175,6 +225,9 @@ def sync_posts(con: sqlite3.Connection, dry_run: bool) -> dict[str, int]:
             title = fm.get("title") or path.stem.replace("-", " ").title()
             slug = fm.get("slug") or slugify(title)
             category_slug = fm.get("category") or "tecnologia"
+            project_slug = fm.get("project") or None
+            project_description = fm.get("project_description") or None
+            project_tags: list = fm.get("project_tags") or []
             excerpt = fm.get("excerpt") or re.sub(r"\s+", " ", body[:200]).strip()
             published_at = str(fm.get("published_at") or date.today().isoformat())
             tags: list = fm.get("tags") or []
@@ -190,6 +243,13 @@ def sync_posts(con: sqlite3.Connection, dry_run: bool) -> dict[str, int]:
             )
 
             category_id = get_or_create_category(cur, category_slug)
+            project_id = (
+                get_or_create_project(cur, project_slug, project_description)
+                if project_slug
+                else None
+            )
+            if project_id and project_tags:
+                set_project_tags(cur, project_id, project_tags)
 
             existing = cur.execute(
                 "SELECT id FROM posts WHERE slug = ?", (slug,)
@@ -200,10 +260,10 @@ def sync_posts(con: sqlite3.Connection, dry_run: bool) -> dict[str, int]:
                 if not dry_run:
                     cur.execute(
                         """UPDATE posts
-                           SET title=?, excerpt=?, content=?, category_id=?, published_at=?,
+                           SET title=?, excerpt=?, content=?, category_id=?, project_id=?, published_at=?,
                                seo_title=?, seo_description=?, seo_keywords=?
                            WHERE slug=?""",
-                        (title, excerpt, body, category_id, published_at,
+                        (title, excerpt, body, category_id, project_id, published_at,
                          seo_title, seo_description, seo_keywords, slug),
                     )
                     post_id = existing[0]
@@ -211,10 +271,10 @@ def sync_posts(con: sqlite3.Connection, dry_run: bool) -> dict[str, int]:
                 action = "criado"
                 if not dry_run:
                     cur.execute(
-                        """INSERT INTO posts (title, slug, excerpt, content, category_id, published_at,
+                        """INSERT INTO posts (title, slug, excerpt, content, category_id, project_id, published_at,
                                                seo_title, seo_description, seo_keywords)
-                           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
-                        (title, slug, excerpt, body, category_id, published_at,
+                           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                        (title, slug, excerpt, body, category_id, project_id, published_at,
                          seo_title, seo_description, seo_keywords),
                     )
                     post_id = cur.lastrowid
@@ -231,7 +291,8 @@ def sync_posts(con: sqlite3.Connection, dry_run: bool) -> dict[str, int]:
                     )
 
             tag_str = ", ".join(str(t) for t in tags) if tags else "sem tags"
-            print(f"  [{action}] {slug}  ({category_slug})  tags: {tag_str}")
+            project_str = f" / {project_slug}" if project_slug else ""
+            print(f"  [{action}] {slug}  ({category_slug}{project_str})  tags: {tag_str}")
             stats[action] += 1
 
         except Exception as exc:
@@ -264,6 +325,7 @@ def main() -> None:
     with sqlite3.connect(DB_PATH) as con:
         if not dry:
             ensure_seo_columns(con)
+            ensure_project_support(con)
         stats = sync_posts(con, dry)
 
     print(
