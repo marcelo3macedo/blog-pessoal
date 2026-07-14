@@ -56,6 +56,21 @@ def slugify(text: str) -> str:
     return re.sub(r"[\s-]+", "-", text.strip())
 
 
+WIKILINK_EMBED_RE = re.compile(r"!\[\[([^\]|]+)(?:\|([^\]]+))?\]\]")
+
+
+def convert_wikilink_embeds(body: str) -> str:
+    """Converte embeds do Obsidian (![[arquivo.png]] ou ![[arquivo.png|Legenda]])
+    para o markdown padrão ![Legenda](arquivo.png) que o react-markdown entende."""
+
+    def replace(match: re.Match) -> str:
+        target = match.group(1).strip()
+        alt = (match.group(2) or Path(target).stem).strip()
+        return f"![{alt}]({target})"
+
+    return WIKILINK_EMBED_RE.sub(replace, body)
+
+
 def parse_frontmatter(content: str) -> tuple[dict, str]:
     if not content.startswith("---"):
         return {}, content
@@ -221,6 +236,7 @@ def sync_posts(con: sqlite3.Connection, dry_run: bool) -> dict[str, int]:
         try:
             content = path.read_text(encoding="utf-8")
             fm, body = parse_frontmatter(content)
+            body = convert_wikilink_embeds(body)
 
             title = fm.get("title") or path.stem.replace("-", " ").title()
             slug = fm.get("slug") or slugify(title)
