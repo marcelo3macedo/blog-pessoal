@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "19aaf5d59e3bcd2f",
+        "id": "fe9cf7298764ed7f",
         "type": "tabs",
         "children": [
           {
-            "id": "305206d4828b052a",
+            "id": "2baa440e059d0593",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "obsidian/posts/circuit-campeonatos-virtuais-integrados-ao-strava.md",
+                "file": "obsidian/posts/validation-service-garantindo-a-consistencia-dos-dados-de-multiplos-canais-em-uma-plataforma-omnichannel.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "circuit-campeonatos-virtuais-integrados-ao-strava"
+              "title": "validation-service-garantindo-a-consistencia-dos-dados-de-multiplos-canais-em-uma-plataforma-omnichannel"
             }
           }
         ]
@@ -78,7 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 255.5
+    "width": 399.5
   },
   "right": {
     "id": "606a28c9cf5b3ef8",
@@ -180,22 +180,26 @@
       "bases:Criar nova base": false
     }
   },
-  "active": "305206d4828b052a",
+  "active": "2baa440e059d0593",
   "lastOpenFiles": [
+    "2026-06-15.md",
+    "obsidian/posts/validation-service-garantindo-a-consistencia-dos-dados-de-multiplos-canais-em-uma-plataforma-omnichannel.md",
+    "obsidian/posts/exemplo-post.md",
+    "obsidian/posts/criar-arquitetura-de-comunicacao-em-plataforma-omnichannel.md",
+    "obsidian/posts/circuit-chat-assistente-de-desafios-de-corrida.md",
+    "obsidian/posts/circuit-campeonatos-virtuais-integrados-ao-strava.md",
+    "obsidian/posts/chatflowbuilder-experiencia-intuitiva.md",
+    "obsidian/posts/analise-uso-memoria-node-js.md",
     "obsidian/images/webchatAbert.png",
     "obsidian/images/circuit-eventos.gif",
     "obsidian/images/circuit-criacaoatividades.mp4",
-    "obsidian/posts/circuit-campeonatos-virtuais-integrados-ao-strava.md",
     "obsidian/images/circuit-telaatividades.png",
     "obsidian/images/circuit-telausuario.png",
     "obsidian/images/circuit-telainicial.png",
-    "obsidian/posts/circuit-chat-assistente-de-desafios-de-corrida.md",
     "obsidian/instructions/configuracao-de-projeto-ecs.md",
     "obsidian/posts/circuit-campeonatos-virtuais-integrados-ao-strava.md.tmp.45811.cb0c67bdd660",
     "README.md",
     "app/logo.png",
-    "obsidian/posts/diferenca-git-merge-e-git-rebase.md",
-    "2026-06-15.md",
-    "obsidian/posts/exemplo-post.md"
+    "obsidian/posts/diferenca-git-merge-e-git-rebase.md"
   ]
 }
