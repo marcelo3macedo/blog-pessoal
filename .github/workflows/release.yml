@@ -10,6 +10,7 @@ concurrency:
 env:
   REMOTE_HOST: ${{ secrets.DEPLOY_HOST }}
   REMOTE_DIR: "~/blogpessoal-releases"
+  NEXT_PUBLIC_GA_ID: ${{ secrets.NEXT_PUBLIC_GA_ID }}
 
 jobs:
   release:
