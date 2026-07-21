@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans, Playfair_Display, Fira_Code } from "next/font/google
 import Link from "next/link";
 import Header from "./components/Header";
 import GoogleAnalytics from "./components/GoogleAnalytics";
+import CookieConsent from "./components/CookieConsent";
 import { SITE_URL, SITE_NAME, GA_ID } from "@/lib/seo";
 import "./globals.css";
 
@@ -67,6 +68,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="min-h-full flex flex-col">
         <GoogleAnalytics gaId={GA_ID} />
+        <CookieConsent />
         <Header />
         <main className="flex-1 max-w-4xl mx-auto w-full px-6 py-14">{children}</main>
         <footer className="border-t border-[var(--color-border)] dark:border-[var(--color-border-dark)] py-7">

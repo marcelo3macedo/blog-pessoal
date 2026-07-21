@@ -1,7 +1,26 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Script from "next/script";
+import { CONSENT_EVENT } from "./CookieConsent";
+
+const CONSENT_KEY = "cookie-consent";
 
 export default function GoogleAnalytics({ gaId }: { gaId: string }) {
-  if (!gaId) return null;
+  const [consented, setConsented] = useState(false);
+
+  useEffect(() => {
+    setConsented(localStorage.getItem(CONSENT_KEY) === "accepted");
+
+    function handleConsentChange(event: Event) {
+      setConsented((event as CustomEvent<string>).detail === "accepted");
+    }
+
+    window.addEventListener(CONSENT_EVENT, handleConsentChange);
+    return () => window.removeEventListener(CONSENT_EVENT, handleConsentChange);
+  }, []);
+
+  if (!gaId || !consented) return null;
 
   return (
     <>
