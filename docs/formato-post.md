@@ -121,6 +121,32 @@ O post fica disponível em `/posts/ambiente-dev-2026`.
 
 ---
 
+## Versão em inglês (opcional)
+
+Para publicar a tradução de um post em inglês, crie um arquivo com **o mesmo nome**
+dentro de `obsidian/posts-en/` (mesmo frontmatter, mas com conteúdo traduzido).
+O `sync_obsidian.py` pareia os dois arquivos pelo nome e preenche automaticamente
+o vínculo entre as versões — isso faz aparecer o link "Read in English" / "Ler em
+português" na página do post.
+
+Regras importantes para a versão em inglês:
+
+- `category` e `project`: mantenha o mesmo slug da versão em português (são
+  identificadores internos compartilhados, não traduza).
+- `project_description` e `project_tags`: **omita esses campos** no arquivo em
+  inglês. Eles pertencem ao projeto (compartilhado entre os dois idiomas) e são
+  definidos pela versão em português — incluí-los em inglês sobrescreveria a
+  descrição/tags do projeto exibidas em `/projetos`.
+- `slug`: use um slug novo, em inglês, diferente do slug em português (o slug é
+  único globalmente no banco).
+- `tags`, `title`, `excerpt`, `seo_*`: traduza normalmente.
+
+O post em inglês fica disponível em `/posts/en/{slug}` e não aparece nas listagens
+em português (home, categorias, projetos) — essas continuam mostrando apenas os
+posts com a versão em português.
+
+---
+
 ## Markdown suportado
 
 | Elemento | Sintaxe |

@@ -49,7 +49,9 @@ function initSchema(db: Database.Database) {
       created_at TEXT NOT NULL DEFAULT (datetime('now')),
       seo_title TEXT,
       seo_description TEXT,
-      seo_keywords TEXT
+      seo_keywords TEXT,
+      language TEXT NOT NULL DEFAULT 'pt',
+      translation_slug TEXT
     );
 
     CREATE TABLE IF NOT EXISTS post_tags (
@@ -67,6 +69,7 @@ function initSchema(db: Database.Database) {
 
   migrateSeoColumns(db);
   migrateProjectColumn(db);
+  migrateLanguageColumns(db);
 
   const count = (db.prepare("SELECT COUNT(*) as n FROM categories").get() as { n: number }).n;
   if (count === 0) seed(db);
@@ -91,6 +94,17 @@ function migrateProjectColumn(db: Database.Database) {
   );
   if (!columns.includes("project_id"))
     db.exec("ALTER TABLE posts ADD COLUMN project_id INTEGER REFERENCES projects(id)");
+}
+
+// Adds the language/translation_slug columns to databases created before i18n existed.
+function migrateLanguageColumns(db: Database.Database) {
+  const columns = (db.prepare("PRAGMA table_info(posts)").all() as { name: string }[]).map(
+    (c) => c.name
+  );
+  if (!columns.includes("language"))
+    db.exec("ALTER TABLE posts ADD COLUMN language TEXT NOT NULL DEFAULT 'pt'");
+  if (!columns.includes("translation_slug"))
+    db.exec("ALTER TABLE posts ADD COLUMN translation_slug TEXT");
 }
 
 /* ── seed ──────────────────────────────────────────────────────────── */
@@ -360,6 +374,8 @@ export interface Post {
   seo_title: string | null;
   seo_description: string | null;
   seo_keywords: string | null;
+  language: string;
+  translation_slug: string | null;
   tags: Tag[];
 }
 
@@ -399,7 +415,11 @@ export function getCategoryBySlug(slug: string): Category | null {
   return (getDb().prepare("SELECT * FROM categories WHERE slug = ?").get(slug) as Category) ?? null;
 }
 
-export function getRecentPosts(limit = 10, excludeCategorySlug?: string): Post[] {
+export function getRecentPosts(
+  limit = 10,
+  excludeCategorySlug?: string,
+  language: string = "pt"
+): Post[] {
   const rows = getDb()
     .prepare(
       `SELECT p.*, c.name as category_name, c.slug as category_slug,
@@ -407,14 +427,17 @@ export function getRecentPosts(limit = 10, excludeCategorySlug?: string): Post[]
        FROM posts p
        JOIN categories c ON p.category_id = c.id
        LEFT JOIN projects pr ON p.project_id = pr.id
-       WHERE (? IS NULL OR c.slug != ?)
+       WHERE (? IS NULL OR c.slug != ?) AND p.language = ?
        ORDER BY p.published_at DESC LIMIT ?`
     )
-    .all(excludeCategorySlug ?? null, excludeCategorySlug ?? null, limit) as Omit<Post, "tags">[];
+    .all(excludeCategorySlug ?? null, excludeCategorySlug ?? null, language, limit) as Omit<
+    Post,
+    "tags"
+  >[];
   return withTags(rows);
 }
 
-export function getPostsByCategory(categorySlug: string): Post[] {
+export function getPostsByCategory(categorySlug: string, language: string = "pt"): Post[] {
   const rows = getDb()
     .prepare(
       `SELECT p.*, c.name as category_name, c.slug as category_slug,
@@ -422,9 +445,9 @@ export function getPostsByCategory(categorySlug: string): Post[] {
        FROM posts p
        JOIN categories c ON p.category_id = c.id
        LEFT JOIN projects pr ON p.project_id = pr.id
-       WHERE c.slug = ? ORDER BY p.published_at DESC`
+       WHERE c.slug = ? AND p.language = ? ORDER BY p.published_at DESC`
     )
-    .all(categorySlug) as Omit<Post, "tags">[];
+    .all(categorySlug, language) as Omit<Post, "tags">[];
   return withTags(rows);
 }
 
@@ -443,14 +466,14 @@ export function getPostBySlug(slug: string): Post | null {
   return { ...row, tags: getTagsForPost(row.id) };
 }
 
-export function getPostCountByCategory(): Record<string, number> {
+export function getPostCountByCategory(language: string = "pt"): Record<string, number> {
   const rows = getDb()
     .prepare(
       `SELECT c.slug, COUNT(p.id) as count
-       FROM categories c LEFT JOIN posts p ON p.category_id = c.id
+       FROM categories c LEFT JOIN posts p ON p.category_id = c.id AND p.language = ?
        GROUP BY c.id`
     )
-    .all() as { slug: string; count: number }[];
+    .all(language) as { slug: string; count: number }[];
   return Object.fromEntries(rows.map((r) => [r.slug, r.count]));
 }
 
@@ -462,7 +485,7 @@ export function getProjectBySlug(slug: string): ProjectWithTags | null {
   return { ...project, tags: getTagsForProject(project.id) };
 }
 
-export function getPostsByProject(projectSlug: string): Post[] {
+export function getPostsByProject(projectSlug: string, language: string = "pt"): Post[] {
   const rows = getDb()
     .prepare(
       `SELECT p.*, c.name as category_name, c.slug as category_slug,
@@ -470,39 +493,42 @@ export function getPostsByProject(projectSlug: string): Post[] {
        FROM posts p
        JOIN categories c ON p.category_id = c.id
        JOIN projects pr ON p.project_id = pr.id
-       WHERE pr.slug = ? ORDER BY p.published_at DESC`
+       WHERE pr.slug = ? AND p.language = ? ORDER BY p.published_at DESC`
     )
-    .all(projectSlug) as Omit<Post, "tags">[];
+    .all(projectSlug, language) as Omit<Post, "tags">[];
   return withTags(rows);
 }
 
 // Distinct projects that have at least one post in the given category, with post counts.
-export function getProjectGroups(categorySlug: string): (ProjectWithTags & { count: number })[] {
+export function getProjectGroups(
+  categorySlug: string,
+  language: string = "pt"
+): (ProjectWithTags & { count: number })[] {
   const rows = getDb()
     .prepare(
       `SELECT pr.*, COUNT(p.id) as count
        FROM projects pr
        JOIN posts p ON p.project_id = pr.id
        JOIN categories c ON p.category_id = c.id
-       WHERE c.slug = ?
+       WHERE c.slug = ? AND p.language = ?
        GROUP BY pr.id ORDER BY pr.name`
     )
-    .all(categorySlug) as (Project & { count: number })[];
+    .all(categorySlug, language) as (Project & { count: number })[];
   return rows.map((r) => ({ ...r, tags: getTagsForProject(r.id) }));
 }
 
 // Posts in the given category that aren't assigned to any project.
-export function getUngroupedPostsByCategory(categorySlug: string): Post[] {
+export function getUngroupedPostsByCategory(categorySlug: string, language: string = "pt"): Post[] {
   const rows = getDb()
     .prepare(
       `SELECT p.*, c.name as category_name, c.slug as category_slug,
               NULL as project_name, NULL as project_slug
        FROM posts p
        JOIN categories c ON p.category_id = c.id
-       WHERE c.slug = ? AND p.project_id IS NULL
+       WHERE c.slug = ? AND p.project_id IS NULL AND p.language = ?
        ORDER BY p.published_at DESC`
     )
-    .all(categorySlug) as Omit<Post, "tags">[];
+    .all(categorySlug, language) as Omit<Post, "tags">[];
   return withTags(rows);
 }
 

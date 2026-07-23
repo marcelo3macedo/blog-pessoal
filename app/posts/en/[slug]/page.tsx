@@ -14,11 +14,11 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = getPostBySlug(slug);
-  if (!post || post.language !== "pt") return {};
+  if (!post || post.language !== "en") return {};
 
   const title = post.seo_title || post.title;
   const description = post.seo_description || post.excerpt;
-  const url = `${SITE_URL}/posts/${post.slug}`;
+  const url = `${SITE_URL}/posts/en/${post.slug}`;
   const translation = post.translation_slug ? getPostBySlug(post.translation_slug) : null;
 
   return {
@@ -27,8 +27,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     keywords: post.seo_keywords || undefined,
     alternates: {
       canonical: url,
-      ...(translation && translation.language === "en"
-        ? { languages: { en: `${SITE_URL}/posts/en/${translation.slug}` } }
+      ...(translation && translation.language === "pt"
+        ? { languages: { "pt-BR": `${SITE_URL}/posts/${translation.slug}` } }
         : {}),
     },
     openGraph: {
@@ -37,6 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description,
       url,
       siteName: SITE_NAME,
+      locale: "en_US",
       publishedTime: post.published_at,
       tags: post.tags.map((t) => t.name),
       images: [{ url: "/uploads/og-cover.png", width: 1200, height: 630, alt: SITE_NAME }],
@@ -51,17 +52,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 function formatDate(dateStr: string) {
-  return new Date(dateStr).toLocaleDateString("pt-BR", {
+  return new Date(dateStr).toLocaleDateString("en-US", {
     day: "numeric",
     month: "long",
     year: "numeric",
   });
 }
 
-export default async function PostPage({ params }: Props) {
+export default async function EnglishPostPage({ params }: Props) {
   const { slug } = await params;
   const post = getPostBySlug(slug);
-  if (!post || post.language !== "pt") notFound();
+  if (!post || post.language !== "en") notFound();
 
   const translation = post.translation_slug ? getPostBySlug(post.translation_slug) : null;
 
@@ -74,7 +75,8 @@ export default async function PostPage({ params }: Props) {
     keywords: post.seo_keywords || post.tags.map((t) => t.name).join(", "),
     author: { "@type": "Person", name: "Marcelo Macedo" },
     publisher: { "@type": "Organization", name: SITE_NAME },
-    mainEntityOfPage: `${SITE_URL}/posts/${post.slug}`,
+    mainEntityOfPage: `${SITE_URL}/posts/en/${post.slug}`,
+    inLanguage: "en",
   };
 
   return (
@@ -85,19 +87,19 @@ export default async function PostPage({ params }: Props) {
       />
       <div className="mb-6 flex items-center justify-between">
         <Link
-          href="/"
+          href="/en"
           prefetch={false}
           className="text-sm text-[var(--color-muted)] hover:text-[var(--color-ink)] dark:hover:text-[var(--color-ink-dark)] transition-colors"
         >
-          ← Início
+          ← Home
         </Link>
-        {translation && translation.language === "en" && (
+        {translation && translation.language === "pt" && (
           <Link
-            href={`/posts/en/${translation.slug}`}
+            href={`/posts/${translation.slug}`}
             prefetch={false}
             className="text-sm font-medium text-[var(--color-brand)] dark:text-[var(--color-brand-dark)] hover:underline underline-offset-4"
           >
-            Read in English →
+            Ler em português →
           </Link>
         )}
       </div>
@@ -106,13 +108,9 @@ export default async function PostPage({ params }: Props) {
         <div className="flex items-center gap-3 mb-5">
           <CategoryBadge name={post.category_name} slug={post.category_slug} />
           {post.project_slug && post.project_name && (
-            <Link
-              href={`/projetos/${post.project_slug}`}
-              prefetch={false}
-              className="text-xs font-semibold text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] hover:text-[var(--color-ink)] dark:hover:text-[var(--color-ink-dark)] transition-colors"
-            >
+            <span className="text-xs font-semibold text-[var(--color-muted)] dark:text-[var(--color-muted-dark)]">
               {post.project_name}
-            </Link>
+            </span>
           )}
           <time className="text-xs text-[var(--color-muted)] dark:text-[var(--color-muted-dark)]">
             {formatDate(post.published_at)}
@@ -136,7 +134,7 @@ export default async function PostPage({ params }: Props) {
         )}
 
         <p className="mt-5 text-sm text-[var(--color-muted)] dark:text-[var(--color-muted-dark)]">
-          por Marcelo Macedo
+          by Marcelo Macedo
         </p>
       </header>
 

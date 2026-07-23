@@ -4,6 +4,7 @@ import Link from "next/link";
 import Header from "./components/Header";
 import GoogleAnalytics from "./components/GoogleAnalytics";
 import CookieConsent from "./components/CookieConsent";
+import HtmlLangSync from "./components/HtmlLangSync";
 import { SITE_URL, SITE_NAME, GA_ID } from "@/lib/seo";
 import "./globals.css";
 
@@ -67,6 +68,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://www.googletagmanager.com" />
       </head>
       <body className="min-h-full flex flex-col">
+        <HtmlLangSync />
         <GoogleAnalytics gaId={GA_ID} />
         <CookieConsent />
         <Header />
