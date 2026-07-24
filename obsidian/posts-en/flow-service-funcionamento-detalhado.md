@@ -1,6 +1,7 @@
 ---
 title: "Flow Service: a detailed look at how the flow automation engine works for omnichannel platforms"
 category: projetos
+difficulty: Advanced
 excerpt: After identifying the conversation and the automation flow associated with the channel, the Flow Service takes over control of the entire automation execution.
 slug: flow-service-how-it-works-in-detail
 published_at: 2026-07-21

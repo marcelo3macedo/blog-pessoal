@@ -1,6 +1,7 @@
 ---
 title: "TCC: Tolerância a Falhas em Microsserviços — Avaliando Técnicas sob Gargalos de CPU e Memória"
 category: projetos
+difficulty: Avançado
 project: tcc-tolerancia-falhas-microsservicos
 project_description: "Trabalho de conclusão de curso (MBA em Engenharia de Software, USP/Esalq) que avalia, por meio de um estudo de caso, o impacto de técnicas de tolerância a falhas na disponibilidade e na latência de microsserviços sob gargalos de CPU e de memória."
 project_tags:

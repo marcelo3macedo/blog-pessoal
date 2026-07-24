@@ -1,6 +1,7 @@
 ---
 title: Building a Customizable WebChat for Customer Service and Lead Generation
 category: desenvolvimento-web
+difficulty: Intermediate
 excerpt: WebChat has become one of the main tools for interaction between companies and customers in the digital environment.
 slug: building-customizable-webchat-customer-service-lead-generation
 published_at: 2026-06-24

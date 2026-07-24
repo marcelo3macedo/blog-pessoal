@@ -70,6 +70,7 @@ function initSchema(db: Database.Database) {
   migrateSeoColumns(db);
   migrateProjectColumn(db);
   migrateLanguageColumns(db);
+  migrateDifficultyColumn(db);
 
   const count = (db.prepare("SELECT COUNT(*) as n FROM categories").get() as { n: number }).n;
   if (count === 0) seed(db);
@@ -105,6 +106,14 @@ function migrateLanguageColumns(db: Database.Database) {
     db.exec("ALTER TABLE posts ADD COLUMN language TEXT NOT NULL DEFAULT 'pt'");
   if (!columns.includes("translation_slug"))
     db.exec("ALTER TABLE posts ADD COLUMN translation_slug TEXT");
+}
+
+// Adds the difficulty column to databases created before it existed.
+function migrateDifficultyColumn(db: Database.Database) {
+  const columns = (db.prepare("PRAGMA table_info(posts)").all() as { name: string }[]).map(
+    (c) => c.name
+  );
+  if (!columns.includes("difficulty")) db.exec("ALTER TABLE posts ADD COLUMN difficulty TEXT");
 }
 
 /* ── seed ──────────────────────────────────────────────────────────── */
@@ -376,6 +385,7 @@ export interface Post {
   seo_keywords: string | null;
   language: string;
   translation_slug: string | null;
+  difficulty: string | null;
   tags: Tag[];
 }
 
@@ -582,6 +592,7 @@ export function upsertPost(data: {
   seo_title?: string | null;
   seo_description?: string | null;
   seo_keywords?: string | null;
+  difficulty?: string | null;
 }): { id: number; created: boolean } {
   const db = getDb();
   const existing = db
@@ -592,11 +603,12 @@ export function upsertPost(data: {
   const seoTitle = data.seo_title ?? null;
   const seoDescription = data.seo_description ?? null;
   const seoKeywords = data.seo_keywords ?? null;
+  const difficulty = data.difficulty ?? null;
 
   if (existing) {
     db.prepare(
       `UPDATE posts SET title=?, excerpt=?, content=?, category_id=?, project_id=?, published_at=?,
-       seo_title=?, seo_description=?, seo_keywords=?
+       seo_title=?, seo_description=?, seo_keywords=?, difficulty=?
        WHERE slug=?`
     ).run(
       data.title,
@@ -608,6 +620,7 @@ export function upsertPost(data: {
       seoTitle,
       seoDescription,
       seoKeywords,
+      difficulty,
       data.slug
     );
     return { id: existing.id, created: false };
@@ -615,8 +628,8 @@ export function upsertPost(data: {
 
   const result = db
     .prepare(
-      `INSERT INTO posts (title, slug, excerpt, content, category_id, project_id, published_at, seo_title, seo_description, seo_keywords)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+      `INSERT INTO posts (title, slug, excerpt, content, category_id, project_id, published_at, seo_title, seo_description, seo_keywords, difficulty)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
     )
     .run(
       data.title,
@@ -628,7 +641,8 @@ export function upsertPost(data: {
       data.published_at,
       seoTitle,
       seoDescription,
-      seoKeywords
+      seoKeywords,
+      difficulty
     );
   return { id: Number(result.lastInsertRowid), created: true };
 }

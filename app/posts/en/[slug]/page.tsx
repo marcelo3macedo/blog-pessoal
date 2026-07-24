@@ -4,7 +4,10 @@ import { getPostBySlug } from "@/lib/db";
 import CategoryBadge from "@/app/components/CategoryBadge";
 import TagBadge from "@/app/components/TagBadge";
 import MarkdownRenderer from "@/app/components/MarkdownRenderer";
+import TableOfContents from "@/app/components/TableOfContents";
 import { SITE_URL, SITE_NAME } from "@/lib/seo";
+import { estimateReadingTime } from "@/lib/reading-time";
+import { extractHeadings } from "@/lib/toc";
 import type { Metadata } from "next";
 
 interface Props {
@@ -65,6 +68,7 @@ export default async function EnglishPostPage({ params }: Props) {
   if (!post || post.language !== "en") notFound();
 
   const translation = post.translation_slug ? getPostBySlug(post.translation_slug) : null;
+  const headings = extractHeadings(post.content);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -80,6 +84,7 @@ export default async function EnglishPostPage({ params }: Props) {
   };
 
   return (
+    <div className="xl:grid xl:grid-cols-[minmax(0,1fr)_14rem] xl:gap-10 xl:items-start">
     <article>
       <script
         type="application/ld+json"
@@ -133,8 +138,21 @@ export default async function EnglishPostPage({ params }: Props) {
           </div>
         )}
 
-        <p className="mt-5 text-sm text-[var(--color-muted)] dark:text-[var(--color-muted-dark)]">
-          by Marcelo Macedo
+        {post.difficulty && (
+          <p className="mt-5 text-sm text-[var(--color-muted)] dark:text-[var(--color-muted-dark)]">
+            Level: {post.difficulty} | Reading Time: {estimateReadingTime(post.content)} min
+          </p>
+        )}
+
+        <p className="mt-2 text-sm text-[var(--color-muted)] dark:text-[var(--color-muted-dark)]">
+          by{" "}
+          <Link
+            href="/perfil"
+            prefetch={false}
+            className="hover:text-[var(--color-ink)] dark:hover:text-[var(--color-ink-dark)] hover:underline underline-offset-4 transition-colors"
+          >
+            Marcelo Macedo
+          </Link>
         </p>
       </header>
 
@@ -142,5 +160,7 @@ export default async function EnglishPostPage({ params }: Props) {
         <MarkdownRenderer content={post.content} />
       </div>
     </article>
+    <TableOfContents headings={headings} label="On this page" />
+    </div>
   );
 }

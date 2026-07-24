@@ -1,6 +1,7 @@
 ---
 title: "Building a Smart Chat with Local AI: less model, more context"
 category: desenvolvimento-web
+difficulty: Intermediate
 excerpt: When we think about an AI chat for a system, we usually picture a giant model answering any question. In practice, the goal is often much more specific.
 slug: building-smart-chat-local-ai-less-model-more-context
 published_at: 2026-07-08

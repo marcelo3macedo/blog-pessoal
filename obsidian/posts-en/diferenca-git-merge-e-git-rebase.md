@@ -1,6 +1,7 @@
 ---
 title: Differences Between Git Merge and Git Rebase
 category: git
+difficulty: Beginner
 excerpt: Understanding the difference between them is essential to avoid unnecessary conflicts, lost productivity, and even problems in the project's history.
 slug: git-merge-vs-git-rebase-difference
 published_at: 2026-06-22

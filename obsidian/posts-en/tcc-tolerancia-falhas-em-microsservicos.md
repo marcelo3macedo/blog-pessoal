@@ -1,6 +1,7 @@
 ---
 title: "Capstone Thesis: Fault Tolerance in Microservices — Evaluating Techniques Under CPU and Memory Bottlenecks"
 category: projetos
+difficulty: Advanced
 project: tcc-tolerancia-falhas-microsservicos
 excerpt: "A case study comparing availability and latency of CPU-bound and memory-bound microservices, with and without retries, circuit breakers, load balancing, and scaling."
 slug: capstone-thesis-fault-tolerance-in-microservices

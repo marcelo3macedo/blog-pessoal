@@ -1,6 +1,7 @@
 ---
 title: "Open Source sob pressão: a explosão de PRs gerados por IA e seus impactos na segurança"
 category: segurança
+difficulty: Intermediário
 excerpt: Ferramentas como Copilot, Claude Code, Codex, Cursor e outras reduziram drasticamente o custo de produzir código. O problema é que o custo de gerar código caiu, mas o custo de revisar código continua humano.
 slug: open-source-sob-pressao
 published_at: 2026-06-17

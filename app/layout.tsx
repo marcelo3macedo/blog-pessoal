@@ -72,9 +72,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <GoogleAnalytics gaId={GA_ID} />
         <CookieConsent />
         <Header />
-        <main className="flex-1 max-w-4xl mx-auto w-full px-6 py-14">{children}</main>
+        <main className="flex-1 max-w-5xl mx-auto w-full px-6 py-14">{children}</main>
         <footer className="border-t border-[var(--color-border)] dark:border-[var(--color-border-dark)] py-7">
-          <div className="max-w-4xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[var(--color-muted)] dark:text-[var(--color-muted-dark)]">
+          <div className="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[var(--color-muted)] dark:text-[var(--color-muted-dark)]">
             <span>© {new Date().getFullYear()} além do script</span>
             <nav className="flex items-center gap-5">
               <Link

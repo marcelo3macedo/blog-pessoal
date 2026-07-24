@@ -1,6 +1,7 @@
 ---
 title: "Demonstrating Resilience in Microservices with Circuit Breaker and Guaranteed Delivery"
 category: arquitetura
+difficulty: Advanced
 project: tcc-tolerancia-falhas-microsservicos
 excerpt: "Distributed systems inevitably face failures. Unavailability of external services, network latency, infrastructure overload, and temporary errors are all part of the reality of any production environment."
 slug: demonstrating-resilience-in-microservices-with-circuit-breaker

@@ -186,6 +186,12 @@ def ensure_language_columns(con: sqlite3.Connection) -> None:
         con.execute("ALTER TABLE posts ADD COLUMN translation_slug TEXT")
 
 
+def ensure_difficulty_column(con: sqlite3.Connection) -> None:
+    cols = {row[1] for row in con.execute("PRAGMA table_info(posts)")}
+    if "difficulty" not in cols:
+        con.execute("ALTER TABLE posts ADD COLUMN difficulty TEXT")
+
+
 EXAMPLE_STEMS = ("exemplo-post", "exemplo-project")
 
 
@@ -277,6 +283,7 @@ def sync_posts(
             excerpt = fm.get("excerpt") or re.sub(r"\s+", " ", body[:200]).strip()
             published_at = str(fm.get("published_at") or date.today().isoformat())
             tags: list = fm.get("tags") or []
+            difficulty = fm.get("difficulty") or None
 
             # Campos opcionais de SEO (informação adicional no frontmatter do .md)
             seo_title = fm.get("seo_title") or None
@@ -307,10 +314,10 @@ def sync_posts(
                     cur.execute(
                         """UPDATE posts
                            SET title=?, excerpt=?, content=?, category_id=?, project_id=?, published_at=?,
-                               seo_title=?, seo_description=?, seo_keywords=?, language=?
+                               seo_title=?, seo_description=?, seo_keywords=?, language=?, difficulty=?
                            WHERE slug=?""",
                         (title, excerpt, body, category_id, project_id, published_at,
-                         seo_title, seo_description, seo_keywords, language, slug),
+                         seo_title, seo_description, seo_keywords, language, difficulty, slug),
                     )
                     post_id = existing[0]
             else:
@@ -318,10 +325,10 @@ def sync_posts(
                 if not dry_run:
                     cur.execute(
                         """INSERT INTO posts (title, slug, excerpt, content, category_id, project_id, published_at,
-                                               seo_title, seo_description, seo_keywords, language)
-                           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                                               seo_title, seo_description, seo_keywords, language, difficulty)
+                           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
                         (title, slug, excerpt, body, category_id, project_id, published_at,
-                         seo_title, seo_description, seo_keywords, language),
+                         seo_title, seo_description, seo_keywords, language, difficulty),
                     )
                     post_id = cur.lastrowid
                 else:
@@ -410,6 +417,7 @@ def main() -> None:
             ensure_seo_columns(con)
             ensure_project_support(con)
             ensure_language_columns(con)
+            ensure_difficulty_column(con)
 
         for posts_dir, language in LANGUAGE_DIRS:
             print(f"\nPosts ({language}):")

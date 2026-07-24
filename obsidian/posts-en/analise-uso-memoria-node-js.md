@@ -1,6 +1,7 @@
 ---
 title: "Memory Usage Analysis in Node.js"
 category: arquitetura
+difficulty: Advanced
 excerpt: "One of the great advantages of Node.js is its ability to handle thousands of simultaneous connections using an event-based model and asynchronous operations."
 slug: memory-usage-analysis-in-node-js
 published_at: 2026-06-25

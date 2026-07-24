@@ -1,6 +1,7 @@
 ---
 title: "Fundamentos da AWS: Os Serviços Mais Utilizados no Dia a Dia"
 category: infraestrutura
+difficulty: Iniciante
 excerpt: A Amazon Web Services (AWS) é atualmente uma das plataformas de computação em nuvem mais utilizadas do mundo. Empresas de todos os tamanhos utilizam AWS para hospedar aplicações, bancos de dados, APIs, arquivos, microsserviços e sistemas críticos.
 slug: fundamentos-da-aws-servicos-mais-utilizados
 published_at: 2026-06-22

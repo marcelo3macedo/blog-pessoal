@@ -1,6 +1,7 @@
 ---
 title: "Análise de Uso de Memória no Node.js"
 category: arquitetura
+difficulty: Avançado
 excerpt: "Uma das grandes vantagens do Node.js é sua capacidade de lidar com milhares de conexões simultâneas utilizando um modelo baseado em eventos e operações assíncronas."
 slug: analise-uso-memoria-node-js
 published_at: 2026-06-25

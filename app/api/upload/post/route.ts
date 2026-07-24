@@ -147,6 +147,8 @@ export async function POST(request: Request) {
     ? (data.seo_keywords as unknown[]).map(String).join(", ")
     : (data.seo_keywords as string | undefined)?.trim() || null;
 
+  const difficulty = (data.difficulty as string | undefined)?.trim() || null;
+
   // ── Tags ──────────────────────────────────────────────────────────────
   const rawTags: string[] = Array.isArray(data.tags)
     ? (data.tags as unknown[]).map((t) => String(t).replace(/^#/, "").trim()).filter(Boolean)
@@ -169,6 +171,7 @@ export async function POST(request: Request) {
     seo_title: seoTitle,
     seo_description: seoDescription,
     seo_keywords: seoKeywords,
+    difficulty,
   });
 
   setPostTags(id, tagIds);

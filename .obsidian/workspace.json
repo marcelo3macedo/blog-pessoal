@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "obsidian/posts/flow-service-construindo-um-motor-de-automacao-escalavel-para-plataformas-omnichannel.md",
+                "file": "obsidian/planner/post-example.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "flow-service-construindo-um-motor-de-automacao-escalavel-para-plataformas-omnichannel"
+              "title": "post-example"
             }
           }
         ]
@@ -180,29 +180,53 @@
       "bases:Criar nova base": false
     }
   },
-  "active": "480a96fda3c7dc11",
+  "active": "e9aad906c407aa10",
   "lastOpenFiles": [
-    "obsidian/posts/flow-service-funcionamento-detalhado.md",
-    "obsidian/posts/flow-service-construindo-um-motor-de-automacao-escalavel-para-plataformas-omnichannel.md",
-    "obsidian/posts/exemplo-project.md",
-    "obsidian/posts/validation-service-garantindo-a-consistencia-dos-dados-de-multiplos-canais-em-uma-plataforma-omnichannel.md",
-    "obsidian/posts/exemplo-post.md",
-    "2026-06-15.md",
-    "obsidian/posts/criar-arquitetura-de-comunicacao-em-plataforma-omnichannel.md",
-    "obsidian/posts/circuit-chat-assistente-de-desafios-de-corrida.md",
-    "obsidian/posts/circuit-campeonatos-virtuais-integrados-ao-strava.md",
-    "obsidian/posts/chatflowbuilder-experiencia-intuitiva.md",
-    "obsidian/posts/analise-uso-memoria-node-js.md",
+    "app/posts/en/[slug]/page.tsx.tmp.20123.7e5493db31e6",
+    "app/posts/en/[slug]/page.tsx.tmp.20123.5375e03f9559",
+    "app/posts/en/[slug]/page.tsx.tmp.20123.cd767393bf84",
+    "app/posts/[slug]/page.tsx.tmp.20123.3961121f8a41",
+    "app/posts/[slug]/page.tsx.tmp.20123.81fc4ee40597",
+    "app/posts/[slug]/page.tsx.tmp.20123.1a4e99081780",
+    "app/components/MarkdownRenderer.tsx.tmp.20123.3ac56f90bb14",
+    "app/components/MarkdownRenderer.tsx.tmp.20123.b4d6c2cdf5b8",
+    "app/components/MarkdownRenderer.tsx.tmp.20123.7770bc7104bf",
+    "app/components/TableOfContents.tsx",
+    "app/components/TableOfContents.tsx.tmp.20123.3f531c590f10",
+    "node_modules/next/README.md",
+    "node_modules/next/dist/compiled/@babel/runtime/README.md",
+    "node_modules/next/license.md",
+    "node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/webpack.md",
+    "node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/webVitalsAttribution.md",
+    "node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/viewTransition.md",
+    "node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/useLightningcss.md",
+    "node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/urlImports.md",
+    "node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/typescript.md",
+    "node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/typedRoutes.md",
+    "node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/turbopackLocalPostcssConfig.md",
+    "node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/turbopackIgnoreIssue.md",
+    "node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/turbopackFileSystemCache.md",
+    "node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/transpilePackages.md",
+    "node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/turbopack.md",
+    "node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/trailingSlash.md",
+    "node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/taint.md",
+    "node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/staticGeneration.md",
+    "node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/staleTimes.md",
+    "node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/serverExternalPackages.md",
+    "node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/serverComponentsHmrCache.md",
+    "node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/serverActions.md",
+    "node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/sassOptions.md",
+    "node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/rewrites.md",
+    "node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/redirects.md",
+    "node_modules/cytoscape-fcose/node_modules/layout-base/layout-schema.png",
+    "node_modules/layout-base/layout-schema.png",
+    "node_modules/cytoscape-fcose/demo/incrementalConstraints.gif",
+    "node_modules/cytoscape-fcose/demo/demo.gif",
     "obsidian/images/webchatAbert.png",
     "obsidian/images/circuit-eventos.gif",
-    "obsidian/images/circuit-criacaoatividades.mp4",
     "obsidian/images/circuit-telaatividades.png",
     "obsidian/images/circuit-telausuario.png",
     "obsidian/images/circuit-telainicial.png",
-    "obsidian/instructions/configuracao-de-projeto-ecs.md",
-    "obsidian/posts/circuit-campeonatos-virtuais-integrados-ao-strava.md.tmp.45811.cb0c67bdd660",
-    "README.md",
-    "app/logo.png",
-    "obsidian/posts/diferenca-git-merge-e-git-rebase.md"
+    "app/logo.png"
   ]
 }

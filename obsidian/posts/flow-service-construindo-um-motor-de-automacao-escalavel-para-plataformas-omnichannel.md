@@ -1,6 +1,7 @@
 ---
 title: "Flow Service: construindo um motor de automação escalável para plataformas omnichannel"
 category: arquitetura
+difficulty: Avançado
 excerpt: Descubra como projetar um Flow Service capaz de executar automações complexas em uma plataforma omnichannel sem bloquear filas, mantendo alta disponibilidade, escalabilidade e baixo acoplamento. Neste artigo exploramos uma arquitetura baseada em estados, RabbitMQ, módulos independentes e execução assíncrona.
 slug: flow-service-construindo-um-motor-de-automacao-escalavel-para-plataformas-omnichannel
 published_at: 2026-07-21
@@ -33,20 +34,14 @@ Em uma plataforma omnichannel, receber uma mensagem é apenas o início da jorna
 
 Uma simples mensagem enviada pelo WhatsApp pode desencadear dezenas de ações diferentes: validar dados do cliente, consultar APIs externas, atualizar sistemas internos, enviar respostas automáticas e registrar informações para atendimento e analytics.
 
-```text
-Mensagem Whatsapp
-↓
-Verificar CPF (5 s)
-↓
-Consultar Receita Federal (3 s)
-↓
-Consulta API com IA (2.5 s)
-↓
-Enviar mensagem (2 s)
-↓
-Atualizar CRM
-↓
-Fim
+```mermaid
+flowchart TD
+    A[Mensagem WhatsApp] --> B["Verificar CPF (5 s)"]
+    B --> C["Consultar Receita Federal (3 s)"]
+    C --> D["Consulta API com IA (2.5 s)"]
+    D --> E["Enviar mensagem (2 s)"]
+    E --> F[Atualizar CRM]
+    F --> G[Fim]
 ```
 
 Executar todo esse fluxo dentro de um único consumidor parece simples, mas basta uma API externa demorar alguns segundos para reduzir drasticamente o throughput da fila.
@@ -88,41 +83,29 @@ Essa abordagem impede que chamadas lentas reduzam o throughput da fila principal
 
 ## Arquitetura
 
-```text
-                        flow.execute.queue
-                               │
-                               ▼
-                     Flow Service (N Tasks)
-                               │
-                 Executa Node Atual (rápido)
-                               │
-      ┌───────────────┬─────────┴───────────────┐
-      │               │                         │
-      ▼               ▼                         ▼
+```mermaid
+flowchart TD
+    A[flow.execute.queue] --> B["Flow Service (N Tasks)"]
+    B --> C["Executa Node Atual (rápido)"]
 
-Verificar CPF   Receita Federal          IA Generativa
-(sync)          (assíncrono)             (assíncrono)
+    C --> D["Verificar CPF (sync)"]
+    C --> E["Receita Federal (assíncrono)"]
+    C --> F["IA Generativa (assíncrono)"]
 
-      │               │                         │
-      │               ▼                         ▼
-      │      queue.rf.request          queue.ai.request
-      │               │                         │
-      │               ▼                         ▼
-      │         RF Worker                 AI Worker
-      │               │                         │
-      │               ▼                         ▼
-      │        Receita Federal          OpenAI / Claude
-      │               │                         │
-      └───────────────┴──────────────┬──────────┘
-                                     │
-                                     ▼
-                            flow.resume.queue
-                                     │
-                                     ▼
-                              Flow Service
-                                     │
-                                     ▼
-                             Próximo Node
+    E --> E1[queue.rf.request]
+    E1 --> E2[RF Worker]
+    E2 --> E3[Receita Federal]
+
+    F --> F1[queue.ai.request]
+    F1 --> F2[AI Worker]
+    F2 --> F3[OpenAI / Claude]
+
+    D --> G[flow.resume.queue]
+    E3 --> G
+    F3 --> G
+
+    G --> H[Flow Service]
+    H --> I[Próximo Node]
 ```
 
 ---

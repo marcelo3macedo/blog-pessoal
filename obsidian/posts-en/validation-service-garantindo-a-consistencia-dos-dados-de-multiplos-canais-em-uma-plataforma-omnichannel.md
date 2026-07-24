@@ -1,6 +1,7 @@
 ---
 title: "Validation Service: ensuring data consistency across multiple channels in an omnichannel platform"
 category: arquitetura
+difficulty: Advanced
 excerpt: The Validation Service receives incoming events from various channels and ensures they are valid before forwarding them to the other microservices (support, chatbot, CRM, analytics, etc.).
 slug: validation-service-ensuring-data-consistency-across-multiple-channels-in-an-omnichannel-platform
 published_at: 2026-07-20

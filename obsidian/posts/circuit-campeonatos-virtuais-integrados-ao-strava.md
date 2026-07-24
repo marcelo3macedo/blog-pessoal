@@ -1,6 +1,7 @@
 ---
 title: "Circuit: campeonatos virtuais integrados ao Strava dentro da plataforma Nexo"
 category: projetos
+difficulty: Intermediário
 project: nexo
 project_description: "Plataforma que reúne diversos módulos (subsistemas) independentes, cada um responsável por uma capacidade específica do negócio. Os módulos compartilham autenticação, permissões, infraestrutura e componentes comuns, mas evoluem de forma independente."
 project_tags:

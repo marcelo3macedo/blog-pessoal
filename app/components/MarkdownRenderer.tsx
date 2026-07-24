@@ -2,6 +2,9 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
 import type { Components } from "react-markdown";
+import Mermaid from "./Mermaid";
+import Chart from "./Chart";
+import { createSlugger } from "@/lib/toc";
 
 const IMAGES_BASE_URL = (process.env.IMAGES_BASE_URL ?? "").replace(/\/$/, "");
 
@@ -22,20 +25,46 @@ function hasImageNode(node: any): boolean {
   return false;
 }
 
-const md: Components = {
+// Reconstructs the original plain text of a HAST node, even after rehype-highlight
+// has split it into <span> tokens.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function getNodeText(node: any): string {
+  if (!node) return "";
+  if (node.type === "text") return node.value ?? "";
+  if (node.children && Array.isArray(node.children)) {
+    return node.children.map(getNodeText).join("");
+  }
+  return "";
+}
+
+// Recreated per render so the slugger's dedup counter never leaks between
+// posts (this module is shared across concurrent server-rendered requests).
+function createComponents(): Components {
+  const slugger = createSlugger();
+
+  return {
   /* ── Headings ─────────────────────────────────────────────────────── */
-  h1: ({ children }) => (
-    <h1 className="font-display text-3xl font-bold tracking-tight text-[var(--color-ink)] dark:text-[var(--color-ink-dark)] mt-10 mb-4 leading-tight">
+  h1: ({ children, node }) => (
+    <h1
+      id={slugger(getNodeText(node))}
+      className="font-display text-3xl font-bold tracking-tight text-[var(--color-ink)] dark:text-[var(--color-ink-dark)] mt-10 mb-4 leading-tight scroll-mt-24"
+    >
       {children}
     </h1>
   ),
-  h2: ({ children }) => (
-    <h2 className="font-display text-2xl font-bold tracking-tight text-[var(--color-ink)] dark:text-[var(--color-ink-dark)] mt-9 mb-3">
+  h2: ({ children, node }) => (
+    <h2
+      id={slugger(getNodeText(node))}
+      className="font-display text-2xl font-bold tracking-tight text-[var(--color-ink)] dark:text-[var(--color-ink-dark)] mt-9 mb-3 scroll-mt-24"
+    >
       {children}
     </h2>
   ),
-  h3: ({ children }) => (
-    <h3 className="font-semibold text-lg text-[var(--color-ink)] dark:text-[var(--color-ink-dark)] mt-7 mb-2">
+  h3: ({ children, node }) => (
+    <h3
+      id={slugger(getNodeText(node))}
+      className="font-semibold text-lg text-[var(--color-ink)] dark:text-[var(--color-ink-dark)] mt-7 mb-2 scroll-mt-24"
+    >
       {children}
     </h3>
   ),
@@ -108,6 +137,14 @@ const md: Components = {
     const lang = classes
       .find((c: string) => c.startsWith("language-"))
       ?.replace("language-", "");
+
+    if (lang === "mermaid") {
+      return <Mermaid chart={getNodeText(codeNode).replace(/\n$/, "")} />;
+    }
+
+    if (lang === "chart") {
+      return <Chart config={getNodeText(codeNode).replace(/\n$/, "")} />;
+    }
 
     return (
       <div className="my-6 rounded-xl overflow-hidden border border-zinc-800">
@@ -217,12 +254,17 @@ const md: Components = {
   hr: () => (
     <hr className="my-10 border-none h-px bg-[var(--color-border)] dark:bg-[var(--color-border-dark)]" />
   ),
-};
+  };
+}
 
 export default function MarkdownRenderer({ content }: { content: string }) {
   return (
     <div className="min-w-0">
-      <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeHighlight]} components={md}>
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        rehypePlugins={[rehypeHighlight]}
+        components={createComponents()}
+      >
         {content}
       </ReactMarkdown>
     </div>

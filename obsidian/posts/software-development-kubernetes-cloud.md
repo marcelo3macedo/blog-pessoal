@@ -1,6 +1,7 @@
 ---
 title: Exemplo de post via Obsidian
 category: desenvolvimento-web
+difficulty: Iniciante
 excerpt: Um exemplo de como escrever posts no Obsidian e sincronizar com o blog.
 slug: software-development-kubernetes-cloud
 published_at: 2026-06-23
