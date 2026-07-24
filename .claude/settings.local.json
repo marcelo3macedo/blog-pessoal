@@ -12,7 +12,9 @@
       "Bash(kill 40056)",
       "Bash(python *)",
       "Bash(python3 *)",
-      "Bash(gh api *)"
+      "Bash(gh api *)",
+      "Bash(curl -s http://localhost:3000/projetos)",
+      "Bash(curl -s http://localhost:3000/posts/water-drink-funcionamento-detalhado)"
     ]
   }
 }
