@@ -71,6 +71,7 @@ function initSchema(db: Database.Database) {
   migrateProjectColumn(db);
   migrateLanguageColumns(db);
   migrateDifficultyColumn(db);
+  migrateFeaturedColumn(db);
 
   const count = (db.prepare("SELECT COUNT(*) as n FROM categories").get() as { n: number }).n;
   if (count === 0) seed(db);
@@ -114,6 +115,15 @@ function migrateDifficultyColumn(db: Database.Database) {
     (c) => c.name
   );
   if (!columns.includes("difficulty")) db.exec("ALTER TABLE posts ADD COLUMN difficulty TEXT");
+}
+
+// Adds the featured column to databases created before it existed.
+function migrateFeaturedColumn(db: Database.Database) {
+  const columns = (db.prepare("PRAGMA table_info(posts)").all() as { name: string }[]).map(
+    (c) => c.name
+  );
+  if (!columns.includes("featured"))
+    db.exec("ALTER TABLE posts ADD COLUMN featured INTEGER NOT NULL DEFAULT 0");
 }
 
 /* ── seed ──────────────────────────────────────────────────────────── */
@@ -386,6 +396,7 @@ export interface Post {
   language: string;
   translation_slug: string | null;
   difficulty: string | null;
+  featured: boolean;
   tags: Tag[];
 }
 
@@ -412,7 +423,7 @@ function getTagsForProject(projectId: number): Tag[] {
 }
 
 function withTags(rows: Omit<Post, "tags">[]): Post[] {
-  return rows.map((p) => ({ ...p, tags: getTagsForPost(p.id) }));
+  return rows.map((p) => ({ ...p, featured: Boolean(p.featured), tags: getTagsForPost(p.id) }));
 }
 
 /* ── queries ────────────────────────────────────────────────────────── */
@@ -438,6 +449,28 @@ export function getRecentPosts(
        JOIN categories c ON p.category_id = c.id
        LEFT JOIN projects pr ON p.project_id = pr.id
        WHERE (? IS NULL OR c.slug != ?) AND p.language = ?
+       ORDER BY p.published_at DESC LIMIT ?`
+    )
+    .all(excludeCategorySlug ?? null, excludeCategorySlug ?? null, language, limit) as Omit<
+    Post,
+    "tags"
+  >[];
+  return withTags(rows);
+}
+
+export function getFeaturedPosts(
+  limit = 10,
+  excludeCategorySlug?: string,
+  language: string = "pt"
+): Post[] {
+  const rows = getDb()
+    .prepare(
+      `SELECT p.*, c.name as category_name, c.slug as category_slug,
+              pr.name as project_name, pr.slug as project_slug
+       FROM posts p
+       JOIN categories c ON p.category_id = c.id
+       LEFT JOIN projects pr ON p.project_id = pr.id
+       WHERE p.featured = 1 AND (? IS NULL OR c.slug != ?) AND p.language = ?
        ORDER BY p.published_at DESC LIMIT ?`
     )
     .all(excludeCategorySlug ?? null, excludeCategorySlug ?? null, language, limit) as Omit<
@@ -593,6 +626,7 @@ export function upsertPost(data: {
   seo_description?: string | null;
   seo_keywords?: string | null;
   difficulty?: string | null;
+  featured?: boolean;
 }): { id: number; created: boolean } {
   const db = getDb();
   const existing = db
@@ -604,11 +638,12 @@ export function upsertPost(data: {
   const seoDescription = data.seo_description ?? null;
   const seoKeywords = data.seo_keywords ?? null;
   const difficulty = data.difficulty ?? null;
+  const featured = data.featured ? 1 : 0;
 
   if (existing) {
     db.prepare(
       `UPDATE posts SET title=?, excerpt=?, content=?, category_id=?, project_id=?, published_at=?,
-       seo_title=?, seo_description=?, seo_keywords=?, difficulty=?
+       seo_title=?, seo_description=?, seo_keywords=?, difficulty=?, featured=?
        WHERE slug=?`
     ).run(
       data.title,
@@ -621,6 +656,7 @@ export function upsertPost(data: {
       seoDescription,
       seoKeywords,
       difficulty,
+      featured,
       data.slug
     );
     return { id: existing.id, created: false };
@@ -628,8 +664,8 @@ export function upsertPost(data: {
 
   const result = db
     .prepare(
-      `INSERT INTO posts (title, slug, excerpt, content, category_id, project_id, published_at, seo_title, seo_description, seo_keywords, difficulty)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+      `INSERT INTO posts (title, slug, excerpt, content, category_id, project_id, published_at, seo_title, seo_description, seo_keywords, difficulty, featured)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
     )
     .run(
       data.title,
@@ -642,7 +678,8 @@ export function upsertPost(data: {
       seoTitle,
       seoDescription,
       seoKeywords,
-      difficulty
+      difficulty,
+      featured
     );
   return { id: Number(result.lastInsertRowid), created: true };
 }

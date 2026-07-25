@@ -1,0 +1,22 @@
+{
+  "name": "obsidian-chart",
+  "version": "1.0.0",
+  "description": "Obsidian plugin to render Chart.js diagrams from markdown chart code blocks.",
+  "main": "main.js",
+  "scripts": {
+    "dev": "node esbuild.config.mjs",
+    "build": "node esbuild.config.mjs production"
+  },
+  "keywords": ["obsidian", "obsidian-plugin", "chart", "chartjs"],
+  "author": "Antigravity",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "esbuild": "^0.20.0",
+    "obsidian": "latest",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "chart.js": "^4.4.1"
+  }
+}

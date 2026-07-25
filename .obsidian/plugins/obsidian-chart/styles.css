@@ -1,0 +1,38 @@
+/* Obsidian Chart.js Plugin Styles */
+
+.obsidian-chart-wrapper {
+  margin: 1.5rem 0;
+  padding: 1.25rem;
+  border-radius: 12px;
+  background-color: var(--background-secondary, #1e1e1e);
+  border: 1px solid var(--background-modifier-border, rgba(255, 255, 255, 0.1));
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease-in-out;
+}
+
+.obsidian-chart-container {
+  position: relative;
+  width: 100%;
+  height: 380px;
+  max-height: 500px;
+}
+
+.obsidian-chart-error {
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: var(--text-error, #ef4444);
+  font-family: var(--font-monospace, monospace);
+  font-size: 0.9rem;
+}
+
+.obsidian-chart-error pre {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+}

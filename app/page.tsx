@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getRecentPosts } from "@/lib/db";
+import { getFeaturedPosts, getRecentPosts } from "@/lib/db";
 import { SITE_URL } from "@/lib/seo";
 import PostCard from "./components/PostCard";
 
@@ -8,10 +8,24 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
+  const featuredPosts = getFeaturedPosts(10, "projetos");
   const posts = getRecentPosts(10, "projetos");
 
   return (
     <div>
+      {featuredPosts.length > 0 && (
+        <div className="mb-16">
+          <h2 className="font-display text-2xl font-bold tracking-tight text-[var(--color-ink)] dark:text-[var(--color-ink-dark)] mb-6">
+            Em Destaque
+          </h2>
+          <div>
+            {featuredPosts.map((post) => (
+              <PostCard key={post.id} post={post} />
+            ))}
+          </div>
+        </div>
+      )}
+
       <div className="mb-12">
         <h1 className="font-display text-4xl font-bold tracking-tight text-[var(--color-ink)] dark:text-[var(--color-ink-dark)] mb-3">
           Últimos posts

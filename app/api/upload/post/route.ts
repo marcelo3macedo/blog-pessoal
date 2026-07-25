@@ -148,6 +148,7 @@ export async function POST(request: Request) {
     : (data.seo_keywords as string | undefined)?.trim() || null;
 
   const difficulty = (data.difficulty as string | undefined)?.trim() || null;
+  const featured = Boolean(data.featured);
 
   // ── Tags ──────────────────────────────────────────────────────────────
   const rawTags: string[] = Array.isArray(data.tags)
@@ -172,6 +173,7 @@ export async function POST(request: Request) {
     seo_description: seoDescription,
     seo_keywords: seoKeywords,
     difficulty,
+    featured,
   });
 
   setPostTags(id, tagIds);

@@ -49,12 +49,12 @@ python sync_obsidian.py --dry-run
 
 ## Categorias disponíveis
 
-| Slug | Nome |
-|------|------|
-| `tecnologia` | Tecnologia |
+| Slug                  | Nome                |
+| --------------------- | ------------------- |
+| `tecnologia`          | Tecnologia          |
 | `desenvolvimento-web` | Desenvolvimento Web |
-| `vida-pessoal` | Vida Pessoal |
-| `produtividade` | Produtividade |
+| `vida-pessoal`        | Vida Pessoal        |
+| `produtividade`       | Produtividade       |
 
 > Reenviar o mesmo arquivo atualiza o post existente — o slug é a chave.
 
@@ -62,11 +62,11 @@ python sync_obsidian.py --dry-run
 
 Três campos opcionais no frontmatter controlam o SEO da página do post:
 
-| Campo | Uso | Fallback se ausente |
-|-------|-----|----------------------|
-| `seo_title` | `<title>` e `og:title`/`twitter:title` | `title` |
-| `seo_description` | `<meta name="description">` e `og:description` | `excerpt` |
-| `seo_keywords` | `<meta name="keywords">` (lista ou string) | nenhum |
+| Campo             | Uso                                            | Fallback se ausente |
+| ----------------- | ---------------------------------------------- | ------------------- |
+| `seo_title`       | `<title>` e `og:title`/`twitter:title`         | `title`             |
+| `seo_description` | `<meta name="description">` e `og:description` | `excerpt`           |
+| `seo_keywords`    | `<meta name="keywords">` (lista ou string)     | nenhum              |
 
 > Não inclua "— além do script" no `seo_title`: o layout já adiciona o nome do site automaticamente em todas as páginas.
 
@@ -134,20 +134,19 @@ O blog também renderiza gráficos nativamente (sem imagem estática) usando um 
 
 Campos do JSON:
 
-| Campo | Obrigatório | Descrição |
-|-------|:---:|-----------|
-| `type` | sim | `"line"`, `"bar"`, `"area"` ou `"pie"` |
-| `data` | sim | lista de objetos, um por ponto/categoria do eixo X |
-| `series` | sim | lista de `{ "key", "label"?, "color"? }` — quais campos de `data` viram linhas/barras |
-| `xKey` | não | campo usado no eixo X (padrão: `"name"`) |
-| `title` | não | título exibido acima do gráfico |
-| `stacked` | não | `true` empilha barras/áreas em vez de sobrepô-las |
+| Campo     | Obrigatório | Descrição                                                                             |
+| --------- | :---------: | ------------------------------------------------------------------------------------- |
+| `type`    |     sim     | `"line"`, `"bar"`, `"area"` ou `"pie"`                                                |
+| `data`    |     sim     | lista de objetos, um por ponto/categoria do eixo X                                    |
+| `series`  |     sim     | lista de `{ "key", "label"?, "color"? }` — quais campos de `data` viram linhas/barras |
+| `xKey`    |     não     | campo usado no eixo X (padrão: `"name"`)                                              |
+| `title`   |     não     | título exibido acima do gráfico                                                       |
+| `stacked` |     não     | `true` empilha barras/áreas em vez de sobrepô-las                                     |
 
 ### Exemplo: latência antes e depois de um circuit breaker
 
 Gráfico de linha, útil para comparar percentis de latência (p50/p95/p99) em um cenário de concorrência sob carga.
 
-````markdown
 ```chart
 {
   "type": "line",
@@ -167,7 +166,7 @@ Gráfico de linha, útil para comparar percentis de latência (p50/p95/p99) em u
   ]
 }
 ```
-````
+
 
 ```chart
 {

@@ -1,0 +1,9 @@
+{
+	"id": "obsidian-chart",
+	"name": "Chart.js Renderer",
+	"version": "1.0.0",
+	"minAppVersion": "0.15.0",
+	"description": "Renders interactive Chart.js charts directly inside Obsidian markdown code blocks.",
+	"author": "Antigravity",
+	"isDesktopOnly": false
+}
