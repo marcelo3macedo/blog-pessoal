@@ -35,6 +35,19 @@ body {
   }
 }
 
+/* ── Mermaid diagrams ─────────────────────────────────────────────── */
+.mermaid-diagram svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.mermaid-diagram-expanded svg {
+  max-width: calc(100vw - 6rem);
+  width: auto;
+  height: auto;
+  max-height: calc(100vh - 6rem);
+}
+
 /* ── Syntax highlighting — atom-one-dark palette ──────────────────── */
 .hljs                              { color: #abb2bf; }
 .hljs-keyword,
