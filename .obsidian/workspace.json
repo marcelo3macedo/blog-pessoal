@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "0eeba85c23346354",
+        "id": "4d6fcb4dcfb4d502",
         "type": "tabs",
         "children": [
           {
-            "id": "480a96fda3c7dc11",
+            "id": "7867586ccdb6b509",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "obsidian/posts/resiliencia-sob-estresse-de-carga.md",
+                "file": "obsidian/posts/graceful-degradation-rate-limit-bypass-com-redis-em-sistemas-distribuidos.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "resiliencia-sob-estresse-de-carga"
+              "title": "graceful-degradation-rate-limit-bypass-com-redis-em-sistemas-distribuidos"
             }
           }
         ]
@@ -180,21 +180,22 @@
       "bases:Criar nova base": false
     }
   },
-  "active": "480a96fda3c7dc11",
+  "active": "7867586ccdb6b509",
   "lastOpenFiles": [
+    "app/perfil/page.tsx.tmp.202016.c5c51aa30de2",
+    "obsidian/posts/graceful-degradation-rate-limit-bypass-com-redis-em-sistemas-distribuidos.md.tmp.202016.bf1245aa89f8",
+    "__test_table.mjs",
+    "app/components/Chart.tsx.tmp.202016.64ef0dbefd25",
+    "app/components/Chart.tsx.tmp.202016.8c349a71fba9",
+    "Sem título.base",
+    "obsidian/posts/graceful-degradation-rate-limit-bypass-com-redis-em-sistemas-distribuidos.md",
+    "obsidian/posts/resiliencia-sob-estresse-de-carga.md",
     "app/perfil/page.tsx.tmp.95107.09956f176438",
     "app/page.tsx.tmp.95107.23e824ccd744",
     "sync_obsidian.py.tmp.95107.760e736569f8",
     "sync_obsidian.py.tmp.95107.6035f6b19524",
     "sync_obsidian.py.tmp.95107.eb686d32e0dd",
-    "app/api/upload/post/route.ts.tmp.95107.186820760af0",
-    "lib/db.ts.tmp.95107.44f0b0430fb4",
-    "lib/db.ts.tmp.95107.7146607d2add",
-    "lib/db.ts.tmp.95107.7d01448e347c",
-    "lib/db.ts.tmp.95107.dd98a1128b30",
-    "lib/db.ts.tmp.95107.3ec3b6ec4dc4",
     "obsidian/posts/resiliencia-sob-estresse-de-carga-2.md",
-    "obsidian/posts/resiliencia-sob-estresse-de-carga.md",
     "obsidian/posts/exemplo-post.md",
     "obsidian/posts/diferenca-git-merge-e-git-rebase.md",
     "obsidian/planner/post-example.md",
@@ -217,7 +218,6 @@
     "node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/turbopackIgnoreIssue.md",
     "node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/turbopackFileSystemCache.md",
     "node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/transpilePackages.md",
-    "node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/turbopack.md",
     "node_modules/cytoscape-fcose/node_modules/layout-base/layout-schema.png",
     "node_modules/layout-base/layout-schema.png",
     "node_modules/cytoscape-fcose/demo/incrementalConstraints.gif",

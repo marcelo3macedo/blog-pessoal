@@ -15,7 +15,8 @@
       "Bash(gh api *)",
       "Bash(curl -s http://localhost:3000/projetos)",
       "Bash(curl -s http://localhost:3000/posts/water-drink-funcionamento-detalhado)",
-      "Bash(npx -y playwright --version)"
+      "Bash(npx -y playwright --version)",
+      "Bash(npx tsc *)"
     ]
   }
 }

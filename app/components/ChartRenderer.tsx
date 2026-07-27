@@ -51,7 +51,7 @@ export default function ChartRenderer({ config, isDark }: { config: ChartConfig;
             <YAxis stroke={t.text} fontSize={12} />
             <Tooltip contentStyle={tooltipStyle} />
             <Legend wrapperStyle={{ fontSize: 13 }} />
-            {config.series.map((s, i) => (
+            {config.series!.map((s, i) => (
               <Line
                 key={s.key}
                 type="monotone"
@@ -70,7 +70,7 @@ export default function ChartRenderer({ config, isDark }: { config: ChartConfig;
             <YAxis stroke={t.text} fontSize={12} />
             <Tooltip contentStyle={tooltipStyle} />
             <Legend wrapperStyle={{ fontSize: 13 }} />
-            {config.series.map((s, i) => (
+            {config.series!.map((s, i) => (
               <Area
                 key={s.key}
                 type="monotone"
@@ -90,7 +90,7 @@ export default function ChartRenderer({ config, isDark }: { config: ChartConfig;
             <YAxis stroke={t.text} fontSize={12} />
             <Tooltip contentStyle={tooltipStyle} />
             <Legend wrapperStyle={{ fontSize: 13 }} />
-            {config.series.map((s, i) => (
+            {config.series!.map((s, i) => (
               <Bar
                 key={s.key}
                 dataKey={s.key}
@@ -107,7 +107,7 @@ export default function ChartRenderer({ config, isDark }: { config: ChartConfig;
             <Legend wrapperStyle={{ fontSize: 13 }} />
             <Pie
               data={config.data}
-              dataKey={config.series[0]?.key ?? "value"}
+              dataKey={config.series?.[0]?.key ?? "value"}
               nameKey={xKey}
               outerRadius={110}
               label

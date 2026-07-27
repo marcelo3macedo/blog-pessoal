@@ -145,6 +145,36 @@ export default function PerfilPage() {
             ))}
           </div>
         </Link>
+
+        <Link
+          href="/posts/graceful-degradation-rate-limit-bypass-com-redis-em-sistemas-distribuidos"
+          prefetch={false}
+          className="group relative overflow-hidden rounded-2xl border border-[var(--color-border)] dark:border-[var(--color-border-dark)] bg-[var(--color-surface)] dark:bg-[var(--color-surface-dark)] p-6 transition-all duration-300 hover:shadow-md hover:-translate-y-1 block mt-4"
+        >
+          <div className="flex items-start justify-between gap-4 mb-3">
+            <div>
+              <span className="inline-block text-[10px] font-bold uppercase tracking-wider bg-[var(--color-brand)]/10 text-[var(--color-brand)] dark:text-[var(--color-brand-dark)] px-2.5 py-1 rounded-md mb-2">
+                Case Técnico
+              </span>
+              <h3 className="font-display text-lg font-bold text-[var(--color-ink)] dark:text-[var(--color-ink-dark)]">
+                Graceful Degradation & Rate Limit Bypass com Redis
+              </h3>
+            </div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0 mt-1 text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] group-hover:text-[var(--color-brand)] dark:group-hover:text-[var(--color-brand-dark)] transition-colors" aria-hidden="true">
+              <path d="M7 17 17 7M7 7h10v10" />
+            </svg>
+          </div>
+          <p className="text-sm text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] leading-relaxed mb-4">
+            Case técnico baseado em cenário real de integração com a API do Google Sheets: requisições diretas de carga estouravam a quota de 300 req/min, gerando falhas em cadeia (HTTP 429). Com um mock em Go reproduzindo os limites reais e Graceful Degradation com Redis na aplicação Laravel, a taxa de erro caiu de 78,3% para 0% e as chamadas à API externa reduziram mais de 95%.
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {["Graceful Degradation", "Rate Limiting", "Redis", "Laravel", "Sistemas Distribuídos"].map((tech) => (
+              <span key={tech} className="text-xs bg-[var(--color-cream)] dark:bg-[var(--color-cream-dark)] text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] px-2.5 py-1 rounded-lg border border-[var(--color-border)] dark:border-[var(--color-border-dark)]">
+                {tech}
+              </span>
+            ))}
+          </div>
+        </Link>
       </section>
 
       {/* Experiência Profissional */}

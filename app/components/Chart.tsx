@@ -17,7 +17,7 @@ export interface ChartConfig {
   xKey?: string;
   stacked?: boolean;
   data: Record<string, string | number>[];
-  series: ChartSeries[];
+  series?: ChartSeries[];
 }
 
 const ChartRenderer = dynamic(() => import("./ChartRenderer"), {
@@ -43,7 +43,7 @@ function parseConfig(raw: string): ChartConfig {
   if (!Array.isArray(parsed.data) || parsed.data.length === 0) {
     throw new Error('campo "data" deve ser uma lista não vazia de objetos');
   }
-  if (!Array.isArray(parsed.series) || parsed.series.length === 0) {
+  if (parsed.type !== "pie" && (!Array.isArray(parsed.series) || parsed.series.length === 0)) {
     throw new Error('campo "series" deve listar ao menos uma chave a ser plotada');
   }
   return parsed as ChartConfig;
