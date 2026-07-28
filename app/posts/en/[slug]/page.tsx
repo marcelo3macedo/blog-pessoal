@@ -5,6 +5,7 @@ import CategoryBadge from "@/app/components/CategoryBadge";
 import TagBadge from "@/app/components/TagBadge";
 import MarkdownRenderer from "@/app/components/MarkdownRenderer";
 import TableOfContents from "@/app/components/TableOfContents";
+import HireMeCTA from "@/app/components/HireMeCTA";
 import { SITE_URL, SITE_NAME } from "@/lib/seo";
 import { estimateReadingTime } from "@/lib/reading-time";
 import { extractHeadings } from "@/lib/toc";
@@ -159,6 +160,8 @@ export default async function EnglishPostPage({ params }: Props) {
       <div className="border-t border-[var(--color-border)] dark:border-[var(--color-border-dark)] pt-10">
         <MarkdownRenderer content={post.content} />
       </div>
+
+      <HireMeCTA locale="en" />
     </article>
     <TableOfContents headings={headings} label="On this page" />
     </div>

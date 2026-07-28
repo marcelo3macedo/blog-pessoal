@@ -29,6 +29,20 @@ export default function PerfilPage() {
             <p className="text-sm font-medium text-[var(--color-brand)] dark:text-[var(--color-brand-dark)] mt-1 uppercase tracking-wider">
               Desenvolvedor Full-Stack
             </p>
+            <div className="flex flex-wrap gap-2 mt-3">
+              {["Node.js", "PHP", "Python", "Go"].map((tech) => (
+                <span key={tech} className="text-xs font-medium bg-[var(--color-cream)] dark:bg-[var(--color-cream-dark)] text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] px-2.5 py-1 rounded-lg border border-[var(--color-border)] dark:border-[var(--color-border-dark)]">
+                  {tech}
+                </span>
+              ))}
+            </div>
+            <div className="flex flex-wrap gap-2 mt-2">
+              {["Microsserviços", "AWS", "Escalabilidade", "IA/LLMs"].map((tech) => (
+                <span key={tech} className="text-xs font-medium bg-[var(--color-cream)] dark:bg-[var(--color-cream-dark)] text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] px-2.5 py-1 rounded-lg border border-[var(--color-border)] dark:border-[var(--color-border-dark)]">
+                  {tech}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </div>
