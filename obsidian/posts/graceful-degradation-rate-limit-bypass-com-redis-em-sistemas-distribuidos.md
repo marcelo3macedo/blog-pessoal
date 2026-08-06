@@ -1,6 +1,6 @@
 ---
 title: Graceful Degradation & Rate Limit Bypass com Redis em Sistemas Distribuídos
-category: arquitetura
+category: arquitetura-distribuida-resiliencia
 difficulty: Avançado
 project: tcc-tolerancia-falhas-microsservicos
 excerpt: Este é um case técnico baseado em um cenário real de integração com a API do Google Sheets, focado em resolver problemas de escassez de quota e alta taxa de erros. No cenário original, requisições diretas de carga estouravam rapidamente o limite do ecossistema do Google (300 requisições/minuto), gerando falhas em cadeia (HTTP 429 - Too Many Requests). Para solucionar o gargalo, foi construído um mock em Go (sheets-mock-api) reproduzindo fielmente os limites reais e implementado o padrão de Graceful Degradation com Redis na aplicação principal em Laravel (main-service-api).

@@ -1,6 +1,6 @@
 ---
 title: Desafios de arquitetura para mensageria em uma plataforma omnichannel
-category: arquitetura
+category: arquitetura-distribuida-resiliencia
 difficulty: Avançado
 excerpt: Construir uma plataforma de mensageria omnichannel vai muito além de simplesmente enviar e receber mensagens.
 slug: criar-arquitetura-de-comunicacao-em-plataforma-omnichannel

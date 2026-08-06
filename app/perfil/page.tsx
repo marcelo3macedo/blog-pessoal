@@ -87,6 +87,39 @@ export default function PerfilPage() {
         </div>
       </section>
 
+      {/* Impacto em Produção */}
+      <section className="mb-12">
+        <h2 className="text-xs font-bold uppercase tracking-wider text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] mb-5">
+          Impacto em Produção
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="p-6 rounded-2xl border border-[var(--color-brand)]/30 dark:border-[var(--color-brand-dark)]/30 bg-[var(--color-surface)] dark:bg-[var(--color-surface-dark)]">
+            <p className="font-display text-3xl font-bold text-[var(--color-brand)] dark:text-[var(--color-brand-dark)]">
+              99,99%
+            </p>
+            <h3 className="font-bold text-sm text-[var(--color-ink)] dark:text-[var(--color-ink-dark)] mt-2">
+              Taxa de entrega de mensagens
+            </h3>
+            <p className="text-sm text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] leading-relaxed mt-1.5">
+              Elevada de 97% para 99,99% em plataforma de chatbot de alta disponibilidade, sustentando grande volume
+              de transações em produção.
+            </p>
+          </div>
+          <div className="p-6 rounded-2xl border border-[var(--color-brand)]/30 dark:border-[var(--color-brand-dark)]/30 bg-[var(--color-surface)] dark:bg-[var(--color-surface-dark)]">
+            <p className="font-display text-3xl font-bold text-[var(--color-brand)] dark:text-[var(--color-brand-dark)]">
+              AWS
+            </p>
+            <h3 className="font-bold text-sm text-[var(--color-ink)] dark:text-[var(--color-ink-dark)] mt-2">
+              Otimização de custos e infraestrutura
+            </h3>
+            <p className="text-sm text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] leading-relaxed mt-1.5">
+              Redução de custos operacionais e ganho de eficiência de recursos em nuvem através de reconfiguração
+              e otimização contínua do ambiente AWS.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Projetos em Destaque */}
       <section className="mb-12">
         <h2 className="text-xs font-bold uppercase tracking-wider text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] mb-5">

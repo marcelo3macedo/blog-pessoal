@@ -1,6 +1,6 @@
 ---
 title: "Water Drink: aplicativo para acompanhar a hidratação diária"
-category: projetos
+category: estudos-de-caso-adrs
 difficulty: Iniciante
 project: water-drink
 project_description: "Aplicativo mobile em React Native (Expo) para registrar e acompanhar a ingestão de água ao longo do dia, com onboarding personalizado, lembretes, conquistas e widget para Android."

@@ -1,6 +1,6 @@
 ---
 title: Desenvolvendo um WebChat Customizável para Atendimento e Captação de Leads
-category: desenvolvimento-web
+category: estudos-de-caso-adrs
 difficulty: Intermediário
 excerpt: O WebChat tornou-se uma das principais ferramentas de interação entre empresas e clientes no ambiente digital.
 published_at: 2026-06-24

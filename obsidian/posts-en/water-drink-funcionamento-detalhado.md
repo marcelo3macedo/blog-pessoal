@@ -1,6 +1,6 @@
 ---
 title: "Water Drink: a detailed look at how the hydration tracking app works"
-category: projetos
+category: estudos-de-caso-adrs
 difficulty: Beginner
 project: water-drink
 excerpt: "Details on onboarding, home screen, exercise-based goal boosts, favorites, achievements, notifications, settings, tracking, and the Android widget of the Water Drink (Hidratação Diária) app."

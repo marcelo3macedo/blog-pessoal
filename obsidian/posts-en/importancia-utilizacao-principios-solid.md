@@ -1,6 +1,6 @@
 ---
 title: Does SOLID still matter? Yes. And maybe more than ever in the age of AI.
-category: qualidade-software
+category: governanca-nuvem-financas-lideranca
 difficulty: Intermediate
 excerpt: AI tools are transforming the way we develop software. Today it's possible to generate controllers, services, tests, SQL queries, and even complete features in just a few minutes.
 slug: does-solid-still-matter-in-the-age-of-ai

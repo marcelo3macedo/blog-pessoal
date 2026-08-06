@@ -1,6 +1,6 @@
 ---
 title: Development Workflow with Google Antigravity
-category: agentes-ia
+category: ia-aplicada-engenharia-dados
 difficulty: Intermediate
 excerpt: AI-assisted development is evolving rapidly. Modern tools no longer act merely as code autocomplete. They are capable of planning features, implementing code, running tests, and more..
 slug: google-antigravity-development-workflow

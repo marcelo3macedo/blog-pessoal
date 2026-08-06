@@ -1,6 +1,6 @@
 ---
 title: Building an Intuitive Experience for Chatbot Construction
-category: chatflowcomposer
+category: estudos-de-caso-adrs
 difficulty: Intermediate
 excerpt: As new paths, questions, integrations, and business rules are added, it becomes increasingly difficult to visualize the chatbot's complete behavior through form-based configuration or config files alone.
 slug: intuitive-chatbot-building-experience

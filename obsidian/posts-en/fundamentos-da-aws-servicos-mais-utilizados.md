@@ -1,6 +1,6 @@
 ---
 title: "AWS Fundamentals: The Most Commonly Used Services in Daily Practice"
-category: infraestrutura
+category: governanca-nuvem-financas-lideranca
 difficulty: Beginner
 excerpt: Amazon Web Services (AWS) is currently one of the most widely used cloud computing platforms in the world. Companies of all sizes use AWS to host applications, databases, APIs, files, microservices, and critical systems.
 slug: aws-fundamentals-most-used-services

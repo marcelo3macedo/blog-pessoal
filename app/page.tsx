@@ -8,8 +8,8 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
-  const featuredPosts = getFeaturedPosts(10, "projetos");
-  const posts = getRecentPosts(10, "projetos");
+  const featuredPosts = getFeaturedPosts(10, "estudos-de-caso-adrs");
+  const posts = getRecentPosts(10, "estudos-de-caso-adrs");
 
   return (
     <div>

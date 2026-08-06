@@ -1,6 +1,6 @@
 ---
 title: Fluxo de Desenvolvimento com Google Antigravity
-category: agentes-ia
+category: ia-aplicada-engenharia-dados
 difficulty: Intermediário
 excerpt: O desenvolvimento assistido por IA está evoluindo rapidamente. Ferramentas modernas já não atuam apenas como autocompletar código. Elas são capazes de planejar funcionalidades, implementar código, executar testes  e mais..
 slug: fluxo-desenvolvimento-com-google-antigravity

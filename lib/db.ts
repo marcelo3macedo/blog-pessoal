@@ -34,7 +34,8 @@ function initSchema(db: Database.Database) {
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
       slug TEXT NOT NULL UNIQUE,
-      description TEXT
+      description TEXT,
+      tier TEXT NOT NULL DEFAULT 'primary'
     );
 
     CREATE TABLE IF NOT EXISTS posts (
@@ -72,6 +73,7 @@ function initSchema(db: Database.Database) {
   migrateLanguageColumns(db);
   migrateDifficultyColumn(db);
   migrateFeaturedColumn(db);
+  migrateProjectTierColumn(db);
 
   const count = (db.prepare("SELECT COUNT(*) as n FROM categories").get() as { n: number }).n;
   if (count === 0) seed(db);
@@ -124,6 +126,15 @@ function migrateFeaturedColumn(db: Database.Database) {
   );
   if (!columns.includes("featured"))
     db.exec("ALTER TABLE posts ADD COLUMN featured INTEGER NOT NULL DEFAULT 0");
+}
+
+// Adds the tier column ('primary' | 'secondary') to databases created before it existed.
+function migrateProjectTierColumn(db: Database.Database) {
+  const columns = (db.prepare("PRAGMA table_info(projects)").all() as { name: string }[]).map(
+    (c) => c.name
+  );
+  if (!columns.includes("tier"))
+    db.exec("ALTER TABLE projects ADD COLUMN tier TEXT NOT NULL DEFAULT 'primary'");
 }
 
 /* ── seed ──────────────────────────────────────────────────────────── */
@@ -371,6 +382,7 @@ export interface Project {
   name: string;
   slug: string;
   description: string | null;
+  tier: "primary" | "secondary";
 }
 
 export interface ProjectWithTags extends Project {

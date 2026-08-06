@@ -1,6 +1,6 @@
 ---
 title: "Construindo um Chat Inteligente com IA Local: menos modelo, mais contexto"
-category: desenvolvimento-web
+category: estudos-de-caso-adrs
 difficulty: Intermediário
 excerpt: Quando pensamos em um chat com Inteligência Artificial para um sistema, normalmente imaginamos um modelo gigantesco respondendo qualquer pergunta. Na prática, o objetivo costuma ser muito mais específico.
 slug: circuit-chat-assistente-de-desafios-de-corrida

@@ -1,6 +1,6 @@
 ---
 title: "Flow Service: building a scalable automation engine for omnichannel platforms"
-category: arquitetura
+category: arquitetura-distribuida-resiliencia
 difficulty: Advanced
 excerpt: Discover how to design a Flow Service capable of running complex automations on an omnichannel platform without blocking queues, while maintaining high availability, scalability, and low coupling. In this article we explore a state-based architecture, RabbitMQ, independent modules, and asynchronous execution.
 slug: flow-service-scalable-automation-engine-omnichannel-platforms

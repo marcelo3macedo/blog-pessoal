@@ -1,6 +1,6 @@
 ---
 title: SOLID ainda importa? Sim. E talvez mais do que nunca na era da IA.
-category: qualidade-software
+category: governanca-nuvem-financas-lideranca
 difficulty: Intermediário
 excerpt: Ferramentas de IA estão transformando a forma como desenvolvemos software. Hoje é possível gerar controllers, services, testes, queries SQL e até funcionalidades completas em poucos minutos.
 slug: importancia-utilizacao-principios-solid

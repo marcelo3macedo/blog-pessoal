@@ -6,7 +6,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const posts = getRecentPosts(1000, undefined, "pt");
   const postsEn = getRecentPosts(1000, undefined, "en");
   const categories = getAllCategories();
-  const projects = getProjectGroups("projetos");
+  const projects = getProjectGroups("estudos-de-caso-adrs");
 
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: `${SITE_URL}/`, changeFrequency: "daily", priority: 1 },

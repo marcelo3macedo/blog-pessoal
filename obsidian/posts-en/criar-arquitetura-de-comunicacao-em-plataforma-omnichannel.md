@@ -1,6 +1,6 @@
 ---
 title: Architecture Challenges for Messaging in an Omnichannel Platform
-category: arquitetura
+category: arquitetura-distribuida-resiliencia
 difficulty: Advanced
 excerpt: Building an omnichannel messaging platform goes far beyond simply sending and receiving messages.
 slug: architecture-challenges-omnichannel-messaging-platform

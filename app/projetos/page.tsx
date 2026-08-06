@@ -8,7 +8,7 @@ import type { Metadata } from "next";
 
 const TITLE = "Projetos";
 const DESCRIPTION = "Projetos reais que desenvolvi, documentados em formato de post.";
-const CATEGORY_SLUG = "projetos";
+const CATEGORY_SLUG = "estudos-de-caso-adrs";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -19,7 +19,9 @@ export const metadata: Metadata = {
 };
 
 export default function ProjetosPage() {
-  const projects = getProjectGroups(CATEGORY_SLUG);
+  const allProjects = getProjectGroups(CATEGORY_SLUG);
+  const primaryProjects = allProjects.filter((p) => p.tier !== "secondary");
+  const secondaryProjects = allProjects.filter((p) => p.tier === "secondary");
   const ungroupedPosts = getUngroupedPostsByCategory(CATEGORY_SLUG);
   const style = getCategoryStyle(CATEGORY_SLUG);
 
@@ -34,13 +36,13 @@ export default function ProjetosPage() {
         </p>
       </div>
 
-      {projects.length === 0 && ungroupedPosts.length === 0 ? (
+      {allProjects.length === 0 && ungroupedPosts.length === 0 ? (
         <p className="text-[var(--color-muted)]">Nenhum projeto publicado ainda.</p>
       ) : (
         <>
-          {projects.length > 0 && (
+          {primaryProjects.length > 0 && (
             <div className="grid gap-4 sm:grid-cols-2 mb-12">
-              {projects.map((project) => (
+              {primaryProjects.map((project) => (
                 <Link
                   key={project.id}
                   href={`/projetos/${project.slug}`}
@@ -76,8 +78,8 @@ export default function ProjetosPage() {
           )}
 
           {ungroupedPosts.length > 0 && (
-            <div>
-              {projects.length > 0 && (
+            <div className="mb-12">
+              {primaryProjects.length > 0 && (
                 <h2 className="text-xs font-bold uppercase tracking-wider text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] mb-2">
                   Outros posts
                 </h2>
@@ -85,6 +87,48 @@ export default function ProjetosPage() {
               {ungroupedPosts.map((post) => (
                 <PostCard key={post.id} post={post} />
               ))}
+            </div>
+          )}
+
+          {secondaryProjects.length > 0 && (
+            <div className="pt-8 border-t border-[var(--color-border)] dark:border-[var(--color-border-dark)]">
+              <h2 className="text-xs font-bold uppercase tracking-wider text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] mb-1">
+                Portfólio Secundário
+              </h2>
+              <p className="text-sm text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] mb-5">
+                Projetos pessoais de menor complexidade técnica.
+              </p>
+              <div className="grid gap-4 sm:grid-cols-2">
+                {secondaryProjects.map((project) => (
+                  <Link
+                    key={project.id}
+                    href={`/projetos/${project.slug}`}
+                    prefetch={false}
+                    className="group block rounded-2xl border border-[var(--color-border)] dark:border-[var(--color-border-dark)] p-5 bg-[var(--color-surface)] dark:bg-[var(--color-surface-dark)] hover:shadow-sm transition-all opacity-90 hover:opacity-100"
+                  >
+                    <div className="flex items-start justify-between mb-2">
+                      <h3 className="font-semibold text-sm text-[var(--color-ink)] dark:text-[var(--color-ink-dark)]">
+                        {project.name}
+                      </h3>
+                      <span className="text-xs font-medium text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] bg-[var(--color-cream)] dark:bg-[var(--color-cream-dark)] rounded-full px-2.5 py-0.5">
+                        {project.count} {project.count === 1 ? "post" : "posts"}
+                      </span>
+                    </div>
+                    {project.description && (
+                      <p className="text-sm text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] leading-relaxed mb-3">
+                        {project.description}
+                      </p>
+                    )}
+                    {project.tags.length > 0 && (
+                      <div className="flex flex-wrap gap-1.5">
+                        {project.tags.map((tag) => (
+                          <TagBadge key={tag.id} tag={tag} />
+                        ))}
+                      </div>
+                    )}
+                  </Link>
+                ))}
+              </div>
             </div>
           )}
         </>

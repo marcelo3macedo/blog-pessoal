@@ -1,6 +1,6 @@
 ---
 title: "Exemplo de post de projeto via Obsidian"
-category: projetos
+category: estudos-de-caso-adrs
 project: customizador
 project_description: "Ferramenta para customizar fluxos de chatbot visualmente, com preview em tempo real."
 project_tags:

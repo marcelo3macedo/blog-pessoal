@@ -1,6 +1,6 @@
 ---
 title: "Flow Service: construindo um motor de automação escalável para plataformas omnichannel"
-category: arquitetura
+category: arquitetura-distribuida-resiliencia
 difficulty: Avançado
 excerpt: Descubra como projetar um Flow Service capaz de executar automações complexas em uma plataforma omnichannel sem bloquear filas, mantendo alta disponibilidade, escalabilidade e baixo acoplamento. Neste artigo exploramos uma arquitetura baseada em estados, RabbitMQ, módulos independentes e execução assíncrona.
 slug: flow-service-construindo-um-motor-de-automacao-escalavel-para-plataformas-omnichannel

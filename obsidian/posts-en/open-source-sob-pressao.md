@@ -1,6 +1,6 @@
 ---
 title: "Open Source Under Pressure: The Explosion of AI-Generated PRs and Its Impact on Security"
-category: segurança
+category: governanca-nuvem-financas-lideranca
 difficulty: Intermediate
 excerpt: Tools like Copilot, Claude Code, Codex, Cursor and others have drastically reduced the cost of producing code. The problem is that the cost of generating code has dropped, but the cost of reviewing code is still human.
 slug: open-source-under-pressure

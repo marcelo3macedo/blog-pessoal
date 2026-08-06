@@ -1,6 +1,6 @@
 ---
 title: "Water Drink: funcionamento detalhado do app de hidratação diária"
-category: projetos
+category: estudos-de-caso-adrs
 difficulty: Iniciante
 project: water-drink
 excerpt: "Detalhes de onboarding, tela inicial, metas por exercício, favoritos, conquistas, notificações, configurações, acompanhamento e widget Android do app Water Drink (Hidratação Diária)."

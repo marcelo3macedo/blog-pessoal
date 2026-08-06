@@ -1,6 +1,6 @@
 ---
 title: Demonstração de Resiliência em Microsserviços com Circuit Breaker e Garantia de Entrega
-category: arquitetura
+category: arquitetura-distribuida-resiliencia
 difficulty: Avançado
 project: tcc-tolerancia-falhas-microsservicos
 excerpt: Sistemas distribuídos inevitavelmente enfrentam falhas.Indisponibilidade de serviços externos, lentidão de rede, sobrecarga de infraestrutura e erros temporários fazem parte da realidade de qualquer ambiente de produção.

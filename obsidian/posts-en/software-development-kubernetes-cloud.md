@@ -1,6 +1,6 @@
 ---
 title: Example Post via Obsidian
-category: desenvolvimento-web
+category: estudos-de-caso-adrs
 difficulty: Beginner
 excerpt: An example of how to write posts in Obsidian and sync them with the blog.
 slug: example-post-via-obsidian

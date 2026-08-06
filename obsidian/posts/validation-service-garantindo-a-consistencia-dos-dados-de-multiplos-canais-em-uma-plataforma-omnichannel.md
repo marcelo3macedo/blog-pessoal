@@ -1,6 +1,6 @@
 ---
 title: "Validation Service: garantindo a consistência dos dados de múltiplos canais em uma plataforma omnichannel"
-category: arquitetura
+category: arquitetura-distribuida-resiliencia
 difficulty: Avançado
 excerpt: O Validation Service recebe eventos de entrada de diversos canais e garante que eles sejam válidos antes de encaminhá-los para os demais microserviços (atendimento, chatbot, CRM, analytics etc.).
 slug: validation-service-garantindo-a-consistencia-dos-dados-de-multiplos-canais-em-uma-plataforma-omnichannel

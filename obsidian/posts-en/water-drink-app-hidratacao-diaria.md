@@ -1,6 +1,6 @@
 ---
 title: "Water Drink: an app to track your daily water intake"
-category: projetos
+category: estudos-de-caso-adrs
 difficulty: Beginner
 project: water-drink
 excerpt: "Water Drink (Hidratação Diária) is a mobile app built with React Native and Expo to log water intake, calculate personalized goals, and remind users to stay hydrated."

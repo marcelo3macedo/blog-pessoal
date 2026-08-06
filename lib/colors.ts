@@ -2,35 +2,29 @@ export const CATEGORY_STYLES: Record<
   string,
   { pill: string; heading: string; border: string; dot: string }
 > = {
-  tecnologia: {
+  "arquitetura-distribuida-resiliencia": {
     pill: "bg-sky-100 text-sky-700 ring-1 ring-sky-200 dark:bg-sky-950/60 dark:text-sky-300 dark:ring-sky-800",
     heading: "text-sky-600 dark:text-sky-400",
     border: "border-sky-300 dark:border-sky-700",
     dot: "bg-sky-500",
   },
-  "desenvolvimento-web": {
+  "ia-aplicada-engenharia-dados": {
     pill: "bg-violet-100 text-violet-700 ring-1 ring-violet-200 dark:bg-violet-950/60 dark:text-violet-300 dark:ring-violet-800",
     heading: "text-violet-600 dark:text-violet-400",
     border: "border-violet-300 dark:border-violet-700",
     dot: "bg-violet-500",
   },
-  "vida-pessoal": {
-    pill: "bg-rose-100 text-rose-700 ring-1 ring-rose-200 dark:bg-rose-950/60 dark:text-rose-300 dark:ring-rose-800",
-    heading: "text-rose-600 dark:text-rose-400",
-    border: "border-rose-300 dark:border-rose-700",
-    dot: "bg-rose-500",
-  },
-  produtividade: {
-    pill: "bg-emerald-100 text-emerald-700 ring-1 ring-emerald-200 dark:bg-emerald-950/60 dark:text-emerald-300 dark:ring-emerald-800",
-    heading: "text-emerald-600 dark:text-emerald-400",
-    border: "border-emerald-300 dark:border-emerald-700",
-    dot: "bg-emerald-500",
-  },
-  projetos: {
+  "estudos-de-caso-adrs": {
     pill: "bg-amber-100 text-amber-700 ring-1 ring-amber-200 dark:bg-amber-950/60 dark:text-amber-300 dark:ring-amber-800",
     heading: "text-amber-600 dark:text-amber-400",
     border: "border-amber-300 dark:border-amber-700",
     dot: "bg-amber-500",
+  },
+  "governanca-nuvem-financas-lideranca": {
+    pill: "bg-emerald-100 text-emerald-700 ring-1 ring-emerald-200 dark:bg-emerald-950/60 dark:text-emerald-300 dark:ring-emerald-800",
+    heading: "text-emerald-600 dark:text-emerald-400",
+    border: "border-emerald-300 dark:border-emerald-700",
+    dot: "bg-emerald-500",
   },
 };
 
@@ -46,7 +40,7 @@ export const TAG_COLORS: Record<string, string> = {
 };
 
 export function getCategoryStyle(slug: string) {
-  return CATEGORY_STYLES[slug] ?? CATEGORY_STYLES["tecnologia"];
+  return CATEGORY_STYLES[slug] ?? CATEGORY_STYLES["arquitetura-distribuida-resiliencia"];
 }
 
 export function getTagColorClass(color: string) {

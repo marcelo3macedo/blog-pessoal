@@ -3,7 +3,7 @@ import Link from "next/link";
 import { SITE_URL } from "@/lib/seo";
 
 const TITLE = "Sobre";
-const DESCRIPTION = "Desenvolvedor de software apaixonado por tecnologia e novidades.";
+const DESCRIPTION = "Arquiteto de Sistemas & Engenheiro de Software Sênior com mais de 15 anos de experiência em sistemas escaláveis, alta disponibilidade, resiliência e inteligência artificial aplicada.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -15,21 +15,20 @@ export const metadata: Metadata = {
 
 export default function SobrePage() {
   return (
-    <div className="max-w-xl">
-      {/* Avatar placeholder + name */}
+    <div className="max-w-2xl">
+      {/* Avatar + name */}
       <div className="flex items-center gap-5 mb-10">
-        <div className="w-16 h-16 rounded-2xl bg-[var(--color-brand)] dark:bg-[var(--color-brand-dark)] flex items-center justify-center flex-shrink-0">
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-            <path d="M16 8a5 5 0 1 1 0 10A5 5 0 0 1 16 8Z" fill="white" fillOpacity="0.9" />
-            <path d="M6 26c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="white" strokeWidth="2" strokeLinecap="round" />
-          </svg>
-        </div>
+        <img
+          src="/uploads/perfil.jpeg"
+          alt="Marcelo Macedo"
+          className="w-16 h-16 rounded-2xl object-cover flex-shrink-0"
+        />
         <div>
           <h1 className="font-display text-2xl font-bold text-[var(--color-ink)] dark:text-[var(--color-ink-dark)] tracking-tight">
             Marcelo Macedo
           </h1>
-          <p className="text-sm text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] mt-0.5">
-            Software Developer
+          <p className="text-sm font-semibold text-[var(--color-brand)] dark:text-[var(--color-brand-dark)] mt-0.5">
+            Arquiteto de Sistemas &amp; Engenheiro de Software Sênior
           </p>
         </div>
       </div>
@@ -37,19 +36,53 @@ export default function SobrePage() {
       {/* Bio */}
       <div className="space-y-4 text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] leading-relaxed mb-10">
         <p>
-          Trabalho com desenvolvimento de software há alguns anos e sigo achando que é uma das áreas mais interessantes
-          para se estar. A velocidade com que as coisas mudam é o que mais me atrai — sempre tem algo novo para aprender,
-          testar ou descartar.
+          Há mais de 15 anos projeto e desenvolvo sistemas escaláveis e de alta disponibilidade para e-commerce, BI, plataformas SaaS e soluções omnichannel. Minha trajetória é marcada pela engenharia de soluções para grande volume de transações — incluindo a elevação de disponibilidade de plataformas para 99,99% de SLA, otimização de infraestrutura em nuvem e arquitetura de resiliência.
         </p>
         <p>
-          Este blog é o espaço onde registro o que estou explorando: seja uma tecnologia nova que chamou atenção,
-          uma ferramenta que mudou meu jeito de trabalhar, ou reflexões sobre carreira e produtividade.
-          Nada muito formal — mais um diário técnico do que um manual.
-        </p>
-        <p>
-          Se algo aqui te for útil, ótimo. Se quiser trocar ideia, meu LinkedIn está logo abaixo.
+          Sou pós-graduado em Desenvolvimento de Software para Web pela UFSCar e possuo MBA em Engenharia de Software pela USP/Esalq (com pesquisa focada em tolerância a falhas e resiliência sob estresse de infraestrutura), combinando fundamentação teórica rigorosa com execução prática em produção.
         </p>
       </div>
+
+      {/* O que você encontra neste blog */}
+      <div className="mb-10 p-6 rounded-2xl border border-[var(--color-border)] dark:border-[var(--color-border-dark)] bg-[var(--color-surface)] dark:bg-[var(--color-surface-dark)]">
+        <h2 className="font-display text-base font-bold text-[var(--color-ink)] dark:text-[var(--color-ink-dark)] mb-4">
+          O que você encontra neste blog:
+        </h2>
+        <ul className="space-y-3.5 text-sm text-[var(--color-muted)] dark:text-[var(--color-muted-dark)]">
+          <li className="flex items-start gap-2.5">
+            <span className="inline-block text-[var(--color-brand)] dark:text-[var(--color-brand-dark)] font-bold mt-0.5">•</span>
+            <span>
+              <strong className="text-[var(--color-ink)] dark:text-[var(--color-ink-dark)]">Arquitetura &amp; Resiliência:</strong> Padrões de tolerância a falhas (Circuit Breaker, Bulkhead, Rate Limit Bypass com Redis) e estudos de caso sob carga.
+            </span>
+          </li>
+          <li className="flex items-start gap-2.5">
+            <span className="inline-block text-[var(--color-brand)] dark:text-[var(--color-brand-dark)] font-bold mt-0.5">•</span>
+            <span>
+              <strong className="text-[var(--color-ink)] dark:text-[var(--color-ink-dark)]">Sistemas Distribuídos &amp; Performance:</strong> Mensageria assíncrona, automação com RabbitMQ e otimização de uso de memória no V8/Node.js.
+            </span>
+          </li>
+          <li className="flex items-start gap-2.5">
+            <span className="inline-block text-[var(--color-brand)] dark:text-[var(--color-brand-dark)] font-bold mt-0.5">•</span>
+            <span>
+              <strong className="text-[var(--color-ink)] dark:text-[var(--color-ink-dark)]">Inteligência Artificial Aplicada:</strong> Orquestração de LLMs locais com Ollama, Tool Calling e arquiteturas para agentes autônomos.
+            </span>
+          </li>
+          <li className="flex items-start gap-2.5">
+            <span className="inline-block text-[var(--color-brand)] dark:text-[var(--color-brand-dark)] font-bold mt-0.5">•</span>
+            <span>
+              <strong className="text-[var(--color-ink)] dark:text-[var(--color-ink-dark)]">Estudos de Caso &amp; ADRs:</strong> Análises empíricas com código funcional, testes de carga (k6) e registros de decisão arquitetural (ADRs).
+            </span>
+          </li>
+        </ul>
+        <p className="text-xs text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] mt-4 pt-3 border-t border-[var(--color-border)] dark:border-[var(--color-border-dark)] italic">
+          Todos os artigos acompanham cenários reais e repositórios executáveis no GitHub.
+        </p>
+      </div>
+
+      {/* Call to action text */}
+      <p className="text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] leading-relaxed mb-8">
+        Se quiser discutir arquitetura de sistemas ou trocar ideias sobre engenharia, conecte-se comigo no LinkedIn e confira meus projetos no GitHub.
+      </p>
 
       {/* Links */}
       <div className="flex flex-wrap gap-3">
@@ -65,6 +98,18 @@ export default function SobrePage() {
           LinkedIn
         </a>
 
+        <a
+          href="https://github.com/marcelo3macedo"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#24292e] text-white text-sm font-medium hover:bg-[#1a1e22] transition-colors"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.137 20.162 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
+          </svg>
+          GitHub
+        </a>
+
         <Link
           href="/"
           prefetch={false}
@@ -76,3 +121,4 @@ export default function SobrePage() {
     </div>
   );
 }
+

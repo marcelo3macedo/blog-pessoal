@@ -1,6 +1,6 @@
 ---
 title: "Circuit: virtual running championships integrated with Strava inside the Nexo platform"
-category: projetos
+category: estudos-de-caso-adrs
 difficulty: Intermediate
 project: nexo
 excerpt: "Circuit is Nexo's first module: it lets companies create and manage virtual running championships for their customers, with automatic result tracking via Strava webhooks."

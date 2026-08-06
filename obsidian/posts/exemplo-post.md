@@ -1,6 +1,6 @@
 ---
 title: "Exemplo de post via Obsidian"
-category: desenvolvimento-web
+category: estudos-de-caso-adrs
 excerpt: "Um exemplo de como escrever posts no Obsidian e sincronizar com o blog."
 slug: exemplo-post-obsidian
 published_at: 2026-06-15

@@ -1,6 +1,6 @@
 ---
 title: "Flow Service: detalhes do funcionamento da automação de fluxos para plataformas omnichannel"
-category: projetos
+category: estudos-de-caso-adrs
 difficulty: Avançado
 excerpt: Após identificar o atendimento e o fluxo de automação associado ao canal, o Flow Service passa a controlar toda a execução da automação.
 slug: flow-service-funcionamento-detalhado

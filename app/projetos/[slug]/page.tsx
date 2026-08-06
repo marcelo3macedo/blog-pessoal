@@ -35,7 +35,7 @@ export default async function ProjetoPage({ params }: Props) {
   if (!project) notFound();
 
   const posts = getPostsByProject(slug);
-  const style = getCategoryStyle("projetos");
+  const style = getCategoryStyle("estudos-de-caso-adrs");
 
   return (
     <div>

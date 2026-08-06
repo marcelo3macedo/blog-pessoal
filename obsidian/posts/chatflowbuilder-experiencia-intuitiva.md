@@ -1,6 +1,6 @@
 ---
 title: Criando uma Experiência Intuitiva para Construção de Chatbots
-category: chatflowcomposer
+category: estudos-de-caso-adrs
 difficulty: Intermediário
 excerpt: À medida que novos caminhos, perguntas, integrações e regras de negócio são adicionados, torna-se cada vez mais difícil visualizar o comportamento completo do chatbot apenas através de configurações em formulários ou arquivos de configuração.
 slug: chatflowbuilder-experiencia-intuitiva

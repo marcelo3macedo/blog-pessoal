@@ -1,6 +1,6 @@
 ---
 title: "Resiliência sob Estresse de Carga: Análise Comparativa de Circuit Breaker, Retry e Bulkhead em Microsserviços Node.js"
-category: arquitetura
+category: arquitetura-distribuida-resiliencia
 difficulty: Avançado
 project: tcc-tolerancia-falhas-microsservicos
 excerpt: "Este é um case de resiliência: o payment-service simula um memory leak real (não latência/erro artificial) que cresce até o limite de memória do container, entra em crash-loop (OOM-kill + restart automático) sob carga contínua, e o order-service foi evoluindo, branch a branch, para lidar com isso — retry com backoff exponencial e jitter, circuit breaker e bulkhead."
