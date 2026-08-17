@@ -16,14 +16,14 @@ export const metadata: Metadata = {
 export default function SobrePage() {
   return (
     <div className="max-w-2xl">
-      {/* Avatar + name */}
-      <div className="flex items-center gap-5 mb-10">
+      {/* Avatar grande + name */}
+      <div className="mb-8">
         <img
-          src="/uploads/perfil.jpeg"
+          src="/uploads/perfil-grande.jpg"
           alt="Marcelo Macedo"
-          className="w-16 h-16 rounded-2xl object-cover flex-shrink-0"
+          className="w-full max-w-xs mx-auto sm:mx-0 rounded-2xl object-cover shadow-sm"
         />
-        <div>
+        <div className="mt-5 text-center sm:text-left">
           <h1 className="font-display text-2xl font-bold text-[var(--color-ink)] dark:text-[var(--color-ink-dark)] tracking-tight">
             Marcelo Macedo
           </h1>
@@ -32,6 +32,11 @@ export default function SobrePage() {
           </p>
         </div>
       </div>
+
+      {/* Frase */}
+      <p className="italic text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] leading-relaxed border-l-4 border-[var(--color-brand)] dark:border-[var(--color-brand-dark)] pl-4 mb-10">
+        &ldquo;A tecnologia é apenas o instrumento que utilizamos, mas o que verdadeiramente dá vida a qualquer criação é a paixão, a esperança e a coragem humana.&rdquo;
+      </p>
 
       {/* Bio */}
       <div className="space-y-4 text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] leading-relaxed mb-10">
