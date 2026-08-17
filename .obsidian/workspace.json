@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "524f3f03ecb0383e",
+        "id": "eaa79ba90fd57d2a",
         "type": "tabs",
         "children": [
           {
-            "id": "ff6f57853aecc9c7",
+            "id": "9bdb75bf354967fd",
             "type": "leaf",
             "state": {
               "type": "empty",
@@ -51,7 +51,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "tag:circuit-breaker",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -76,7 +76,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 399.5
+    "width": 314.05078125
   },
   "right": {
     "id": "606a28c9cf5b3ef8",
@@ -178,9 +178,25 @@
       "bases:Criar nova base": false
     }
   },
-  "active": "ff6f57853aecc9c7",
+  "active": "9bdb75bf354967fd",
   "lastOpenFiles": [
+    "Sem título.md",
+    "obsidian/posts/gerenciamento-de-estado-concorrente-no-adk.md",
+    "obsidian/posts/resiliencia-em-microsservicos-com-circuit-breaker.md",
     "obsidian/posts/graceful-degradation-rate-limit-bypass-com-redis-em-sistemas-distribuidos.md",
+    "obsidian/posts/resiliencia-sob-estresse-de-carga.md",
+    "2026-07-25.md",
+    "obsidian/posts/exemplo-post.md",
+    "obsidian/posts/flow-service-funcionamento-detalhado.md",
+    "obsidian/posts/flow-service-construindo-um-motor-de-automacao-escalavel-para-plataformas-omnichannel.md",
+    "obsidian/goal/Próximos Passos.md",
+    "obsidian/goal/Estrutura desejada.md",
+    "obsidian/planner/arquitetura-enterprise-alta-disponibilidade.md",
+    "obsidian/planner/refatoracao-de-legados-estrategia-de-migracao.md",
+    "obsidian/goal",
+    "obsidian/planner/post-example.md",
+    "obsidian/planner/pesquisa-aplicada-resiliencia-distribuida.md",
+    "obsidian/planner/ia-aplicacada-a-engenharia-automacoes-avancadas.md",
     "app/components/Mermaid.tsx.tmp.215604.03f7bb4deb2a",
     "app/components/Mermaid.tsx.tmp.215604.d25a122020a6",
     "app/components/Mermaid.tsx.tmp.215604.2b6ae8f52079",
@@ -190,17 +206,8 @@
     "app/components/Mermaid.tsx.tmp.215604.f25001a35e0e",
     "app/components/Mermaid.tsx.tmp.215604.dfb31bd22fb5",
     "app/components/Mermaid.tsx.tmp.215604.e0bf43f23b07",
-    "app/components/Mermaid.tsx.tmp.215604.57b76cb39d41",
-    "obsidian/posts/resiliencia-sob-estresse-de-carga.md",
     "obsidian/posts/resiliencia-sob-estresse-de-carga-2.md",
-    "obsidian/posts/exemplo-post.md",
     "obsidian/posts/diferenca-git-merge-e-git-rebase.md",
-    "obsidian/planner/post-example.md",
-    "obsidian/planner/pesquisa-aplicada-resiliencia-distribuida.md",
-    "obsidian/planner/arquitetura-enterprise-alta-disponibilidade.md",
-    "obsidian/posts/resiliencia-em-microsservicos-com-circuit-breaker.md",
-    "obsidian/planner/refatoracao-de-legados-estrategia-de-migracao.md",
-    "obsidian/planner/ia-aplicacada-a-engenharia-automacoes-avancadas.md",
     "node_modules/next/README.md",
     "node_modules/next/dist/compiled/@babel/runtime/README.md",
     "node_modules/next/license.md",
@@ -209,12 +216,6 @@
     "node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/viewTransition.md",
     "node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/useLightningcss.md",
     "node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/urlImports.md",
-    "node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/typescript.md",
-    "node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/typedRoutes.md",
-    "node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/turbopackLocalPostcssConfig.md",
-    "node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/turbopackIgnoreIssue.md",
-    "node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/turbopackFileSystemCache.md",
-    "node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/transpilePackages.md",
     "node_modules/cytoscape-fcose/node_modules/layout-base/layout-schema.png",
     "node_modules/layout-base/layout-schema.png",
     "node_modules/cytoscape-fcose/demo/incrementalConstraints.gif",

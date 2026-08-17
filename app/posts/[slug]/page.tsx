@@ -85,6 +85,7 @@ export default async function PostPage({ params }: Props) {
   return (
     <div className="xl:grid xl:grid-cols-[minmax(0,1fr)_14rem] xl:gap-10 xl:items-start">
     <article>
+      <link rel="amphtml" href={`${SITE_URL}/amp/posts/${post.slug}`} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

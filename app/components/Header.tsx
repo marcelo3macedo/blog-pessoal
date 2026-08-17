@@ -67,7 +67,7 @@ function MenuIcon({ open }: { open: boolean }) {
 
 export default function Header() {
   const pathname = usePathname();
-  const isEnglish = pathname === "/en" || pathname.startsWith("/posts/en");
+  const isEnglish = pathname === "/en" || Boolean(pathname?.startsWith("/posts/en"));
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {

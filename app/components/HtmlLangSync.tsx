@@ -7,7 +7,7 @@ export default function HtmlLangSync() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const isEnglish = pathname === "/en" || pathname.startsWith("/posts/en");
+    const isEnglish = pathname === "/en" || Boolean(pathname?.startsWith("/posts/en"));
     document.documentElement.lang = isEnglish ? "en" : "pt-BR";
   }, [pathname]);
 

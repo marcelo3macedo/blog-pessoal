@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 
 export default function LanguageSwitcher() {
   const pathname = usePathname();
-  const isEnglish = pathname === "/en" || pathname.startsWith("/posts/en");
+  const isEnglish = pathname === "/en" || Boolean(pathname?.startsWith("/posts/en"));
 
   return (
     <div className="flex items-center gap-1 text-xs font-semibold rounded-full border border-[var(--color-border)] dark:border-[var(--color-border-dark)] p-0.5">
