@@ -20,7 +20,7 @@ export default function PerfilPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-10 pb-10 border-b border-[var(--color-border)] dark:border-[var(--color-border-dark)]">
         <div className="flex items-center gap-5">
           <div className="w-20 h-20 rounded-2xl bg-gradient-to-tr from-[var(--color-brand)] to-[#4f46e5] dark:from-[var(--color-brand-dark)] dark:to-[#818cf8] flex items-center justify-center flex-shrink-0 shadow-md">
-            <img src="/uploads/perfil.jpeg" alt="Profile" className="w-20 h-20 rounded-2xl" />
+            <img src="/profile.jpg" alt="Profile" className="w-20 h-20 rounded-2xl" />
           </div>
           <div>
             <h1 className="font-display text-3xl font-bold text-[var(--color-ink)] dark:text-[var(--color-ink-dark)] tracking-tight">

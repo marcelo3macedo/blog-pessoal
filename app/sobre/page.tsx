@@ -19,7 +19,7 @@ export default function SobrePage() {
       {/* Avatar grande + name */}
       <div className="mb-8">
         <img
-          src="/uploads/perfil-grande.jpg"
+          src="/profile.jpg"
           alt="Marcelo Macedo"
           className="w-full max-w-xs mx-auto sm:mx-0 rounded-2xl object-cover shadow-sm"
         />
@@ -35,7 +35,7 @@ export default function SobrePage() {
 
       {/* Frase */}
       <p className="italic text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] leading-relaxed border-l-4 border-[var(--color-brand)] dark:border-[var(--color-brand-dark)] pl-4 mb-10">
-        &ldquo;A tecnologia é apenas o instrumento que utilizamos, mas o que verdadeiramente dá vida a qualquer criação é a paixão, a esperança e a coragem humana.&rdquo;
+        &ldquo;Tecnologia é ferramenta. É a paixão por criar, a coragem para inovar e a esperança de transformar que dão propósito ao que construímos.&rdquo;
       </p>
 
       {/* Bio */}
