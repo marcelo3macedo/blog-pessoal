@@ -238,6 +238,24 @@ export default function PerfilPage() {
                 Desenvolvedor de Software Sênior
               </h3>
               <p className="text-xs text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] mb-2.5">
+                Luiza Labs - 2026
+              </p>
+              <ul className="text-sm text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] list-disc pl-4 space-y-1.5">
+                <li>Atuação no Cérebro da Lu, desenvolvendo soluções de inteligência artificial e automação para o assistente virtual.</li>
+                <li>Desenvolvimento de solução utilizando o Google ADK (Agent Development Kit) para construção de agentes de IA.</li>
+                <li>Atuação na saúde da aplicação, monitorando e garantindo a estabilidade de integrações com APIs externas.</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Job 2 */}
+          <div className="relative">
+            <div className="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full border-2 border-[var(--color-border)] dark:border-[var(--color-border-dark)] bg-[var(--color-cream)] dark:bg-[var(--color-cream-dark)]" />
+            <div>
+              <h3 className="font-bold text-sm text-[var(--color-ink)] dark:text-[var(--color-ink-dark)]">
+                Desenvolvedor de Software Sênior
+              </h3>
+              <p className="text-xs text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] mb-2.5">
                 Dealerspace - 2025 - 2026
               </p>
               <ul className="text-sm text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] list-disc pl-4 space-y-1.5">
@@ -248,7 +266,7 @@ export default function PerfilPage() {
             </div>
           </div>
 
-          {/* Job 2 */}
+          {/* Job 3 */}
           <div className="relative">
             <div className="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full border-2 border-[var(--color-border)] dark:border-[var(--color-border-dark)] bg-[var(--color-cream)] dark:bg-[var(--color-cream-dark)]" />
             <div>
