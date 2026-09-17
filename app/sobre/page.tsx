@@ -19,7 +19,7 @@ export default function SobrePage() {
       {/* Avatar grande + name */}
       <div className="mb-8">
         <img
-          src="/profile.jpg"
+          src="/uploads/profile.jpg"
           alt="Marcelo Macedo"
           className="w-full max-w-xs mx-auto sm:mx-0 rounded-2xl object-cover shadow-sm"
         />
