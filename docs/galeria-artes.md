@@ -112,3 +112,28 @@ created_at: 2026-10-10
 ```
 
 Design de tatuagem inspirado na estética tradicional japonesa e mangá contemporâneo, retratando uma nobre imperatriz em técnica de cor seletiva (*color pop*). O contraste dramático é construído com traços em tinta preta e sombreado sumi-ê em preto e branco sobre fundo limpo, destacando exclusivamente o vermelho escarlate vibrante no quimono imperial e na sombrinha tradicional wagasa.
+
+---
+
+## Gato Navegador
+
+```artwork
+slug: gato-navegador
+image_url: "/uploads/gato-navegador.png"
+category: Personagem
+model: Flux.1 Dev
+style: Fotorrealista
+prompt: |
+  Cinematic award-winning photograph of a real domestic cat sitting on a rustic wooden harbor pier at dusk. The cat has completely authentic feline anatomy and is sitting upright naturally in a real cat pose on all four paws, resting peacefully on weathered dock wood planks. A human owner has dressed the cat in a miniature ship captain costume: a tiny Edwardian Titanic-style captain peaked naval hat perched delicately between its natural pointed cat ears, a small tailored dark navy blue captain coat with tiny gold buttons and epaulets fitted onto its furry body, and a small dark cape draped across its back. In the background, a majestic grand vintage Titanic-era steamship ocean liner is moored in the harbor. Atmospheric twilight sunset, glowing amber and golden hour crepuscular rays, deep blue and violet dusk sky, gentle water ripples. Shallow depth of field, sharp crisp focus on the cat, realistic fur texture, whiskers, and feline eyes, soft creamy cinematic bokeh blur on the background harbor and ship, 8k resolution, photorealistic, natural lighting.
+negative_prompt: |
+  anthropomorphic, standing on two legs, bipedal, human body, human pose, walking upright, cartoon, 3d render, anime, illustration, painting, drawing, deformed, extra legs, bad anatomy, distorted paws, blurry, low quality, watermark, text
+sampler: Euler
+steps: 25
+cfg_scale: 1.0
+seed: "3527464381"
+width: 1024
+height: 1024
+created_at: 2026-10-10
+```
+
+Fotografia cinematográfica em alta resolução retratando um gato doméstico com anatomia e postura felina autêntica, sentado sobre as tábuas de um cais portuário ao entardecer. O felino veste um detalhado traje de capitão de navio estilo Titanic, com casaco naval de botões dourados, pequena capa e chapéu militar. Ao fundo, um imponente transatlântico a vapor repousa atracado sob as cores douradas e púrpuras do crepúsculo com desfoque cinematográfico.
