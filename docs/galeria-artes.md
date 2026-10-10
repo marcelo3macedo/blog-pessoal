@@ -62,3 +62,28 @@ created_at: 2024-11-15
 Um guerreiro envolvido em sombras etéreas, com armadura negra adornada de runas
 luminescentes. A iluminação dramática realça cada detalhe da armadura forjada nas
 profundezas.
+
+---
+
+## Be a Hero — Estampa Urbana
+
+```artwork
+slug: be-a-hero-estampa-urbana
+image_url: "/uploads/estampa-camiseta-be-a-hero-flux.png"
+category: Personagem
+model: Flux.1 Dev
+style: Arte Digital
+prompt: |
+  t-shirt print design, circular badge emblem, standalone graphic artwork, only the print, isolated on a solid pure white background. Upper body portrait framed up to the torso of a powerful heroic character in a dynamic power pose, confident and commanding stance. The character is framed within a stylized circular crop border. Vibrant urban street art and graffiti aesthetics, bold spray paint colors, electric cyan, vivid neon magenta, bright yellow, deep purple accents, bold black comic outlines, subtle aerosol splatters. Bold stylized streetwear typography text clearly reading "BE A HERO" in English curved or placed on the emblem design. Clean vector illustration style, sticker art style, high contrast, sharp details, master quality apparel graphic.
+negative_prompt: |
+  full body, legs, feet, shoes, t-shirt mockup, fabric, clothing folds, realistic shirt photo, mannequin, hanger, dark background, textured background, gray background, blurry, distorted text, bad typography, low quality, deformed
+sampler: Euler
+steps: 25
+cfg_scale: 1.0
+seed: "2024"
+width: 1024
+height: 1024
+created_at: 2026-10-10
+```
+
+Arte gráfica concebida especificamente para estampa de camiseta em estilo arte urbana e grafite. Traz um herói em pose de poder enquadrado até o tronco dentro de um círculo de corte com efeito de spray, acompanhado da tipografia "BE A HERO" e uma paleta marcante de ciano elétrico, magenta e amarelo sobre fundo branco puro.
