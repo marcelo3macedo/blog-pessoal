@@ -2,6 +2,12 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: 'standalone',
+  images: {
+    remotePatterns: [
+      { protocol: "https", hostname: "image.civitai.com" },
+      { protocol: "https", hostname: "picsum.photos" },
+    ],
+  },
   outputFileTracingIncludes: {
     '/**': ['./node_modules/@swc/helpers/**'],
   },

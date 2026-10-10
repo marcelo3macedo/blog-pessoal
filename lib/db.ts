@@ -5,7 +5,7 @@ const DB_PATH = path.join(process.cwd(), "blog.db");
 
 let db: Database.Database;
 
-function getDb(): Database.Database {
+export function getDb(): Database.Database {
   if (!db) {
     db = new Database(DB_PATH);
     db.pragma("journal_mode = WAL");
@@ -16,6 +16,27 @@ function getDb(): Database.Database {
 
 function initSchema(db: Database.Database) {
   db.exec(`
+    CREATE TABLE IF NOT EXISTS artworks (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      title TEXT NOT NULL,
+      slug TEXT NOT NULL UNIQUE,
+      description TEXT,
+      image_url TEXT NOT NULL,
+      thumbnail_url TEXT,
+      category TEXT NOT NULL,
+      model TEXT NOT NULL,
+      style TEXT NOT NULL,
+      prompt TEXT,
+      negative_prompt TEXT,
+      sampler TEXT,
+      steps INTEGER,
+      cfg_scale REAL,
+      seed TEXT,
+      width INTEGER,
+      height INTEGER,
+      created_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+
     CREATE TABLE IF NOT EXISTS categories (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
@@ -77,6 +98,7 @@ function initSchema(db: Database.Database) {
 
   const count = (db.prepare("SELECT COUNT(*) as n FROM categories").get() as { n: number }).n;
   if (count === 0) seed(db);
+
 }
 
 // Adds SEO columns to databases created before they existed.
