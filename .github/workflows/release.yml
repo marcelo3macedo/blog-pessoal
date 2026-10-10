@@ -1,6 +1,8 @@
 name: Release e Deploy
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch: {}
 
 concurrency:
@@ -42,6 +44,9 @@ jobs:
 
       - name: Sincronizar posts do Obsidian (blog.db)
         run: python3 sync_obsidian.py
+
+      - name: Sincronizar galeria de artes (blog.db)
+        run: python3 sync_galeria.py --prune
 
       - name: Instalar dependências
         run: pnpm install --frozen-lockfile
