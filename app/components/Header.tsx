@@ -80,6 +80,7 @@ export default function Header() {
         { href: "/", label: "Início" },
         { href: "/projetos", label: "Projetos" },
         { href: "/categorias", label: "Categorias" },
+        { href: "/galeria-artes", label: "Artes" },
       ];
 
   return (
