@@ -87,3 +87,28 @@ created_at: 2026-10-10
 ```
 
 Arte gráfica concebida especificamente para estampa de camiseta em estilo arte urbana e grafite. Traz um herói em pose de poder enquadrado até o tronco dentro de um círculo de corte com efeito de spray, acompanhado da tipografia "BE A HERO" e uma paleta marcante de ciano elétrico, magenta e amarelo sobre fundo branco puro.
+
+---
+
+## Imperatriz Japonesa — Tattoo Manga
+
+```artwork
+slug: imperatriz-japonesa-tattoo-manga
+image_url: "/uploads/tattoo-japonesa-imperatriz-flux.png"
+category: Personagem
+model: Flux.1 Dev
+style: Anime
+prompt: |
+  Masterpiece Japanese tattoo design, manga anime aesthetic. A stunning imperial Japanese empress in a tattoo art style. Selective color: high contrast monochrome black and white ink art, with vivid crimson red ONLY on her kimono dress and her wagasa umbrella. The Japanese empress has an elegant manga face, expressive eyes, and ornate black hair styled with traditional imperial kanzashi hairpins in black ink. She is gracefully holding an open traditional Japanese wagasa paper parasol umbrella in striking bright crimson red. She wears an elaborate royal Japanese empress kimono robe in rich vivid scarlet red. Her pale porcelain skin, eyes, face, hair, sumi-e shading, and delicate crosshatching are entirely monochrome black and white. Tattoo flash artwork, crisp bold black outlines, isolated on pure white background, minimal black ink splash accents, floating black and white cherry blossom petals, clean linework, high contrast.
+negative_prompt: |
+  color on skin, color on face, colorful background, blue, green, yellow, orange, purple, color on hair, photorealistic, 3d render, photo, realistic skin, blurry, bad anatomy, deformed hands, extra fingers, poor quality, watermark, text
+sampler: Euler
+steps: 25
+cfg_scale: 1.0
+seed: "777"
+width: 1024
+height: 1024
+created_at: 2026-10-10
+```
+
+Design de tatuagem inspirado na estética tradicional japonesa e mangá contemporâneo, retratando uma nobre imperatriz em técnica de cor seletiva (*color pop*). O contraste dramático é construído com traços em tinta preta e sombreado sumi-ê em preto e branco sobre fundo limpo, destacando exclusivamente o vermelho escarlate vibrante no quimono imperial e na sombrinha tradicional wagasa.
