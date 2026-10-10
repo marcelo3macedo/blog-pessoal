@@ -15,7 +15,6 @@ const nextConfig: NextConfig = {
     serverActions: {
       bodySizeLimit: "20mb",
     },
-    inlineCss: true,
   },
   async rewrites() {
     return [
