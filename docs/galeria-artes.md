@@ -162,3 +162,28 @@ created_at: 2026-10-11
 ```
 
 Pintura a óleo bíblica e dramática em estilo chiaroscuro inspirado em Caravaggio, retratando o resgate de Pedro sob uma perspectiva em primeira pessoa (POV) das águas turbulentas. No primeiro plano inferior, apenas a mão de quem se afoga emerge do mar em direção a Jesus Cristo, que caminha milagrosamente em pé sobre as águas com pés descalços visíveis e estende Sua mão com profunda compaixão. Um facho celestial de luz divina rasga as nuvens de tempestade, banhando a cena em um forte contraste espiritual e emocional.
+
+---
+
+## Mariposa Luna & Fases Lunares Místicas
+
+```artwork
+slug: mariposa-luna-fases-lunares
+image_url: "/uploads/mariposa-luna-fases-lunares.png"
+category: Criatura
+model: Flux.1 Dev
+style: Arte Digital
+prompt: |
+  Masterpiece t-shirt print design, standalone apparel graphic artwork, only the print, isolated on a solid pure white background. Intricate mystical luna moth with ornate wings displaying celestial constellations and an all-seeing eye, surrounded by lunar moon phases, delicate botanical wild mushroom flora, and sacred geometry circular frame. Elegant fine-line copperplate engraving, dark academia occult tarot card aesthetic, meticulous black ink stippling and hatching, subtle metallic gold accents. High contrast vector illustration style, clean crisp linework, apparel graphic ready for screen printing.
+negative_prompt: |
+  full body, t-shirt mockup, fabric, clothing folds, realistic shirt photo, mannequin, hanger, model, dark background, textured background, gray background, photographic grain, blurry, bad anatomy, deformed wings, low quality, watermark, text artifacts
+sampler: Euler
+steps: 25
+cfg_scale: 1.0
+seed: "2023788634"
+width: 1024
+height: 1024
+created_at: 2026-10-11
+```
+
+Design de estampa de camiseta no estilo Dark Academia e Tarô Místico, apresentando uma majestosa mariposa luna (*Actias luna*) de asas abertas com constelações celestes e olho místico integrado. A composição combina gravura clássica em placa de cobre, fases lunares em órbita, cogumelos botânicos silvestres e geometria sagrada, com detalhes em preto e dourado sutil. A arte gráfica é perfeitamente isolada sobre fundo branco puro, pronta para serigrafia fina ou impressão DTG direta em camisetas.
