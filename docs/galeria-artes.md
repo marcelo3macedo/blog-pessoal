@@ -211,4 +211,30 @@ height: 1024
 created_at: 2026-10-11
 ```
 
-Estampa de camiseta concebida no estilo flash tattoo neo-tradicional com estética dark skatepunk, isolada sobre fundo branco puro. A arte centralizada traz um crânio humano detalhado entrelaçado por uma serpente venenosa em espiral e emoldurado por rosas espinhosas carmesim e folhagens verde esmeralda, combinando traços pretos encorpados, sombreamento pontilhado (stippling) e alto contraste para serigrafia e impressão em vestuário.
+Arte gráfica concebida para estampa de camiseta em estilo dark fantasy nórdico e xilogravura medieval (linocut). Retrata o lendário lobo Fenrir rompendo suas correntes ancestrais (Gleipnir), emoldurado por nós entrelaçados vikings, círculos rúnicos em Elder Futhark e textura rústica de gravura em madeira. O contraste marcante é composto por linework preto profundo com toques seletivos em vermelho carmesim e dourado envelhecido sobre fundo branco puro, pronto para serigrafia ou DTG.
+
+---
+
+## Monstro Hot Rod — Kustom Kulture
+
+```artwork
+slug: monstro-hot-rod-kustom-kulture
+image_url: "/uploads/monstro-hot-rod-kustom-kulture.png"
+category: Criatura
+model: Flux.1 Dev
+style: Arte Digital
+prompt: |
+  Masterpiece vintage t-shirt print design, standalone apparel graphic artwork, only the print, isolated on a solid pure white background. Wacky wild retro cartoon monster driving a classic chopped V8 hot rod coupe, shifting an oversized gear stick and holding a mechanic wrench, roaring fire flames blasting from side chrome exhaust pipes, burning tire smoke. Authentic 1960s California Kustom Kulture lowbrow art style, Ed Roth aesthetic. Ultra-bold black ink outlines, vibrant flat spot colors, slime lime green, blazing orange fire, electric purple, high contrast sticker art, apparel graphic ready for screen printing.
+negative_prompt: |
+  photorealistic, 3d render, photo, realistic car, t-shirt mockup, fabric, clothing folds, realistic shirt photo, mannequin, hanger, dark background, textured background, gray background, blurry, low quality, watermark, text artifacts
+sampler: Euler
+steps: 25
+cfg_scale: 1.0
+seed: "2843912058"
+width: 1024
+height: 1024
+created_at: 2026-10-11
+```
+
+Estampa de camiseta no estilo autêntico da Kustom Kulture e Lowbrow Art dos anos 50 e 60, inspirada na lendária estética de Ed "Big Daddy" Roth. Apresenta uma criatura cartunesca selvagem e expressiva ao volante de um clássico Hot Rod V8 rebaixado, segurando uma enorme chave inglesa entre chamas intensas nos escapamentos e fumaça dinâmica nos pneus, com acabamento gráfico isolado sobre fundo branco puro pronto para serigrafia.
+
