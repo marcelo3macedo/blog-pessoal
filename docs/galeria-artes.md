@@ -187,3 +187,28 @@ created_at: 2026-10-11
 ```
 
 Design de estampa de camiseta no estilo Dark Academia e Tarô Místico, apresentando uma majestosa mariposa luna (*Actias luna*) de asas abertas com constelações celestes e olho místico integrado. A composição combina gravura clássica em placa de cobre, fases lunares em órbita, cogumelos botânicos silvestres e geometria sagrada, com detalhes em preto e dourado sutil. A arte gráfica é perfeitamente isolada sobre fundo branco puro, pronta para serigrafia fina ou impressão DTG direta em camisetas.
+
+---
+
+## Lobo Fenrir & Runas Nórdicas
+
+```artwork
+slug: lobo-fenrir-runas-nordicas
+image_url: "/uploads/lobo-fenrir-runas-nordicas.png"
+category: Criatura
+model: Flux.1 Dev
+style: Arte Digital
+prompt: |
+  Masterpiece t-shirt print design, standalone apparel graphic artwork, only the print, isolated on a solid pure white background. Ferocious mythic Norse wolf Fenrir breaking glowing chains, surrounded by intricate Viking knotwork borders, ancient elder futhark runic circle symbols, and dark fantasy linocut engraving texture. Bold deep black ink line art, selective crimson blood red and weathered antique gold accents, Scandinavian medieval woodcut print aesthetic. Clean vector illustration style, high contrast, sharp contours, apparel graphic ready for screen printing.
+negative_prompt: |
+  full body, t-shirt mockup, fabric, clothing folds, realistic shirt photo, mannequin, hanger, model, dark background, textured background, gray background, photographic grain, blurry, bad anatomy, deformed snout, low quality, watermark, text artifacts
+sampler: Euler
+steps: 25
+cfg_scale: 1.0
+seed: "557351740"
+width: 1024
+height: 1024
+created_at: 2026-10-11
+```
+
+Arte gráfica concebida para estampa de camiseta em estilo dark fantasy nórdico e xilogravura medieval (linocut). Retrata o lendário lobo Fenrir rompendo suas correntes ancestrais (Gleipnir), emoldurado por nós entrelaçados vikings, círculos rúnicos em Elder Futhark e textura rústica de gravura em madeira. O contraste marcante é composto por linework preto profundo com toques seletivos em vermelho carmesim e dourado envelhecido sobre fundo branco puro, pronto para serigrafia ou DTG.
