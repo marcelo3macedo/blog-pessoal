@@ -137,3 +137,28 @@ created_at: 2026-10-10
 ```
 
 Fotografia cinematográfica em alta resolução retratando um gato doméstico com anatomia e postura felina autêntica, sentado sobre as tábuas de um cais portuário ao entardecer. O felino veste um detalhado traje de capitão de navio estilo Titanic, com casaco naval de botões dourados, pequena capa e chapéu militar. Ao fundo, um imponente transatlântico a vapor repousa atracado sob as cores douradas e púrpuras do crepúsculo com desfoque cinematográfico.
+
+---
+
+## O Resgate nas Águas
+
+```artwork
+slug: o-resgate-nas-aguas
+image_url: "/uploads/o-resgate-nas-aguas.png"
+category: Personagem
+model: Flux.1 Dev
+style: Arte Digital
+prompt: |
+  Masterpiece dramatic biblical oil painting, emotional Caravaggio chiaroscuro style. Low angle first-person point of view (POV) from someone drowning in dark turbulent sea waters looking up. At the very bottom edge of the canvas, only the drowning person's open palm and reaching fingertips emerge from the water, wrist submerged, reaching desperately upward toward Christ. Jesus Christ is miraculously standing upright on top of the water surface, full-length head-to-toe depiction. Jesus's robe hem is raised above His ankles, completely exposing His bare feet. Both bare feet are fully visible and clearly seen standing firmly on the surface of the ocean water, walking on water, with tranquil glowing concentric ripples under His bare feet. Jesus is bending forward with deep compassion, looking down at the drowning person with loving gentle eyes, extending His right hand downward to grasp the reaching palm. A brilliant beam of celestial golden divine light shines straight down from dark storm clouds from directly above Jesus, illuminating Him in dramatic chiaroscuro contrast against the navy blue and teal stormy waves. Classical fine oil painting texture, rich impasto, visible bare feet resting on top of the water surface, highly detailed anatomy, epic biblical composition, 8k resolution.
+negative_prompt: |
+  robe covering feet, floor-length robe, feet covered, submerged feet, feet under water, hidden feet, cropped feet, cropped legs, cut off feet, waves covering feet, kneeling, sitting, arm, forearm, elbow, hairy arm, wrist above water, extra limbs, extra toes, deformed feet, deformed hands, extra fingers, cartoon, 3d render, anime, text, watermark, signature, blurry, low quality
+sampler: Euler
+steps: 25
+cfg_scale: 1.0
+seed: "2604301236"
+width: 1024
+height: 1024
+created_at: 2026-10-11
+```
+
+Pintura a óleo bíblica e dramática em estilo chiaroscuro inspirado em Caravaggio, retratando o resgate de Pedro sob uma perspectiva em primeira pessoa (POV) das águas turbulentas. No primeiro plano inferior, apenas a mão de quem se afoga emerge do mar em direção a Jesus Cristo, que caminha milagrosamente em pé sobre as águas com pés descalços visíveis e estende Sua mão com profunda compaixão. Um facho celestial de luz divina rasga as nuvens de tempestade, banhando a cena em um forte contraste espiritual e emocional.
