@@ -190,25 +190,25 @@ Design de estampa de camiseta no estilo Dark Academia e Tarô Místico, apresent
 
 ---
 
-## Lobo Fenrir & Runas Nórdicas
+## Crânio & Serpente Floral Neo-Tradicional
 
 ```artwork
-slug: lobo-fenrir-runas-nordicas
-image_url: "/uploads/lobo-fenrir-runas-nordicas.png"
-category: Criatura
+slug: cranio-serpente-floral-neo-tradicional
+image_url: "/uploads/cranio-serpente-floral-neo-tradicional.png"
+category: Personagem
 model: Flux.1 Dev
 style: Arte Digital
 prompt: |
-  Masterpiece t-shirt print design, standalone apparel graphic artwork, only the print, isolated on a solid pure white background. Ferocious mythic Norse wolf Fenrir breaking glowing chains, surrounded by intricate Viking knotwork borders, ancient elder futhark runic circle symbols, and dark fantasy linocut engraving texture. Bold deep black ink line art, selective crimson blood red and weathered antique gold accents, Scandinavian medieval woodcut print aesthetic. Clean vector illustration style, high contrast, sharp contours, apparel graphic ready for screen printing.
+  Masterpiece neo-traditional tattoo t-shirt print design, standalone graphic artwork, only the print, isolated on a solid pure white background. Highly detailed human skull intertwined with a venomous coiled serpent and blooming dark crimson roses with sharp thorns. Heavy black outline linework, stippling dotwork shading, deep ruby red, rich emerald green leaves, and bone white accents. High-contrast flash art, apparel screenprint illustration, clean edges, centered graphic.
 negative_prompt: |
-  full body, t-shirt mockup, fabric, clothing folds, realistic shirt photo, mannequin, hanger, model, dark background, textured background, gray background, photographic grain, blurry, bad anatomy, deformed snout, low quality, watermark, text artifacts
+  t-shirt mockup, fabric folds, realistic shirt photo, mannequin, hanger, model, dark background, textured paper, blurry, deformed skull, bad anatomy, low quality, artifacts
 sampler: Euler
 steps: 25
 cfg_scale: 1.0
-seed: "557351740"
+seed: "1621512958"
 width: 1024
 height: 1024
 created_at: 2026-10-11
 ```
 
-Arte gráfica concebida para estampa de camiseta em estilo dark fantasy nórdico e xilogravura medieval (linocut). Retrata o lendário lobo Fenrir rompendo suas correntes ancestrais (Gleipnir), emoldurado por nós entrelaçados vikings, círculos rúnicos em Elder Futhark e textura rústica de gravura em madeira. O contraste marcante é composto por linework preto profundo com toques seletivos em vermelho carmesim e dourado envelhecido sobre fundo branco puro, pronto para serigrafia ou DTG.
+Estampa de camiseta concebida no estilo flash tattoo neo-tradicional com estética dark skatepunk, isolada sobre fundo branco puro. A arte centralizada traz um crânio humano detalhado entrelaçado por uma serpente venenosa em espiral e emoldurado por rosas espinhosas carmesim e folhagens verde esmeralda, combinando traços pretos encorpados, sombreamento pontilhado (stippling) e alto contraste para serigrafia e impressão em vestuário.
