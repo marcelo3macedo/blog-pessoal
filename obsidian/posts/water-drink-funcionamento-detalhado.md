@@ -136,7 +136,7 @@ Depois de treinar, o usuário pode repor o líquido perdido sem alterar a meta d
 - Widget para a tela inicial do celular com o progresso do dia e acesso rápido aos recipientes favoritos;
 - Adição de água diretamente pelo widget, sem precisar abrir o app.
 
-![[waterdrink-widget.png]]
+![[waterdrink-widget.jpg]]
 
 ---
 
