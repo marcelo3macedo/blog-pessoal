@@ -48,7 +48,7 @@ The main screen shows a circular indicator with the percentage and volume alread
 
 A trophy system gamifies app usage (logging, goals reached, weekly streaks), and an **Android widget** lets you log water straight from the phone's home screen, without opening the app.
 
-![[waterdrink-widget.png|Home screen widget]]
+![[waterdrink-widget.jpg|Home screen widget]]
 
 ## Stack
 

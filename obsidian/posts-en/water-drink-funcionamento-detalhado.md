@@ -136,7 +136,7 @@ After a workout, the user can replenish lost fluids without changing the goal on
 - Home-screen widget showing the day's progress and quick access to favorite containers;
 - Adding water directly from the widget, without opening the app.
 
-![[waterdrink-widget.png]]
+![[waterdrink-widget.jpg]]
 
 ---
 

@@ -69,7 +69,7 @@ profundezas.
 
 ```artwork
 slug: be-a-hero-estampa-urbana
-image_url: "/uploads/estampa-camiseta-be-a-hero-flux.png"
+image_url: "/uploads/estampa-camiseta-be-a-hero-flux.jpg"
 category: Personagem
 model: Flux.1 Dev
 style: Arte Digital
@@ -94,7 +94,7 @@ Arte gráfica concebida especificamente para estampa de camiseta em estilo arte 
 
 ```artwork
 slug: imperatriz-japonesa-tattoo-manga
-image_url: "/uploads/tattoo-japonesa-imperatriz-flux.png"
+image_url: "/uploads/tattoo-japonesa-imperatriz-flux.jpg"
 category: Personagem
 model: Flux.1 Dev
 style: Anime
@@ -119,7 +119,7 @@ Design de tatuagem inspirado na estética tradicional japonesa e mangá contempo
 
 ```artwork
 slug: gato-navegador
-image_url: "/uploads/gato-navegador.png"
+image_url: "/uploads/gato-navegador.jpg"
 category: Personagem
 model: Flux.1 Dev
 style: Fotorrealista
@@ -144,7 +144,7 @@ Fotografia cinematográfica em alta resolução retratando um gato doméstico co
 
 ```artwork
 slug: o-resgate-nas-aguas
-image_url: "/uploads/o-resgate-nas-aguas.png"
+image_url: "/uploads/o-resgate-nas-aguas.jpg"
 category: Personagem
 model: Flux.1 Dev
 style: Arte Digital
@@ -169,7 +169,7 @@ Pintura a óleo bíblica e dramática em estilo chiaroscuro inspirado em Caravag
 
 ```artwork
 slug: mariposa-luna-fases-lunares
-image_url: "/uploads/mariposa-luna-fases-lunares.png"
+image_url: "/uploads/mariposa-luna-fases-lunares.jpg"
 category: Criatura
 model: Flux.1 Dev
 style: Arte Digital
@@ -194,7 +194,7 @@ Design de estampa de camiseta no estilo Dark Academia e Tarô Místico, apresent
 
 ```artwork
 slug: cranio-serpente-floral-neo-tradicional
-image_url: "/uploads/cranio-serpente-floral-neo-tradicional.png"
+image_url: "/uploads/cranio-serpente-floral-neo-tradicional.jpg"
 category: Personagem
 model: Flux.1 Dev
 style: Arte Digital
@@ -219,7 +219,7 @@ Arte gráfica concebida para estampa de camiseta em estilo dark fantasy nórdico
 
 ```artwork
 slug: monstro-hot-rod-kustom-kulture
-image_url: "/uploads/monstro-hot-rod-kustom-kulture.png"
+image_url: "/uploads/monstro-hot-rod-kustom-kulture.jpg"
 category: Criatura
 model: Flux.1 Dev
 style: Arte Digital

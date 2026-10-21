@@ -55,7 +55,7 @@ A tela principal mostra um indicador circular com o percentual e o volume já co
 
 Um sistema de troféus gamifica o uso do app (registros, metas batidas, sequências por dia da semana), e um **widget Android** permite registrar água direto da tela inicial do celular, sem precisar abrir o app.
 
-![[waterdrink-widget.png]]
+![[waterdrink-widget.jpg]]
 
 ## Stack
 
