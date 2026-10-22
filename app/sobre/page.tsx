@@ -123,6 +123,11 @@ export default function SobrePage() {
           ← Ver posts
         </Link>
       </div>
+
+      {/* Versículo */}
+      <p className="mt-8 text-sm italic text-[var(--color-muted)] dark:text-[var(--color-muted-dark)] text-center">
+        &ldquo;Em tudo dai graças, porque esta é a vontade de Deus em Cristo Jesus para convosco&rdquo; — 1 Tessalonicenses 5:18
+      </p>
     </div>
   );
 }
