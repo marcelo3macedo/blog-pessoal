@@ -34,6 +34,10 @@ Para solucionar o gargalo, foi construído um mock em Go (`sheets-mock-api`) rep
 > Repositório completo no GitHub contendo os serviços, scripts do k6 e instruções do Docker Compose:
 > 🔗 [php-graceful-degradation-rate-limit ](https://github.com/marcelo3macedo/php-graceful-degradation-rate-limit)
 
+```animation
+graceful-degradation
+```
+
 ---
 
 ## O Problema
