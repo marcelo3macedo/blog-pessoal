@@ -30,6 +30,10 @@ Sem um controle arquitetural de concorrência, o sistema sofre com consumo dupli
 > Repositório completo no GitHub contendo as branches evolutivas, os scripts de simulação e as instruções do Docker Compose:
 > 🔗 https://github.com/marcelo3macedo/gerenciamento-estado-concorrente-no-adk
 
+```animation
+concurrency-debounce
+```
+
 ---
 
 ## O Problema

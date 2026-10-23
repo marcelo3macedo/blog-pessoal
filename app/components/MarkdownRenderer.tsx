@@ -4,6 +4,7 @@ import rehypeHighlight from "rehype-highlight";
 import type { Components } from "react-markdown";
 import Mermaid from "./Mermaid";
 import Chart from "./Chart";
+import ConcurrencyAnimation from "./ConcurrencyAnimation";
 import { createSlugger } from "@/lib/toc";
 
 const IMAGES_BASE_URL = (process.env.IMAGES_BASE_URL ?? "").replace(/\/$/, "");
@@ -144,6 +145,12 @@ function createComponents(): Components {
 
     if (lang === "chart") {
       return <Chart config={getNodeText(codeNode).replace(/\n$/, "")} />;
+    }
+
+    if (lang === "animation") {
+      const id = getNodeText(codeNode).trim();
+      if (id === "concurrency-debounce") return <ConcurrencyAnimation />;
+      return null;
     }
 
     return (
