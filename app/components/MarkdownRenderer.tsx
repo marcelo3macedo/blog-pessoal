@@ -6,6 +6,7 @@ import Mermaid from "./Mermaid";
 import Chart from "./Chart";
 import ConcurrencyAnimation from "./ConcurrencyAnimation";
 import GracefulDegradationAnimation from "./GracefulDegradationAnimation";
+import BankParallelismAnimation from "./BankParallelismAnimation";
 import { createSlugger } from "@/lib/toc";
 
 const IMAGES_BASE_URL = (process.env.IMAGES_BASE_URL ?? "").replace(/\/$/, "");
@@ -152,6 +153,11 @@ function createComponents(): Components {
       const id = getNodeText(codeNode).trim();
       if (id === "concurrency-debounce") return <ConcurrencyAnimation />;
       if (id === "graceful-degradation") return <GracefulDegradationAnimation />;
+      if (id === "bank-parallelism") return <BankParallelismAnimation />;
+      if (id.startsWith("bank-parallelism/")) {
+        const scenario = id.replace("bank-parallelism/", "") as Parameters<typeof BankParallelismAnimation>[0]["initialScenario"];
+        return <BankParallelismAnimation initialScenario={scenario} />;
+      }
       return null;
     }
 
