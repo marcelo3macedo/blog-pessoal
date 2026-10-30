@@ -66,46 +66,88 @@ const SCENARIOS: Record<ScenarioId, ScenarioDef> = {
 
   /* ── 1. Fila Simples ─────────────────────────────────── */
   basic_queue: {
-    title: "Fila Simples", subtitle: "6 atendentes síncronos",
+    title: "Fila Simples", subtitle: "6 atendentes síncronos — event loop bloqueante",
     color: "#3B82F6", emoji: "🏦",
     steps: [
       {
-        description: "Manhã tranquila — 6 guichês, clientes chegam devagar. Cada atendimento leva ~3 min.",
-        tellers: mkTellers(6, [{ id: 0, status: "busy", clientId: 1 }, { id: 1, status: "busy", clientId: 2 }]),
-        queue: [3], chairs: mkChairs(0), managerStatus: "free",
-        metrics: [
-          { label: "Fila", value: "1 cliente" },
-          { label: "Espera média", value: "3 min", ok: true },
-          { label: "Guichês ativos", value: "2 / 6" },
-        ],
+        description: "Banco abre. 6 guichês disponíveis, fila vazia.",
+        tellers: mkTellers(6),
+        queue: [], chairs: mkChairs(0), managerStatus: "free",
+        metrics: [{ label: "Guichês livres", value: "6 / 6", ok: true }, { label: "Fila", value: "vazia", ok: true }],
       },
       {
-        description: "12h — horário de pico. Todos os guichês ocupados e fila crescendo.",
+        description: "Cliente 1 chega e é atendido imediatamente no guichê 1.",
+        tellers: mkTellers(6, [{ id: 0, status: "busy", clientId: 1 }]),
+        queue: [], chairs: mkChairs(0), managerStatus: "free",
+        metrics: [{ label: "Guichê 1", value: "atendendo", ok: true }, { label: "Espera", value: "0 min", ok: true }],
+      },
+      {
+        description: "Cliente 2 chega — guichê 2 o atende na hora.",
+        tellers: mkTellers(6, [{ id: 0, status: "busy", clientId: 1 }, { id: 1, status: "busy", clientId: 2 }]),
+        queue: [], chairs: mkChairs(0), managerStatus: "free",
+        metrics: [{ label: "Guichês ativos", value: "2 / 6" }, { label: "Espera média", value: "2 min", ok: true }],
+      },
+      {
+        description: "Clientes 3, 4 e 5 chegam — guichês 3, 4 e 5 os absorvem.",
+        tellers: mkTellers(6, [
+          { id: 0, status: "busy", clientId: 1 }, { id: 1, status: "busy", clientId: 2 },
+          { id: 2, status: "busy", clientId: 3 }, { id: 3, status: "busy", clientId: 4 },
+          { id: 4, status: "busy", clientId: 5 },
+        ]),
+        queue: [], chairs: mkChairs(0), managerStatus: "free",
+        metrics: [{ label: "Guichês ativos", value: "5 / 6" }, { label: "Espera média", value: "3 min", ok: true }],
+      },
+      {
+        description: "Cliente 6 chega — último guichê disponível. Banco 100% ocupado.",
         tellers: mkTellers(6, [
           { id: 0, status: "busy", clientId: 1 }, { id: 1, status: "busy", clientId: 2 },
           { id: 2, status: "busy", clientId: 3 }, { id: 3, status: "busy", clientId: 4 },
           { id: 4, status: "busy", clientId: 5 }, { id: 5, status: "busy", clientId: 6 },
         ]),
-        queue: [7, 8, 9, 10, 11, 12], chairs: mkChairs(0), managerStatus: "free",
-        metrics: [
-          { label: "Fila", value: "6 clientes", warn: true },
-          { label: "Espera média", value: "18 min", warn: true },
-          { label: "Guichês ativos", value: "6 / 6" },
-        ],
+        queue: [], chairs: mkChairs(0), managerStatus: "free",
+        metrics: [{ label: "Guichês ativos", value: "6 / 6", warn: true }, { label: "Fila", value: "vazia (ainda)", ok: true }],
       },
       {
-        description: "Fila explodiu. O atendimento de um cliente bloqueia todos os outros. Insatisfação em alta.",
+        description: "12h — pico. Cliente 7 chega, não há guichê livre. Entra na fila.",
+        tellers: mkTellers(6, [
+          { id: 0, status: "busy", clientId: 1 }, { id: 1, status: "busy", clientId: 2 },
+          { id: 2, status: "busy", clientId: 3 }, { id: 3, status: "busy", clientId: 4 },
+          { id: 4, status: "busy", clientId: 5 }, { id: 5, status: "busy", clientId: 6 },
+        ]),
+        queue: [7], chairs: mkChairs(0), managerStatus: "free",
+        metrics: [{ label: "Fila", value: "1 cliente", warn: true }, { label: "Espera estimada", value: "~8 min", warn: true }],
+      },
+      {
+        description: "Clientes 8 e 9 chegam — fila cresce.",
+        tellers: mkTellers(6, [
+          { id: 0, status: "busy" }, { id: 1, status: "busy" }, { id: 2, status: "busy" },
+          { id: 3, status: "busy" }, { id: 4, status: "busy" }, { id: 5, status: "busy" },
+        ]),
+        queue: [7, 8, 9], chairs: mkChairs(0), managerStatus: "free",
+        metrics: [{ label: "Fila", value: "3 clientes", warn: true }, { label: "Espera estimada", value: "~15 min", warn: true }],
+      },
+      {
+        description: "Clientes 10, 11 e 12 chegam. Fila não para de crescer.",
+        tellers: mkTellers(6, [
+          { id: 0, status: "busy" }, { id: 1, status: "busy" }, { id: 2, status: "busy" },
+          { id: 3, status: "busy" }, { id: 4, status: "busy" }, { id: 5, status: "busy" },
+        ]),
+        queue: [7, 8, 9, 10, 11, 12], chairs: mkChairs(0), managerStatus: "free",
+        metrics: [{ label: "Fila", value: "6 clientes", warn: true }, { label: "Espera estimada", value: "~25 min", warn: true }],
+      },
+      {
+        description: "Clientes 13 e 14 chegam. Insatisfação crescente — alguns desistem e vão embora.",
         tellers: mkTellers(6, [
           { id: 0, status: "busy" }, { id: 1, status: "busy" }, { id: 2, status: "busy" },
           { id: 3, status: "busy" }, { id: 4, status: "busy" }, { id: 5, status: "busy" },
         ]),
         queue: [7, 8, 9, 10, 11, 12, 13, 14], chairs: mkChairs(0), managerStatus: "free",
-        outcome: "❌ Node.js single-thread: processamento síncrono bloqueia o event loop para todas as requisições.",
+        outcome: "❌ Node.js single-thread: processamento síncrono bloqueia o event loop. Novas requisições aguardam na fila do SO.",
         isWarning: true,
         code: `// ❌ Síncrono — bloqueia o event loop
 app.get('/saldo', (req, res) => {
   const result = calcularSaldo(req.params.id);
-  // CPU presa aqui → nenhuma outra req é processada
+  // CPU presa aqui → nenhuma outra req processa
   res.json(result);
 });`,
         metrics: [
@@ -119,55 +161,78 @@ app.get('/saldo', (req, res) => {
 
   /* ── 2. Mais Atendentes ──────────────────────────────── */
   more_tellers: {
-    title: "+Atendentes", subtitle: "Dobro fixo de workers",
+    title: "+Atendentes", subtitle: "Workers fixos — pico resolvido, vale desperdiçado",
     color: "#F59E0B", emoji: "👥",
     steps: [
       {
-        description: "Gerente dobra o efetivo: 12 atendentes para absorver o pico do almoço.",
+        description: "Gerente decide dobrar o efetivo para 12 atendentes fixos.",
+        tellers: mkTellers(12),
+        queue: [], chairs: mkChairs(0), managerStatus: "free",
+        metrics: [{ label: "Atendentes", value: "12 (fixo)" }, { label: "Custo/mês", value: "R$ 60k", warn: true }],
+      },
+      {
+        description: "Manhã — clientes 1 e 2 chegam, guichês 1 e 2 os atendem.",
+        tellers: mkTellers(12, [{ id: 0, status: "busy", clientId: 1 }, { id: 1, status: "busy", clientId: 2 }]),
+        queue: [], chairs: mkChairs(0), managerStatus: "free",
+        metrics: [{ label: "Ativos", value: "2 / 12" }, { label: "Ociosos", value: "10 / 12", warn: true }],
+      },
+      {
+        description: "12h — cliente 3, 4, 5 chegam juntos. Guichês 3, 4, 5 os absorvem imediatamente.",
         tellers: mkTellers(12, [
           { id: 0, status: "busy", clientId: 1 }, { id: 1, status: "busy", clientId: 2 },
           { id: 2, status: "busy", clientId: 3 }, { id: 3, status: "busy", clientId: 4 },
+          { id: 4, status: "busy", clientId: 5 },
         ]),
-        queue: [5, 6], chairs: mkChairs(0), managerStatus: "free",
-        metrics: [
-          { label: "Atendentes", value: "12 (fixo)" },
-          { label: "Custo mensal", value: "R$ 60k", warn: true },
-        ],
+        queue: [], chairs: mkChairs(0), managerStatus: "free",
+        metrics: [{ label: "Ativos", value: "5 / 12" }, { label: "Fila", value: "vazia ✓", ok: true }],
       },
       {
-        description: "12h — pico absorvido com folga. Fila quase zerou.",
+        description: "Pico total — 12 clientes chegam. Todos os guichês ocupados. Fila zerada.",
         tellers: mkTellers(12, [
           { id: 0, status: "busy", clientId: 1 }, { id: 1, status: "busy", clientId: 2 },
           { id: 2, status: "busy", clientId: 3 }, { id: 3, status: "busy", clientId: 4 },
           { id: 4, status: "busy", clientId: 5 }, { id: 5, status: "busy", clientId: 6 },
+          { id: 6, status: "busy", clientId: 7 }, { id: 7, status: "busy", clientId: 8 },
+          { id: 8, status: "busy", clientId: 9 }, { id: 9, status: "busy", clientId: 10 },
+          { id: 10, status: "busy", clientId: 11 }, { id: 11, status: "busy", clientId: 12 },
         ]),
-        queue: [7], chairs: mkChairs(0), managerStatus: "free",
-        metrics: [
-          { label: "Fila", value: "1 cliente", ok: true },
-          { label: "Espera média", value: "5 min", ok: true },
-          { label: "Ociosos", value: "6 / 12", warn: true },
-        ],
+        queue: [], chairs: mkChairs(0), managerStatus: "free",
+        metrics: [{ label: "Fila", value: "vazia ✓", ok: true }, { label: "Espera", value: "0 min ✓", ok: true }],
       },
       {
-        description: "15h — movimento fraco. 10 de 12 atendentes ociosos, custo fixo correndo.",
+        description: "15h — movimento cai. Clientes terminam. Guichês ficam ociosos um a um.",
+        tellers: mkTellers(12, [
+          { id: 0, status: "busy", clientId: 1 }, { id: 1, status: "busy", clientId: 2 },
+          { id: 2, status: "busy", clientId: 3 }, { id: 3, status: "busy", clientId: 4 },
+        ]),
+        queue: [], chairs: mkChairs(0), managerStatus: "free",
+        metrics: [{ label: "Ativos", value: "4 / 12", warn: true }, { label: "Ociosos", value: "8 / 12", warn: true }],
+      },
+      {
+        description: "Mais atendimentos terminam. Ficam só 2 clientes.",
         tellers: mkTellers(12, [
           { id: 0, status: "busy", clientId: 1 }, { id: 1, status: "busy", clientId: 2 },
         ]),
         queue: [], chairs: mkChairs(0), managerStatus: "free",
-        outcome: "💸 Workers fixos = custo fixo. 83% de ociosidade fora do pico é desperdício puro de infra.",
+        metrics: [{ label: "Ativos", value: "2 / 12", warn: true }, { label: "Ociosos", value: "10 / 12", warn: true }],
+      },
+      {
+        description: "17h — banco quase vazio. 12 atendentes parados, custo fixo correndo.",
+        tellers: mkTellers(12),
+        queue: [], chairs: mkChairs(0), managerStatus: "free",
+        outcome: "💸 Workers fixos = custo fixo. 100% ocioso às 17h mas pagando como se fosse meio-dia.",
         isWarning: true,
         code: `// PM2 cluster com instâncias fixas
-// ecosystem.config.js
 module.exports = {
   apps: [{
     name: 'api',
-    instances: 12,    // sempre 12 — mesmo às 3am
+    instances: 12, // sempre 12 — mesmo às 3am
     exec_mode: 'cluster'
   }]
 };`,
         metrics: [
-          { label: "Ativos", value: "2 / 12", warn: true },
-          { label: "Ociosidade", value: "83% 😬", warn: true },
+          { label: "Ativos", value: "0 / 12", warn: true },
+          { label: "Ociosidade", value: "100% 😬", warn: true },
           { label: "Custo", value: "R$ 60k/mês", warn: true },
         ],
       },
@@ -176,52 +241,77 @@ module.exports = {
 
   /* ── 3. Dependência do Gerente ───────────────────────── */
   manager_dep: {
-    title: "Dependência Gerente", subtitle: "I/O bloqueante",
+    title: "Dependência Gerente", subtitle: "I/O bloqueante — thread presa",
     color: "#EF4444", emoji: "⏳",
     steps: [
       {
-        description: "Pedidos simples (saldo, extrato) são rápidos. 6 atendentes fluem bem.",
+        description: "6 guichês. Pedidos simples (saldo, extrato) são processados rápido.",
+        tellers: mkTellers(6, [{ id: 0, status: "busy", clientId: 1 }]),
+        queue: [2, 3], chairs: mkChairs(0), managerStatus: "free",
+        metrics: [{ label: "Tempo médio", value: "3 min", ok: true }, { label: "Throughput", value: "20/h", ok: true }],
+      },
+      {
+        description: "Cliente 2 chega com pedido simples — guichê 2 atende em segundos.",
+        tellers: mkTellers(6, [{ id: 0, status: "busy", clientId: 1 }, { id: 1, status: "busy", clientId: 2 }]),
+        queue: [3], chairs: mkChairs(0), managerStatus: "free",
+        metrics: [{ label: "Guichês ativos", value: "2 / 6" }, { label: "Fila", value: "1 cliente" }],
+      },
+      {
+        description: "Cliente 3 chega com pedido complexo (análise de crédito). Guichê 3 começa a atendê-lo.",
         tellers: mkTellers(6, [
           { id: 0, status: "busy", clientId: 1 }, { id: 1, status: "busy", clientId: 2 },
-        ]),
-        queue: [3, 4], chairs: mkChairs(0), managerStatus: "free",
-        metrics: [
-          { label: "Tempo médio", value: "3 min", ok: true },
-          { label: "Throughput", value: "20 / h", ok: true },
-        ],
-      },
-      {
-        description: "Pedido complexo (análise de crédito) chega. Atendente 2 precisa do gerente.",
-        tellers: mkTellers(6, [
-          { id: 0, status: "busy", clientId: 1 },
-          { id: 1, status: "waiting_manager", clientId: 2 },
           { id: 2, status: "busy", clientId: 3 },
         ]),
-        queue: [4, 5, 6], chairs: mkChairs(0), managerStatus: "busy",
-        metrics: [
-          { label: "Guichê 2", value: "BLOQUEADO ⏳", warn: true },
-          { label: "Gerente", value: "ocupado", warn: true },
-        ],
+        queue: [], chairs: mkChairs(0), managerStatus: "free",
+        metrics: [{ label: "Guichê 3", value: "pedido complexo" }, { label: "Gerente", value: "livre" }],
       },
       {
-        description: "Guichê 2 parado há 8 min esperando o gerente. Fila atrás dele cresce.",
+        description: "Guichê 3 precisa do gerente. Vai ao escritório — gerente fica ocupado. Guichê 3 parado.",
         tellers: mkTellers(6, [
-          { id: 0, status: "busy", clientId: 1 },
-          { id: 1, status: "waiting_manager", clientId: 2 },
-          { id: 2, status: "busy", clientId: 3 },
+          { id: 0, status: "busy", clientId: 1 }, { id: 1, status: "busy", clientId: 2 },
+          { id: 2, status: "waiting_manager", clientId: 3 },
         ]),
-        queue: [4, 5, 6, 7, 8], chairs: mkChairs(0), managerStatus: "busy",
-        outcome: "❌ I/O síncrono: thread presa esperando banco/API. Event loop bloqueado para esse worker.",
+        queue: [], chairs: mkChairs(0), managerStatus: "busy",
+        metrics: [{ label: "Guichê 3", value: "PARADO ⏳", warn: true }, { label: "Gerente", value: "ocupado", warn: true }],
+      },
+      {
+        description: "Clientes 4 e 5 chegam. Guichês 4 e 5 atendem — mas guichê 3 ainda está bloqueado.",
+        tellers: mkTellers(6, [
+          { id: 0, status: "busy", clientId: 1 }, { id: 1, status: "busy", clientId: 2 },
+          { id: 2, status: "waiting_manager", clientId: 3 },
+          { id: 3, status: "busy", clientId: 4 }, { id: 4, status: "busy", clientId: 5 },
+        ]),
+        queue: [], chairs: mkChairs(0), managerStatus: "busy",
+        metrics: [{ label: "Guichê 3 parado", value: "3 min ⏳", warn: true }],
+      },
+      {
+        description: "5 min depois: guichê 3 continua esperando. Clientes novos começam a se acumular.",
+        tellers: mkTellers(6, [
+          { id: 0, status: "busy", clientId: 1 }, { id: 1, status: "busy", clientId: 2 },
+          { id: 2, status: "waiting_manager", clientId: 3 },
+          { id: 3, status: "busy", clientId: 4 }, { id: 4, status: "busy", clientId: 5 },
+        ]),
+        queue: [6, 7], chairs: mkChairs(0), managerStatus: "busy",
+        metrics: [{ label: "Guichê 3 parado", value: "5 min ❌", warn: true }, { label: "Fila crescendo", value: "2", warn: true }],
+      },
+      {
+        description: "8 min bloqueado. Fila cresce — o guichê trancado diminui capacidade efetiva.",
+        tellers: mkTellers(6, [
+          { id: 0, status: "busy", clientId: 1 }, { id: 1, status: "busy", clientId: 2 },
+          { id: 2, status: "waiting_manager", clientId: 3 },
+          { id: 3, status: "busy", clientId: 4 }, { id: 4, status: "busy", clientId: 5 },
+        ]),
+        queue: [6, 7, 8, 9], chairs: mkChairs(0), managerStatus: "busy",
+        outcome: "❌ I/O síncrono: thread presa esperando banco/API responder. Capacidade real: 5 guichês, não 6.",
         isWarning: true,
-        code: `// ❌ Thread presa aguardando I/O externo
+        code: `// ❌ Thread presa — bloqueia até o I/O responder
 app.get('/credito', (req, res) => {
-  // Sem async: bloqueia até o serviço responder
   const r = http.get(creditServiceUrl); // bloqueia!
   res.json(r);
 });`,
         metrics: [
-          { label: "Guichê 2 parado", value: "8 min ❌", warn: true },
-          { label: "Clientes afetados", value: "fila inteira", warn: true },
+          { label: "Guichê 3 parado", value: "8 min ❌", warn: true },
+          { label: "Fila", value: "4 clientes", warn: true },
           { label: "Throughput", value: "↓ 40%", warn: true },
         ],
       },
@@ -230,53 +320,72 @@ app.get('/credito', (req, res) => {
 
   /* ── 4. Async / Cadeiras ─────────────────────────────── */
   async_chairs: {
-    title: "Async / Cadeiras", subtitle: "await não-bloqueante + backpressure",
+    title: "Async / Cadeiras", subtitle: "await libera o guichê — Promises ilimitadas esgotam heap",
     color: "#8B5CF6", emoji: "💺",
     steps: [
       {
-        description: "Nova política: pedido complexo → cliente senta na área de espera. Atendente já chama o próximo.",
-        tellers: mkTellers(6, [
-          { id: 0, status: "busy", clientId: 1 },
-          { id: 1, status: "busy", clientId: 3 },
-        ]),
-        queue: [4, 5], chairs: mkChairs(4, [{ id: 0, clientId: 2 }]),
-        managerStatus: "busy",
-        metrics: [
-          { label: "Cadeiras", value: "1 / 4" },
-          { label: "Throughput", value: "+40%", ok: true },
-          { label: "Guichê 2", value: "livre ✓", ok: true },
-        ],
+        description: "Nova política: pedido complexo → cliente senta na área de espera. Guichê fica livre para o próximo.",
+        tellers: mkTellers(6),
+        queue: [1, 2, 3], chairs: mkChairs(4), managerStatus: "free",
+        metrics: [{ label: "Cadeiras", value: "0 / 4", ok: true }, { label: "Guichês livres", value: "6 / 6", ok: true }],
       },
       {
-        description: "Pico: 3 clientes esperando o gerente. Guichês continuam atendendo normalmente.",
-        tellers: mkTellers(6, [
-          { id: 0, status: "busy", clientId: 1 }, { id: 1, status: "busy", clientId: 4 },
-          { id: 2, status: "busy", clientId: 5 },
-        ]),
-        queue: [6, 7], chairs: mkChairs(4, [
-          { id: 0, clientId: 2 }, { id: 1, clientId: 3 }, { id: 2, clientId: 8 },
-        ]),
-        managerStatus: "busy",
-        metrics: [
-          { label: "Cadeiras", value: "3 / 4" },
-          { label: "Heap", value: "crescendo ⚠️", warn: true },
-        ],
-      },
-      {
-        description: "Todas as 4 cadeiras ocupadas. Próximo que precisar do gerente espera na fila — backpressure natural.",
+        description: "Cliente 1 — pedido simples. Guichê 1 atende e finaliza rapidamente.",
         tellers: mkTellers(6, [{ id: 0, status: "busy", clientId: 1 }]),
-        queue: [6, 7, 8], chairs: mkChairs(4, [
-          { id: 0, clientId: 2 }, { id: 1, clientId: 3 },
-          { id: 2, clientId: 4 }, { id: 3, clientId: 5 },
+        queue: [2, 3], chairs: mkChairs(4), managerStatus: "free",
+        metrics: [{ label: "Cadeiras", value: "0 / 4", ok: true }, { label: "Guichê 1", value: "atendendo" }],
+      },
+      {
+        description: "Cliente 2 — pedido complexo. Vai para cadeira 1. Guichê 2 imediatamente chama cliente 3.",
+        tellers: mkTellers(6, [{ id: 0, status: "busy", clientId: 1 }, { id: 1, status: "busy", clientId: 3 }]),
+        queue: [], chairs: mkChairs(4, [{ id: 0, clientId: 2 }]), managerStatus: "busy",
+        metrics: [{ label: "Cadeiras", value: "1 / 4" }, { label: "Guichê 2", value: "livre ✓", ok: true }],
+      },
+      {
+        description: "Clientes 4 e 5 chegam com pedidos complexos — cada um ocupa uma cadeira.",
+        tellers: mkTellers(6, [
+          { id: 0, status: "busy", clientId: 1 }, { id: 1, status: "busy", clientId: 3 },
+        ]),
+        queue: [], chairs: mkChairs(4, [{ id: 0, clientId: 2 }, { id: 1, clientId: 4 }, { id: 2, clientId: 5 }]),
+        managerStatus: "busy",
+        heapPercent: 45,
+        metrics: [{ label: "Cadeiras", value: "3 / 4", warn: true }, { label: "Heap (Promises)", value: "45%", warn: true }],
+      },
+      {
+        description: "Gerente chama cliente 2 da cadeira — cadeira 1 libera. Outro pedido complexo chega.",
+        tellers: mkTellers(6, [
+          { id: 0, status: "busy", clientId: 1 }, { id: 1, status: "busy", clientId: 2 },
+        ]),
+        queue: [], chairs: mkChairs(4, [{ id: 0, clientId: 6 }, { id: 1, clientId: 4 }, { id: 2, clientId: 5 }]),
+        managerStatus: "busy",
+        heapPercent: 52,
+        metrics: [{ label: "Cadeiras", value: "3 / 4" }, { label: "Throughput", value: "+40%", ok: true }],
+      },
+      {
+        description: "Mais pedidos complexos chegando. Cadeira 4 também ocupada. Heap sobe.",
+        tellers: mkTellers(6, [{ id: 0, status: "busy", clientId: 1 }]),
+        queue: [7, 8], chairs: mkChairs(4, [
+          { id: 0, clientId: 6 }, { id: 1, clientId: 4 },
+          { id: 2, clientId: 5 }, { id: 3, clientId: 9 },
+        ]),
+        managerStatus: "busy",
+        heapPercent: 72,
+        metrics: [{ label: "Cadeiras", value: "4 / 4 ⚠️", warn: true }, { label: "Heap", value: "72% ⚠️", warn: true }],
+      },
+      {
+        description: "Todas as cadeiras cheias. Próximo pedido complexo aguarda na fila — backpressure natural.",
+        tellers: mkTellers(6, [{ id: 0, status: "busy", clientId: 1 }]),
+        queue: [7, 8, 10], chairs: mkChairs(4, [
+          { id: 0, clientId: 6 }, { id: 1, clientId: 4 },
+          { id: 2, clientId: 5 }, { id: 3, clientId: 9 },
         ]),
         managerStatus: "busy",
         heapPercent: 78,
-        outcome: "⚠️ async/await libera o event loop, mas Promises ilimitadas esgotam o heap. Limite de cadeiras = controle de memória.",
+        outcome: "⚠️ async/await libera o event loop, mas Promises ilimitadas esgotam o heap. Cadeiras = controle de memória.",
         code: `// ✅ async/await — event loop livre
 app.get('/credito', async (req, res) => {
-  // Suspende essa fn, libera o loop p/ outras reqs
   const result = await creditService.analyze(req.body);
-  res.json(result);
+  res.json(result); // heap cresce com cada Promise aberta
 });
 
 // ⚠️ Sem limite: 500 reqs = 500 Promises no heap
@@ -292,45 +401,69 @@ app.get('/credito', async (req, res) => {
 
   /* ── 5. Auto Scaling ─────────────────────────────────── */
   auto_scaling: {
-    title: "Auto Scaling", subtitle: "Kubernetes HPA / KEDA",
+    title: "Auto Scaling", subtitle: "Kubernetes HPA — escala com a demanda",
     color: "#10B981", emoji: "📈",
     steps: [
       {
-        description: "Vale — movimento fraco. Apenas 2 atendentes ativos (mínimo configurado).",
-        tellers: mkTellers(2, [
-          { id: 0, status: "busy", clientId: 1 },
-        ]),
+        description: "Manhã — apenas 2 pods ativos (mínimo configurado). Custo baixo.",
+        tellers: mkTellers(2),
         queue: [], chairs: mkChairs(0), managerStatus: "free",
         podCount: 2,
-        metrics: [
-          { label: "Pods", value: "2 (mínimo)" },
-          { label: "CPU", value: "12%", ok: true },
-          { label: "Custo", value: "mínimo ✓", ok: true },
-        ],
+        metrics: [{ label: "Pods", value: "2 (min)" }, { label: "CPU", value: "12%", ok: true }, { label: "Custo", value: "mínimo ✓", ok: true }],
       },
       {
-        description: "Fila atingiu limite X → HPA detecta e provisiona pods extras.",
-        tellers: mkTellers(7, [
+        description: "Clientes chegando. G1 e G2 ocupados, CPU sobe. Fila começa a crescer.",
+        tellers: mkTellers(2, [{ id: 0, status: "busy", clientId: 1 }, { id: 1, status: "busy", clientId: 2 }]),
+        queue: [3, 4], chairs: mkChairs(0), managerStatus: "free",
+        podCount: 2,
+        metrics: [{ label: "CPU", value: "58%", warn: true }, { label: "Fila", value: "2 clientes", warn: true }],
+      },
+      {
+        description: "CPU > 70% — HPA detecta. Provisiona pod 3.",
+        tellers: mkTellers(3, [{ id: 0, status: "busy", clientId: 1 }, { id: 1, status: "busy", clientId: 2 }]),
+        queue: [3, 4, 5], chairs: mkChairs(0), managerStatus: "free",
+        podCount: 3,
+        metrics: [{ label: "Pods", value: "2 → 3 📈", ok: true }, { label: "CPU", value: "71% (trigger)", warn: true }],
+      },
+      {
+        description: "Fila ainda crescendo. HPA provisiona pods 4 e 5.",
+        tellers: mkTellers(5, [
+          { id: 0, status: "busy", clientId: 1 }, { id: 1, status: "busy", clientId: 2 },
+          { id: 2, status: "busy", clientId: 3 },
+        ]),
+        queue: [4, 5, 6, 7], chairs: mkChairs(0), managerStatus: "free",
+        podCount: 5,
+        metrics: [{ label: "Pods", value: "3 → 5 📈", ok: true }, { label: "Fila", value: "4 clientes", warn: true }],
+      },
+      {
+        description: "Pico total. HPA sobe para 8 pods. Fila absorvida.",
+        tellers: mkTellers(8, [
           { id: 0, status: "busy", clientId: 1 }, { id: 1, status: "busy", clientId: 2 },
           { id: 2, status: "busy", clientId: 3 }, { id: 3, status: "busy", clientId: 4 },
+          { id: 4, status: "busy", clientId: 5 }, { id: 5, status: "busy", clientId: 6 },
+          { id: 6, status: "busy", clientId: 7 },
         ]),
-        queue: [5, 6, 7, 8, 9], chairs: mkChairs(0), managerStatus: "free",
-        podCount: 7,
-        metrics: [
-          { label: "Pods", value: "2 → 7 📈", ok: true },
-          { label: "Fila", value: "5 clientes", warn: true },
-          { label: "CPU", value: "71% (trigger)", warn: true },
-        ],
+        queue: [], chairs: mkChairs(0), managerStatus: "free",
+        podCount: 8,
+        metrics: [{ label: "Pods", value: "8 📈", ok: true }, { label: "Fila", value: "vazia ✓", ok: true }, { label: "CPU", value: "55%", ok: true }],
       },
       {
-        description: "Pico absorvido. Fila zerou. HPA escala para baixo, mantendo o mínimo.",
-        tellers: mkTellers(2, [
-          { id: 0, status: "busy", clientId: 1 },
+        description: "Pico passa. Fila zerou. HPA começa a escalar para baixo — remove pods 8 e 7.",
+        tellers: mkTellers(6, [
+          { id: 0, status: "busy", clientId: 1 }, { id: 1, status: "busy", clientId: 2 },
+          { id: 2, status: "busy", clientId: 3 },
         ]),
+        queue: [], chairs: mkChairs(0), managerStatus: "free",
+        podCount: 6,
+        metrics: [{ label: "Pods", value: "8 → 6 📉", ok: true }, { label: "CPU", value: "32%", ok: true }],
+      },
+      {
+        description: "Movimento fraco. HPA remove mais pods até o mínimo de 2.",
+        tellers: mkTellers(2, [{ id: 0, status: "busy", clientId: 1 }]),
         queue: [], chairs: mkChairs(0), managerStatus: "free",
         podCount: 2,
         outcome: "✅ Auto-scaling: cresce no pico, encolhe no vale. Custo proporcional ao uso real.",
-        code: `# Kubernetes HPA — escala por CPU ou fila
+        code: `# Kubernetes HPA — escala por CPU ou profundidade de fila
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 spec:
@@ -346,7 +479,7 @@ spec:
         metrics: [
           { label: "Pods", value: "2 (mínimo ✓)", ok: true },
           { label: "CPU", value: "15%", ok: true },
-          { label: "Economia", value: "~60% vs fixo", ok: true },
+          { label: "Economia vs fixo", value: "~60%", ok: true },
         ],
       },
     ],
@@ -354,66 +487,84 @@ spec:
 
   /* ── 6. Retry + Backoff ──────────────────────────────── */
   retry_backoff: {
-    title: "Retry + Backoff", subtitle: "Exponential backoff + jitter",
+    title: "Retry + Backoff", subtitle: "Exponential backoff — não martelar o serviço",
     color: "#F97316", emoji: "🔁",
     steps: [
       {
-        description: "Pedido complexo. Atendente vai ao gerente — mas ele está em reunião.",
+        description: "6 guichês. Cliente 2 chega com pedido complexo — precisa do gerente.",
+        tellers: mkTellers(6, [
+          { id: 0, status: "busy", clientId: 1 },
+          { id: 1, status: "busy", clientId: 2 },
+        ]),
+        queue: [3], chairs: mkChairs(0), managerStatus: "free",
+        metrics: [{ label: "Gerente", value: "disponível" }, { label: "Pedido", value: "complexo" }],
+      },
+      {
+        description: "Guichê 2 vai até o gerente — ele está em reunião. Indisponível.",
         tellers: mkTellers(6, [
           { id: 0, status: "busy", clientId: 1 },
           { id: 1, status: "waiting_manager", clientId: 2 },
         ]),
         queue: [3], chairs: mkChairs(0), managerStatus: "unavailable",
         retryInfo: { attempt: 1, maxAttempts: 3, waitLabel: "—" },
-        metrics: [
-          { label: "Tentativa", value: "1 / 3" },
-          { label: "Gerente", value: "indisponível ❌", warn: true },
-        ],
+        metrics: [{ label: "Tentativa", value: "1 / 3" }, { label: "Gerente", value: "indisponível ❌", warn: true }],
       },
       {
-        description: "Gerente ainda ocupado. Atendente aguarda 2s antes de tentar de novo.",
+        description: "Falhou. Atendente aguarda 1s antes de tentar de novo (não fica insistindo).",
         tellers: mkTellers(6, [
           { id: 0, status: "busy", clientId: 1 },
           { id: 1, status: "waiting_manager", clientId: 2 },
         ]),
         queue: [3], chairs: mkChairs(0), managerStatus: "unavailable",
-        retryInfo: { attempt: 2, maxAttempts: 3, waitLabel: "aguardou 2s" },
-        metrics: [
-          { label: "Tentativa", value: "2 / 3" },
-          { label: "Intervalo", value: "2s (2¹)" },
-          { label: "Pressão no gerente", value: "mínima ✓", ok: true },
-        ],
+        retryInfo: { attempt: 1, maxAttempts: 3, waitLabel: "aguardando 1s…" },
+        metrics: [{ label: "Intervalo", value: "1s (2⁰)" }, { label: "Pressão no gerente", value: "mínima ✓", ok: true }],
       },
       {
-        description: "Ainda indisponível. Aguarda 4s (backoff cresce exponencialmente).",
+        description: "2ª tentativa — gerente ainda em reunião.",
         tellers: mkTellers(6, [
           { id: 0, status: "busy", clientId: 1 },
           { id: 1, status: "waiting_manager", clientId: 2 },
         ]),
         queue: [3], chairs: mkChairs(0), managerStatus: "unavailable",
-        retryInfo: { attempt: 3, maxAttempts: 3, waitLabel: "aguardou 4s" },
-        metrics: [
-          { label: "Tentativa", value: "3 / 3" },
-          { label: "Intervalo", value: "4s (2²)" },
-          { label: "Total esperado", value: "6s" },
-        ],
+        retryInfo: { attempt: 2, maxAttempts: 3, waitLabel: "—" },
+        metrics: [{ label: "Tentativa", value: "2 / 3" }, { label: "Gerente", value: "ainda ocupado ❌", warn: true }],
       },
       {
-        description: "Gerente disponível! Consulta concluída. Atendimento finalizado com sucesso.",
+        description: "Falhou de novo. Aguarda 2s — intervalo dobra a cada falha.",
+        tellers: mkTellers(6, [
+          { id: 0, status: "busy", clientId: 1 },
+          { id: 1, status: "waiting_manager", clientId: 2 },
+        ]),
+        queue: [3], chairs: mkChairs(0), managerStatus: "unavailable",
+        retryInfo: { attempt: 2, maxAttempts: 3, waitLabel: "aguardando 2s…" },
+        metrics: [{ label: "Intervalo", value: "2s (2¹)" }, { label: "Total esperado", value: "3s até agora" }],
+      },
+      {
+        description: "3ª tentativa — gerente saiu da reunião. Disponível!",
+        tellers: mkTellers(6, [
+          { id: 0, status: "busy", clientId: 1 },
+          { id: 1, status: "waiting_manager", clientId: 2 },
+        ]),
+        queue: [3], chairs: mkChairs(0), managerStatus: "free",
+        retryInfo: { attempt: 3, maxAttempts: 3, waitLabel: "—" },
+        metrics: [{ label: "Tentativa", value: "3 / 3" }, { label: "Gerente", value: "disponível ✓", ok: true }],
+      },
+      {
+        description: "Consulta concluída. Atendimento finalizado. Total de espera: ~3s. Serviço intacto.",
         tellers: mkTellers(6, [
           { id: 0, status: "busy", clientId: 1 },
           { id: 1, status: "busy", clientId: 2 },
           { id: 2, status: "busy", clientId: 3 },
         ]),
         queue: [], chairs: mkChairs(0), managerStatus: "free",
-        outcome: "✅ Exponential backoff dá tempo ao serviço de se recuperar — evita thundering herd e cascata de falhas.",
+        outcome: "✅ Exponential backoff dá tempo ao serviço de se recuperar. Evita thundering herd e cascata de falhas.",
         code: `async function withBackoff(fn, maxRetries = 3) {
   for (let attempt = 0; attempt < maxRetries; attempt++) {
     try {
       return await fn();
     } catch (err) {
       if (attempt === maxRetries - 1) throw err;
-      // 1s, 2s, 4s — com jitter para evitar sincronismo
+      // 1s, 2s, 4s — com jitter p/ evitar sincronismo
       const delay = Math.pow(2, attempt) * 1000
         + Math.random() * 500;
       await new Promise(r => setTimeout(r, delay));
@@ -422,8 +573,8 @@ spec:
 }`,
         metrics: [
           { label: "Resultado", value: "✅ sucesso", ok: true },
-          { label: "Espera total", value: "~6s", ok: true },
-          { label: "Pressão no gerente", value: "mínima ✓", ok: true },
+          { label: "Espera total", value: "~3s", ok: true },
+          { label: "Pressão no serviço", value: "mínima ✓", ok: true },
         ],
       },
     ],
@@ -435,70 +586,90 @@ spec:
     color: "#DC2626", emoji: "💥",
     steps: [
       {
-        description: "Sem limite. Cada requisição vira uma Promise imediatamente — fila de espera infinita.",
+        description: "Tudo parece normal. Clientes chegando, guichês atendendo.",
+        tellers: mkTellers(6, [
+          { id: 0, status: "busy", clientId: 1 }, { id: 1, status: "busy", clientId: 2 },
+          { id: 2, status: "busy", clientId: 3 },
+        ]),
+        queue: [4], chairs: mkChairs(4, [{ id: 0, clientId: 5 }]),
+        managerStatus: "busy", heapPercent: 20,
+        metrics: [{ label: "Promises abertas", value: "4" }, { label: "Heap", value: "20%", ok: true }],
+      },
+      {
+        description: "Volume cresce. Sem limite: cada novo pedido vira uma Promise imediatamente.",
+        tellers: mkTellers(6, [
+          { id: 0, status: "busy" }, { id: 1, status: "busy" },
+          { id: 2, status: "busy" }, { id: 3, status: "busy" },
+        ]),
+        queue: [4, 5], chairs: mkChairs(4, [{ id: 0, clientId: 6 }, { id: 1, clientId: 7 }, { id: 2, clientId: 8 }]),
+        managerStatus: "busy", heapPercent: 38,
+        metrics: [{ label: "Promises abertas", value: "10" }, { label: "Heap", value: "38%" }],
+      },
+      {
+        description: "Mais requisições chegando. Todas viram Promises — área de espera lotando.",
         tellers: mkTellers(6, [
           { id: 0, status: "busy" }, { id: 1, status: "busy" },
           { id: 2, status: "busy" }, { id: 3, status: "busy" },
           { id: 4, status: "busy" }, { id: 5, status: "busy" },
         ]),
-        queue: [10, 11, 12], chairs: mkChairs(4, [
-          { id: 0, clientId: 7 }, { id: 1, clientId: 8 },
-          { id: 2, clientId: 9 }, { id: 3, clientId: 6 },
+        queue: [9, 10, 11], chairs: mkChairs(4, [
+          { id: 0, clientId: 6 }, { id: 1, clientId: 7 },
+          { id: 2, clientId: 8 }, { id: 3, clientId: 12 },
         ]),
-        managerStatus: "busy",
-        heapPercent: 55,
-        metrics: [
-          { label: "Promises abertas", value: "38" },
-          { label: "Heap", value: "55%", warn: true },
-          { label: "CPU", value: "62%", warn: true },
-        ],
+        managerStatus: "busy", heapPercent: 55,
+        metrics: [{ label: "Promises abertas", value: "22", warn: true }, { label: "Heap", value: "55% ⚠️", warn: true }],
       },
       {
-        description: "Volume dobra. Gerente pergunta ao atendente quantos esperam — atendente entra em colapso.",
+        description: "Pico intenso. Heap subindo rapidamente. Atendentes começando a travar.",
+        tellers: mkTellers(6, [
+          { id: 0, status: "overloaded" }, { id: 1, status: "overloaded" },
+          { id: 2, status: "busy" }, { id: 3, status: "busy" },
+          { id: 4, status: "busy" }, { id: 5, status: "busy" },
+        ]),
+        queue: [9, 10, 11, 13, 14, 15], chairs: mkChairs(4, [
+          { id: 0, clientId: 6 }, { id: 1, clientId: 7 },
+          { id: 2, clientId: 8 }, { id: 3, clientId: 12 },
+        ]),
+        managerStatus: "busy", heapPercent: 72,
+        metrics: [{ label: "Promises abertas", value: "60+", warn: true }, { label: "Heap", value: "72% 🔴", warn: true }, { label: "CPU", value: "85%", warn: true }],
+      },
+      {
+        description: "Heap crítico. Gerente pergunta: 'quantos clientes esperando?' — Atendente entra em colapso.",
         tellers: mkTellers(6, [
           { id: 0, status: "overloaded" }, { id: 1, status: "overloaded" },
           { id: 2, status: "overloaded" }, { id: 3, status: "overloaded" },
           { id: 4, status: "overloaded" }, { id: 5, status: "overloaded" },
         ]),
-        queue: [10, 11, 12, 13, 14, 15, 16], chairs: mkChairs(4, [
-          { id: 0, clientId: 7 }, { id: 1, clientId: 8 },
-          { id: 2, clientId: 9 }, { id: 3, clientId: 6 },
+        queue: [9, 10, 11, 13, 14, 15, 16, 17], chairs: mkChairs(4, [
+          { id: 0, clientId: 6 }, { id: 1, clientId: 7 },
+          { id: 2, clientId: 8 }, { id: 3, clientId: 12 },
         ]),
-        managerStatus: "busy",
-        heapPercent: 91,
-        cpuPercent: 98,
+        managerStatus: "busy", heapPercent: 91, cpuPercent: 98,
         isWarning: true,
-        metrics: [
-          { label: "Promises abertas", value: "150+ 🔴", warn: true },
-          { label: "Heap", value: "91% 🔴", warn: true },
-          { label: "CPU", value: "98% 🔴", warn: true },
-        ],
+        metrics: [{ label: "Promises", value: "150+ 🔴", warn: true }, { label: "Heap", value: "91% 🔴", warn: true }, { label: "CPU", value: "98% 🔴", warn: true }],
       },
       {
-        description: "Processo travado. Node.js esgotou heap. Serviço caiu. Nenhum cliente atendido.",
+        description: "Node.js esgotou heap. Processo morto. Nenhum cliente atendido.",
         tellers: mkTellers(6, [
           { id: 0, status: "overloaded" }, { id: 1, status: "overloaded" },
           { id: 2, status: "overloaded" }, { id: 3, status: "overloaded" },
           { id: 4, status: "overloaded" }, { id: 5, status: "overloaded" },
         ]),
         queue: [], chairs: mkChairs(4, [
-          { id: 0, clientId: 7 }, { id: 1, clientId: 8 },
-          { id: 2, clientId: 9 }, { id: 3, clientId: 6 },
+          { id: 0, clientId: 6 }, { id: 1, clientId: 7 },
+          { id: 2, clientId: 8 }, { id: 3, clientId: 12 },
         ]),
-        managerStatus: "unavailable",
-        heapPercent: 100,
-        cpuPercent: 0,
-        outcome: "💥 FATAL: JavaScript heap out of memory — serviço morto. Sem limite de concorrência é tão destrutivo quanto I/O síncrono.",
+        managerStatus: "unavailable", heapPercent: 100, cpuPercent: 0,
+        outcome: "💥 FATAL: JavaScript heap out of memory — serviço morto. Concorrência irrestrita é tão destrutiva quanto I/O síncrono.",
         isWarning: true,
         code: `// ❌ Sem backpressure — heap explode
 app.post('/operacao', async (req, res) => {
-  // 500 reqs simultâneas = 500 Promises no heap
+  // 500 reqs = 500 Promises abertas ao mesmo tempo
   const r = await servicoExterno(req.body);
   res.json(r);
 });
 
 // Terminal:
-// <--- Last few GCs --->
 // FATAL ERROR: Reached heap limit
 // Allocation failed - JavaScript heap out of memory`,
         metrics: [
@@ -512,50 +683,69 @@ app.post('/operacao', async (req, res) => {
 
   /* ── 8. Prefetch / Bulkhead ──────────────────────────── */
   prefetch: {
-    title: "Prefetch / Bulkhead", subtitle: "Concorrência controlada",
+    title: "Prefetch / Bulkhead", subtitle: "Limite de concorrência alinhado à capacidade",
     color: "#06B6D4", emoji: "🛡️",
     steps: [
       {
-        description: "Prefetch = 3: atendente só pega 3 clientes por vez. Fila aguarda slots livres.",
-        tellers: mkTellers(6, [
-          { id: 0, status: "busy", clientId: 1 },
-          { id: 1, status: "busy", clientId: 2 },
-          { id: 2, status: "busy", clientId: 3 },
-        ]),
-        queue: [4, 5, 6, 7, 8], chairs: mkChairs(0), managerStatus: "free",
-        heapPercent: 22,
-        metrics: [
-          { label: "Prefetch", value: "3 (limite)" },
-          { label: "Heap", value: "22% ✓", ok: true },
-          { label: "CPU", value: "35% ✓", ok: true },
-        ],
+        description: "Configuração: prefetch = 3. Atendente só aceita até 3 clientes simultâneos.",
+        tellers: mkTellers(6),
+        queue: [1, 2, 3, 4, 5, 6, 7], chairs: mkChairs(0), managerStatus: "free",
+        heapPercent: 8,
+        metrics: [{ label: "Prefetch", value: "3 (limite)" }, { label: "Heap", value: "8%", ok: true }],
       },
       {
-        description: "Cliente 4 chega. Aguarda na fila interna até um dos 3 slots liberar.",
+        description: "Cliente 1 entra — slot 1/3 ocupado.",
+        tellers: mkTellers(6, [{ id: 0, status: "busy", clientId: 1 }]),
+        queue: [2, 3, 4, 5, 6, 7], chairs: mkChairs(0), managerStatus: "free",
+        heapPercent: 12,
+        metrics: [{ label: "Slots", value: "1 / 3 ocupado" }, { label: "Fila aguarda", value: "6" }],
+      },
+      {
+        description: "Cliente 2 entra — slot 2/3 ocupado.",
+        tellers: mkTellers(6, [{ id: 0, status: "busy", clientId: 1 }, { id: 1, status: "busy", clientId: 2 }]),
+        queue: [3, 4, 5, 6, 7], chairs: mkChairs(0), managerStatus: "free",
+        heapPercent: 16,
+        metrics: [{ label: "Slots", value: "2 / 3 ocupados" }, { label: "Fila aguarda", value: "5" }],
+      },
+      {
+        description: "Cliente 3 entra — slot 3/3. Prefetch atingido. Fila aguarda.",
         tellers: mkTellers(6, [
-          { id: 0, status: "busy", clientId: 1 },
-          { id: 1, status: "busy", clientId: 2 },
+          { id: 0, status: "busy", clientId: 1 }, { id: 1, status: "busy", clientId: 2 },
+          { id: 2, status: "busy", clientId: 3 },
+        ]),
+        queue: [4, 5, 6, 7], chairs: mkChairs(0), managerStatus: "free",
+        heapPercent: 20,
+        metrics: [{ label: "Slots", value: "3 / 3 — cheio ✓" }, { label: "Heap", value: "20% estável ✓", ok: true }, { label: "Backpressure", value: "ativo ✓", ok: true }],
+      },
+      {
+        description: "Clientes 4, 5, 6 chegam. Aguardam na fila — atendente não pega mais até liberar slot.",
+        tellers: mkTellers(6, [
+          { id: 0, status: "busy", clientId: 1 }, { id: 1, status: "busy", clientId: 2 },
           { id: 2, status: "busy", clientId: 3 },
         ]),
         queue: [4, 5, 6, 7, 8, 9], chairs: mkChairs(0), managerStatus: "free",
-        heapPercent: 25,
-        metrics: [
-          { label: "Fila interna", value: "6 aguardando" },
-          { label: "Heap", value: "25% estável ✓", ok: true },
-          { label: "Backpressure", value: "ativo ✓", ok: true },
-        ],
+        heapPercent: 22,
+        metrics: [{ label: "Fila aguarda", value: "6" }, { label: "Heap", value: "22% estável ✓", ok: true }],
       },
       {
-        description: "Slot liberado! Cliente 4 entra. Heap estável. Throughput no máximo seguro.",
+        description: "Cliente 1 finalizado. Slot 1 liberado. Cliente 4 entra imediatamente.",
         tellers: mkTellers(6, [
-          { id: 0, status: "idle" },
-          { id: 1, status: "busy", clientId: 2 },
+          { id: 0, status: "busy", clientId: 4 }, { id: 1, status: "busy", clientId: 2 },
           { id: 2, status: "busy", clientId: 3 },
-          { id: 3, status: "busy", clientId: 4 },
         ]),
         queue: [5, 6, 7, 8, 9], chairs: mkChairs(0), managerStatus: "free",
-        heapPercent: 24,
-        outcome: "✅ Prefetch + Bulkhead: limita concorrência à capacidade real. Heap estável, CPU controlada, zero OOM.",
+        heapPercent: 21,
+        metrics: [{ label: "Slots", value: "3 / 3 — cheio" }, { label: "Heap", value: "21% — não cresce ✓", ok: true }],
+      },
+      {
+        description: "Ciclo se repete. Heap permanece estável. Throughput no máximo seguro.",
+        tellers: mkTellers(6, [
+          { id: 0, status: "busy", clientId: 5 }, { id: 1, status: "busy", clientId: 6 },
+          { id: 2, status: "busy", clientId: 7 },
+        ]),
+        queue: [8, 9, 10, 11], chairs: mkChairs(0), managerStatus: "free",
+        heapPercent: 22,
+        outcome: "✅ Prefetch + Bulkhead: concorrência controlada. Heap estável, CPU previsível, zero OOM.",
         code: `// RabbitMQ — prefetch alinhado à capacidade
 channel.prefetch(3);
 channel.consume('fila', async (msg) => {
@@ -563,15 +753,15 @@ channel.consume('fila', async (msg) => {
   channel.ack(msg); // libera slot p/ próxima
 });
 
-// HTTP / qualquer fluxo — p-limit (Bulkhead)
+// HTTP — p-limit (Bulkhead)
 import pLimit from 'p-limit';
 const limit = pLimit(3); // máx 3 Promises simultâneas
 
-const results = await Promise.all(
+await Promise.all(
   requests.map(req => limit(() => processar(req)))
 );`,
         metrics: [
-          { label: "Heap", value: "24% estável ✓", ok: true },
+          { label: "Heap", value: "22% estável ✓", ok: true },
           { label: "Throughput", value: "máximo seguro ✓", ok: true },
           { label: "OOM risk", value: "zero ✓", ok: true },
         ],
